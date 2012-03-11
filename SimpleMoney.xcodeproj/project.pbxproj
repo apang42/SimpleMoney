@@ -1,0 +1,506 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3C12D3C9150C45F9000915A5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C12D3C8150C45F9000915A5 /* UIKit.framework */; };
+		3C12D3CB150C45F9000915A5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C12D3CA150C45F9000915A5 /* Foundation.framework */; };
+		3C12D3CD150C45F9000915A5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C12D3CC150C45F9000915A5 /* CoreGraphics.framework */; };
+		3C12D3D3150C45F9000915A5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3C12D3D1150C45F9000915A5 /* InfoPlist.strings */; };
+		3C12D3D5150C45F9000915A5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C12D3D4150C45F9000915A5 /* main.m */; };
+		3C12D3D9150C45F9000915A5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C12D3D8150C45F9000915A5 /* AppDelegate.m */; };
+		3C12D3DC150C45F9000915A5 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C12D3DA150C45F9000915A5 /* MainStoryboard_iPhone.storyboard */; };
+		3C12D3EA150C45F9000915A5 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C12D3E9150C45F9000915A5 /* SenTestingKit.framework */; };
+		3C12D3EB150C45F9000915A5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C12D3C8150C45F9000915A5 /* UIKit.framework */; };
+		3C12D3EC150C45F9000915A5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C12D3CA150C45F9000915A5 /* Foundation.framework */; };
+		3C12D3F4150C45F9000915A5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3C12D3F2150C45F9000915A5 /* InfoPlist.strings */; };
+		3C12D3F7150C45F9000915A5 /* SimpleMoneyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C12D3F6150C45F9000915A5 /* SimpleMoneyTests.m */; };
+		3C12D40B150C4CF5000915A5 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C12D40A150C4CF5000915A5 /* SignInViewController.m */; };
+		3C12D40D150C64BF000915A5 /* landing-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C12D40C150C64BF000915A5 /* landing-bg.png */; };
+		3C12D411150C6837000915A5 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C12D410150C6837000915A5 /* SignUpViewController.m */; };
+		3C235A9F150C6C920036B08B /* CurledViewBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9C150C6C920036B08B /* CurledViewBase.m */; };
+		3C235AA0150C6C920036B08B /* UIImageView+Curled.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9E150C6C920036B08B /* UIImageView+Curled.m */; };
+		3C235AA2150C70400036B08B /* profile-default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C235AA1150C70400036B08B /* profile-default.png */; };
+		3C235AA4150C712D0036B08B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C235AA3150C712D0036B08B /* QuartzCore.framework */; };
+		3CF24A3F150C74C40048A70B /* CurledViewBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9C150C6C920036B08B /* CurledViewBase.m */; };
+		3CF24A40150C74C40048A70B /* UIImageView+Curled.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9E150C6C920036B08B /* UIImageView+Curled.m */; };
+		3CF24A48150C80FC0048A70B /* UIButton+Curled.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF24A47150C80FC0048A70B /* UIButton+Curled.m */; };
+		3CF24A49150C810B0048A70B /* UIButton+Curled.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF24A47150C80FC0048A70B /* UIButton+Curled.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3C12D3ED150C45F9000915A5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3C12D3BB150C45F9000915A5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3C12D3C3150C45F9000915A5;
+			remoteInfo = SimpleMoney;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3C12D3C4150C45F9000915A5 /* SimpleMoney.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleMoney.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C12D3C8150C45F9000915A5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		3C12D3CA150C45F9000915A5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		3C12D3CC150C45F9000915A5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		3C12D3D0150C45F9000915A5 /* SimpleMoney-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SimpleMoney-Info.plist"; sourceTree = "<group>"; };
+		3C12D3D2150C45F9000915A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3C12D3D4150C45F9000915A5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3C12D3D6150C45F9000915A5 /* SimpleMoney-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SimpleMoney-Prefix.pch"; sourceTree = "<group>"; };
+		3C12D3D7150C45F9000915A5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		3C12D3D8150C45F9000915A5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		3C12D3DB150C45F9000915A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		3C12D3E8150C45F9000915A5 /* SimpleMoneyTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleMoneyTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C12D3E9150C45F9000915A5 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		3C12D3F1150C45F9000915A5 /* SimpleMoneyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SimpleMoneyTests-Info.plist"; sourceTree = "<group>"; };
+		3C12D3F3150C45F9000915A5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3C12D3F5150C45F9000915A5 /* SimpleMoneyTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleMoneyTests.h; sourceTree = "<group>"; };
+		3C12D3F6150C45F9000915A5 /* SimpleMoneyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimpleMoneyTests.m; sourceTree = "<group>"; };
+		3C12D409150C4CF5000915A5 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
+		3C12D40A150C4CF5000915A5 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
+		3C12D40C150C64BF000915A5 /* landing-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "landing-bg.png"; sourceTree = "<group>"; };
+		3C12D40F150C6837000915A5 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		3C12D410150C6837000915A5 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		3C235A9B150C6C920036B08B /* CurledViewBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurledViewBase.h; sourceTree = "<group>"; };
+		3C235A9C150C6C920036B08B /* CurledViewBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurledViewBase.m; sourceTree = "<group>"; };
+		3C235A9D150C6C920036B08B /* UIImageView+Curled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Curled.h"; sourceTree = "<group>"; };
+		3C235A9E150C6C920036B08B /* UIImageView+Curled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Curled.m"; sourceTree = "<group>"; };
+		3C235AA1150C70400036B08B /* profile-default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-default.png"; sourceTree = "<group>"; };
+		3C235AA3150C712D0036B08B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		3CF24A46150C80FC0048A70B /* UIButton+Curled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Curled.h"; sourceTree = "<group>"; };
+		3CF24A47150C80FC0048A70B /* UIButton+Curled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Curled.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3C12D3C1150C45F9000915A5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C12D3C9150C45F9000915A5 /* UIKit.framework in Frameworks */,
+				3C12D3CB150C45F9000915A5 /* Foundation.framework in Frameworks */,
+				3C12D3CD150C45F9000915A5 /* CoreGraphics.framework in Frameworks */,
+				3C235AA4150C712D0036B08B /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C12D3E4150C45F9000915A5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C12D3EA150C45F9000915A5 /* SenTestingKit.framework in Frameworks */,
+				3C12D3EB150C45F9000915A5 /* UIKit.framework in Frameworks */,
+				3C12D3EC150C45F9000915A5 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3C12D3B9150C45F9000915A5 = {
+			isa = PBXGroup;
+			children = (
+				3C12D3CE150C45F9000915A5 /* SimpleMoney */,
+				3C12D3EF150C45F9000915A5 /* SimpleMoneyTests */,
+				3C12D3C7150C45F9000915A5 /* Frameworks */,
+				3C12D3C5150C45F9000915A5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3C12D3C5150C45F9000915A5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3C12D3C4150C45F9000915A5 /* SimpleMoney.app */,
+				3C12D3E8150C45F9000915A5 /* SimpleMoneyTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3C12D3C7150C45F9000915A5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3C235AA3150C712D0036B08B /* QuartzCore.framework */,
+				3C12D3C8150C45F9000915A5 /* UIKit.framework */,
+				3C12D3CA150C45F9000915A5 /* Foundation.framework */,
+				3C12D3CC150C45F9000915A5 /* CoreGraphics.framework */,
+				3C12D3E9150C45F9000915A5 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3C12D3CE150C45F9000915A5 /* SimpleMoney */ = {
+			isa = PBXGroup;
+			children = (
+				3C12D3DA150C45F9000915A5 /* MainStoryboard_iPhone.storyboard */,
+				3C12D3D7150C45F9000915A5 /* AppDelegate.h */,
+				3C12D3D8150C45F9000915A5 /* AppDelegate.m */,
+				3C12D40F150C6837000915A5 /* SignUpViewController.h */,
+				3C12D410150C6837000915A5 /* SignUpViewController.m */,
+				3C12D409150C4CF5000915A5 /* SignInViewController.h */,
+				3C12D40A150C4CF5000915A5 /* SignInViewController.m */,
+				3C12D40E150C64C6000915A5 /* Assets */,
+				3C235A99150C6C760036B08B /* Helpers */,
+				3C12D3CF150C45F9000915A5 /* Supporting Files */,
+			);
+			path = SimpleMoney;
+			sourceTree = "<group>";
+		};
+		3C12D3CF150C45F9000915A5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3C12D3D0150C45F9000915A5 /* SimpleMoney-Info.plist */,
+				3C12D3D1150C45F9000915A5 /* InfoPlist.strings */,
+				3C12D3D4150C45F9000915A5 /* main.m */,
+				3C12D3D6150C45F9000915A5 /* SimpleMoney-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3C12D3EF150C45F9000915A5 /* SimpleMoneyTests */ = {
+			isa = PBXGroup;
+			children = (
+				3C12D3F5150C45F9000915A5 /* SimpleMoneyTests.h */,
+				3C12D3F6150C45F9000915A5 /* SimpleMoneyTests.m */,
+				3C12D3F0150C45F9000915A5 /* Supporting Files */,
+			);
+			path = SimpleMoneyTests;
+			sourceTree = "<group>";
+		};
+		3C12D3F0150C45F9000915A5 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3C12D3F1150C45F9000915A5 /* SimpleMoneyTests-Info.plist */,
+				3C12D3F2150C45F9000915A5 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3C12D40E150C64C6000915A5 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				3C235AA1150C70400036B08B /* profile-default.png */,
+				3C12D40C150C64BF000915A5 /* landing-bg.png */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		3C235A99150C6C760036B08B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3C235A9B150C6C920036B08B /* CurledViewBase.h */,
+				3C235A9C150C6C920036B08B /* CurledViewBase.m */,
+				3CF24A46150C80FC0048A70B /* UIButton+Curled.h */,
+				3CF24A47150C80FC0048A70B /* UIButton+Curled.m */,
+				3C235A9D150C6C920036B08B /* UIImageView+Curled.h */,
+				3C235A9E150C6C920036B08B /* UIImageView+Curled.m */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3C12D3C3150C45F9000915A5 /* SimpleMoney */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3C12D3FA150C45F9000915A5 /* Build configuration list for PBXNativeTarget "SimpleMoney" */;
+			buildPhases = (
+				3C12D3C0150C45F9000915A5 /* Sources */,
+				3C12D3C1150C45F9000915A5 /* Frameworks */,
+				3C12D3C2150C45F9000915A5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SimpleMoney;
+			productName = SimpleMoney;
+			productReference = 3C12D3C4150C45F9000915A5 /* SimpleMoney.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3C12D3E7150C45F9000915A5 /* SimpleMoneyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3C12D3FD150C45F9000915A5 /* Build configuration list for PBXNativeTarget "SimpleMoneyTests" */;
+			buildPhases = (
+				3C12D3E3150C45F9000915A5 /* Sources */,
+				3C12D3E4150C45F9000915A5 /* Frameworks */,
+				3C12D3E5150C45F9000915A5 /* Resources */,
+				3C12D3E6150C45F9000915A5 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3C12D3EE150C45F9000915A5 /* PBXTargetDependency */,
+			);
+			name = SimpleMoneyTests;
+			productName = SimpleMoneyTests;
+			productReference = 3C12D3E8150C45F9000915A5 /* SimpleMoneyTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3C12D3BB150C45F9000915A5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+			};
+			buildConfigurationList = 3C12D3BE150C45F9000915A5 /* Build configuration list for PBXProject "SimpleMoney" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 3C12D3B9150C45F9000915A5;
+			productRefGroup = 3C12D3C5150C45F9000915A5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3C12D3C3150C45F9000915A5 /* SimpleMoney */,
+				3C12D3E7150C45F9000915A5 /* SimpleMoneyTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3C12D3C2150C45F9000915A5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C12D3D3150C45F9000915A5 /* InfoPlist.strings in Resources */,
+				3C12D3DC150C45F9000915A5 /* MainStoryboard_iPhone.storyboard in Resources */,
+				3C12D40D150C64BF000915A5 /* landing-bg.png in Resources */,
+				3C235AA2150C70400036B08B /* profile-default.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C12D3E5150C45F9000915A5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C12D3F4150C45F9000915A5 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3C12D3E6150C45F9000915A5 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3C12D3C0150C45F9000915A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C12D3D5150C45F9000915A5 /* main.m in Sources */,
+				3C12D3D9150C45F9000915A5 /* AppDelegate.m in Sources */,
+				3C12D40B150C4CF5000915A5 /* SignInViewController.m in Sources */,
+				3C12D411150C6837000915A5 /* SignUpViewController.m in Sources */,
+				3CF24A3F150C74C40048A70B /* CurledViewBase.m in Sources */,
+				3CF24A49150C810B0048A70B /* UIButton+Curled.m in Sources */,
+				3CF24A40150C74C40048A70B /* UIImageView+Curled.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3C12D3E3150C45F9000915A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C12D3F7150C45F9000915A5 /* SimpleMoneyTests.m in Sources */,
+				3C235A9F150C6C920036B08B /* CurledViewBase.m in Sources */,
+				3C235AA0150C6C920036B08B /* UIImageView+Curled.m in Sources */,
+				3CF24A48150C80FC0048A70B /* UIButton+Curled.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3C12D3EE150C45F9000915A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3C12D3C3150C45F9000915A5 /* SimpleMoney */;
+			targetProxy = 3C12D3ED150C45F9000915A5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3C12D3D1150C45F9000915A5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3C12D3D2150C45F9000915A5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		3C12D3DA150C45F9000915A5 /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3C12D3DB150C45F9000915A5 /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		3C12D3F2150C45F9000915A5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3C12D3F3150C45F9000915A5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3C12D3F8150C45F9000915A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3C12D3F9150C45F9000915A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3C12D3FB150C45F9000915A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SimpleMoney/SimpleMoney-Prefix.pch";
+				INFOPLIST_FILE = "SimpleMoney/SimpleMoney-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		3C12D3FC150C45F9000915A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SimpleMoney/SimpleMoney-Prefix.pch";
+				INFOPLIST_FILE = "SimpleMoney/SimpleMoney-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		3C12D3FE150C45F9000915A5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SimpleMoney.app/SimpleMoney";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SimpleMoney/SimpleMoney-Prefix.pch";
+				INFOPLIST_FILE = "SimpleMoneyTests/SimpleMoneyTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		3C12D3FF150C45F9000915A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SimpleMoney.app/SimpleMoney";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SimpleMoney/SimpleMoney-Prefix.pch";
+				INFOPLIST_FILE = "SimpleMoneyTests/SimpleMoneyTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3C12D3BE150C45F9000915A5 /* Build configuration list for PBXProject "SimpleMoney" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C12D3F8150C45F9000915A5 /* Debug */,
+				3C12D3F9150C45F9000915A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3C12D3FA150C45F9000915A5 /* Build configuration list for PBXNativeTarget "SimpleMoney" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C12D3FB150C45F9000915A5 /* Debug */,
+				3C12D3FC150C45F9000915A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3C12D3FD150C45F9000915A5 /* Build configuration list for PBXNativeTarget "SimpleMoneyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C12D3FE150C45F9000915A5 /* Debug */,
+				3C12D3FF150C45F9000915A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3C12D3BB150C45F9000915A5 /* Project object */;
+}
