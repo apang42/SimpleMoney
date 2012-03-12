@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <RestKit/RestKit.h>
+#import <RestKit/CoreData.h>
+#import "User.h"
+#import "Transaction.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

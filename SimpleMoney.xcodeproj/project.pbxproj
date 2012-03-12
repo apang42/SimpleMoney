@@ -20,16 +20,31 @@
 		3C12D3F4150C45F9000915A5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3C12D3F2150C45F9000915A5 /* InfoPlist.strings */; };
 		3C12D3F7150C45F9000915A5 /* SimpleMoneyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C12D3F6150C45F9000915A5 /* SimpleMoneyTests.m */; };
 		3C12D40B150C4CF5000915A5 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C12D40A150C4CF5000915A5 /* SignInViewController.m */; };
-		3C12D40D150C64BF000915A5 /* landing-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C12D40C150C64BF000915A5 /* landing-bg.png */; };
+		3C12D40D150C64BF000915A5 /* landing-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C12D40C150C64BF000915A5 /* landing-bg@2x.png */; };
 		3C12D411150C6837000915A5 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C12D410150C6837000915A5 /* SignUpViewController.m */; };
 		3C235A9F150C6C920036B08B /* CurledViewBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9C150C6C920036B08B /* CurledViewBase.m */; };
 		3C235AA0150C6C920036B08B /* UIImageView+Curled.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9E150C6C920036B08B /* UIImageView+Curled.m */; };
-		3C235AA2150C70400036B08B /* profile-default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C235AA1150C70400036B08B /* profile-default.png */; };
 		3C235AA4150C712D0036B08B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C235AA3150C712D0036B08B /* QuartzCore.framework */; };
 		3CF24A3F150C74C40048A70B /* CurledViewBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9C150C6C920036B08B /* CurledViewBase.m */; };
 		3CF24A40150C74C40048A70B /* UIImageView+Curled.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9E150C6C920036B08B /* UIImageView+Curled.m */; };
 		3CF24A48150C80FC0048A70B /* UIButton+Curled.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF24A47150C80FC0048A70B /* UIButton+Curled.m */; };
 		3CF24A49150C810B0048A70B /* UIButton+Curled.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF24A47150C80FC0048A70B /* UIButton+Curled.m */; };
+		3CF24A63150C8AB30048A70B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CF24A62150C8AB30048A70B /* CFNetwork.framework */; };
+		3CF24A65150C8AB90048A70B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CF24A64150C8AB90048A70B /* CoreData.framework */; };
+		3CF24A67150C8ABE0048A70B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CF24A66150C8ABE0048A70B /* Security.framework */; };
+		3CF24A69150C8AC50048A70B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CF24A68150C8AC50048A70B /* MobileCoreServices.framework */; };
+		3CF24A6B150C8ACB0048A70B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CF24A6A150C8ACB0048A70B /* SystemConfiguration.framework */; };
+		3CF24A6D150C8AD40048A70B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CF24A6C150C8AD40048A70B /* libxml2.dylib */; };
+		3CF24A6E150C8ADE0048A70B /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CF24A59150C8A540048A70B /* libRestKit.a */; };
+		3CF24A72150C9EED0048A70B /* SimpleMoney.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3CF24A70150C9EED0048A70B /* SimpleMoney.xcdatamodeld */; };
+		3CF24A75150C9F1A0048A70B /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF24A74150C9F1A0048A70B /* User.m */; };
+		3CF24A78150C9FA80048A70B /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF24A77150C9FA80048A70B /* Transaction.m */; };
+		3CF24A83150CB09D0048A70B /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CF24A81150CB09D0048A70B /* profile.png */; };
+		3CF24A84150CB09D0048A70B /* profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CF24A82150CB09D0048A70B /* profile@2x.png */; };
+		3CF24A86150CB25D0048A70B /* landing-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CF24A85150CB25D0048A70B /* landing-bg.png */; };
+		3CF24A89150D6BA70048A70B /* photobutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CF24A87150D6BA70048A70B /* photobutton.png */; };
+		3CF24A8A150D6BA70048A70B /* photobutton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CF24A88150D6BA70048A70B /* photobutton@2x.png */; };
+		3CF24A97150D8AA80048A70B /* libSDWebImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CF24A96150D8A860048A70B /* libSDWebImage.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +54,48 @@
 			proxyType = 1;
 			remoteGlobalIDString = 3C12D3C3150C45F9000915A5;
 			remoteInfo = SimpleMoney;
+		};
+		3CF24A58150C8A540048A70B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3CF24A4E150C8A530048A70B /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160D1614564E810060A5C5;
+			remoteInfo = RestKit;
+		};
+		3CF24A5A150C8A540048A70B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3CF24A4E150C8A530048A70B /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160D2614564E820060A5C5;
+			remoteInfo = RestKitTests;
+		};
+		3CF24A5C150C8A540048A70B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3CF24A4E150C8A530048A70B /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160E62145651060060A5C5;
+			remoteInfo = RestKitFramework;
+		};
+		3CF24A5E150C8A540048A70B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3CF24A4E150C8A530048A70B /* RestKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25160E78145651060060A5C5;
+			remoteInfo = RestKitFrameworkTests;
+		};
+		3CF24A60150C8AA10048A70B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3CF24A4E150C8A530048A70B /* RestKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 25160D1514564E810060A5C5;
+			remoteInfo = RestKit;
+		};
+		3CF24A95150D8A860048A70B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3CF24A8E150D8A860048A70B /* SDWebImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 53922D6F148C55820056699D;
+			remoteInfo = SDWebImage;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -62,17 +119,34 @@
 		3C12D3F6150C45F9000915A5 /* SimpleMoneyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SimpleMoneyTests.m; sourceTree = "<group>"; };
 		3C12D409150C4CF5000915A5 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
 		3C12D40A150C4CF5000915A5 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
-		3C12D40C150C64BF000915A5 /* landing-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "landing-bg.png"; sourceTree = "<group>"; };
+		3C12D40C150C64BF000915A5 /* landing-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "landing-bg@2x.png"; sourceTree = "<group>"; };
 		3C12D40F150C6837000915A5 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		3C12D410150C6837000915A5 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		3C235A9B150C6C920036B08B /* CurledViewBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurledViewBase.h; sourceTree = "<group>"; };
 		3C235A9C150C6C920036B08B /* CurledViewBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurledViewBase.m; sourceTree = "<group>"; };
 		3C235A9D150C6C920036B08B /* UIImageView+Curled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Curled.h"; sourceTree = "<group>"; };
 		3C235A9E150C6C920036B08B /* UIImageView+Curled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Curled.m"; sourceTree = "<group>"; };
-		3C235AA1150C70400036B08B /* profile-default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile-default.png"; sourceTree = "<group>"; };
 		3C235AA3150C712D0036B08B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3CF24A46150C80FC0048A70B /* UIButton+Curled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Curled.h"; sourceTree = "<group>"; };
 		3CF24A47150C80FC0048A70B /* UIButton+Curled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Curled.m"; sourceTree = "<group>"; };
+		3CF24A4E150C8A530048A70B /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
+		3CF24A62150C8AB30048A70B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		3CF24A64150C8AB90048A70B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		3CF24A66150C8ABE0048A70B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		3CF24A68150C8AC50048A70B /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		3CF24A6A150C8ACB0048A70B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		3CF24A6C150C8AD40048A70B /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		3CF24A71150C9EED0048A70B /* SimpleMoney.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SimpleMoney.xcdatamodel; sourceTree = "<group>"; };
+		3CF24A73150C9F1A0048A70B /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		3CF24A74150C9F1A0048A70B /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		3CF24A76150C9FA80048A70B /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transaction.h; sourceTree = "<group>"; };
+		3CF24A77150C9FA80048A70B /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transaction.m; sourceTree = "<group>"; };
+		3CF24A81150CB09D0048A70B /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
+		3CF24A82150CB09D0048A70B /* profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile@2x.png"; sourceTree = "<group>"; };
+		3CF24A85150CB25D0048A70B /* landing-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "landing-bg.png"; sourceTree = "<group>"; };
+		3CF24A87150D6BA70048A70B /* photobutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photobutton.png; sourceTree = "<group>"; };
+		3CF24A88150D6BA70048A70B /* photobutton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photobutton@2x.png"; sourceTree = "<group>"; };
+		3CF24A8E150D8A860048A70B /* SDWebImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDWebImage.xcodeproj; path = SDWebImage/SDWebImage.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +154,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CF24A97150D8AA80048A70B /* libSDWebImage.a in Frameworks */,
+				3CF24A6E150C8ADE0048A70B /* libRestKit.a in Frameworks */,
+				3CF24A6D150C8AD40048A70B /* libxml2.dylib in Frameworks */,
+				3CF24A6B150C8ACB0048A70B /* SystemConfiguration.framework in Frameworks */,
+				3CF24A69150C8AC50048A70B /* MobileCoreServices.framework in Frameworks */,
+				3CF24A67150C8ABE0048A70B /* Security.framework in Frameworks */,
+				3CF24A65150C8AB90048A70B /* CoreData.framework in Frameworks */,
+				3CF24A63150C8AB30048A70B /* CFNetwork.framework in Frameworks */,
 				3C12D3C9150C45F9000915A5 /* UIKit.framework in Frameworks */,
 				3C12D3CB150C45F9000915A5 /* Foundation.framework in Frameworks */,
 				3C12D3CD150C45F9000915A5 /* CoreGraphics.framework in Frameworks */,
@@ -103,6 +185,8 @@
 		3C12D3B9150C45F9000915A5 = {
 			isa = PBXGroup;
 			children = (
+				3CF24A8E150D8A860048A70B /* SDWebImage.xcodeproj */,
+				3CF24A4E150C8A530048A70B /* RestKit.xcodeproj */,
 				3C12D3CE150C45F9000915A5 /* SimpleMoney */,
 				3C12D3EF150C45F9000915A5 /* SimpleMoneyTests */,
 				3C12D3C7150C45F9000915A5 /* Frameworks */,
@@ -122,6 +206,12 @@
 		3C12D3C7150C45F9000915A5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3CF24A6C150C8AD40048A70B /* libxml2.dylib */,
+				3CF24A6A150C8ACB0048A70B /* SystemConfiguration.framework */,
+				3CF24A68150C8AC50048A70B /* MobileCoreServices.framework */,
+				3CF24A66150C8ABE0048A70B /* Security.framework */,
+				3CF24A64150C8AB90048A70B /* CoreData.framework */,
+				3CF24A62150C8AB30048A70B /* CFNetwork.framework */,
 				3C235AA3150C712D0036B08B /* QuartzCore.framework */,
 				3C12D3C8150C45F9000915A5 /* UIKit.framework */,
 				3C12D3CA150C45F9000915A5 /* Foundation.framework */,
@@ -141,6 +231,7 @@
 				3C12D410150C6837000915A5 /* SignUpViewController.m */,
 				3C12D409150C4CF5000915A5 /* SignInViewController.h */,
 				3C12D40A150C4CF5000915A5 /* SignInViewController.m */,
+				3CF24A6F150C9ED00048A70B /* Models */,
 				3C12D40E150C64C6000915A5 /* Assets */,
 				3C235A99150C6C760036B08B /* Helpers */,
 				3C12D3CF150C45F9000915A5 /* Supporting Files */,
@@ -181,8 +272,12 @@
 		3C12D40E150C64C6000915A5 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				3C235AA1150C70400036B08B /* profile-default.png */,
-				3C12D40C150C64BF000915A5 /* landing-bg.png */,
+				3CF24A87150D6BA70048A70B /* photobutton.png */,
+				3CF24A88150D6BA70048A70B /* photobutton@2x.png */,
+				3CF24A81150CB09D0048A70B /* profile.png */,
+				3CF24A82150CB09D0048A70B /* profile@2x.png */,
+				3CF24A85150CB25D0048A70B /* landing-bg.png */,
+				3C12D40C150C64BF000915A5 /* landing-bg@2x.png */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -200,6 +295,37 @@
 			name = Helpers;
 			sourceTree = "<group>";
 		};
+		3CF24A4F150C8A530048A70B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3CF24A59150C8A540048A70B /* libRestKit.a */,
+				3CF24A5B150C8A540048A70B /* RestKitTests.octest */,
+				3CF24A5D150C8A540048A70B /* RestKit.framework */,
+				3CF24A5F150C8A540048A70B /* RestKitFrameworkTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3CF24A6F150C9ED00048A70B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3CF24A70150C9EED0048A70B /* SimpleMoney.xcdatamodeld */,
+				3CF24A76150C9FA80048A70B /* Transaction.h */,
+				3CF24A77150C9FA80048A70B /* Transaction.m */,
+				3CF24A73150C9F1A0048A70B /* User.h */,
+				3CF24A74150C9F1A0048A70B /* User.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		3CF24A8F150D8A860048A70B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3CF24A96150D8A860048A70B /* libSDWebImage.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -214,6 +340,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				3CF24A61150C8AA10048A70B /* PBXTargetDependency */,
 			);
 			name = SimpleMoney;
 			productName = SimpleMoney;
@@ -257,6 +384,16 @@
 			mainGroup = 3C12D3B9150C45F9000915A5;
 			productRefGroup = 3C12D3C5150C45F9000915A5 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 3CF24A4F150C8A530048A70B /* Products */;
+					ProjectRef = 3CF24A4E150C8A530048A70B /* RestKit.xcodeproj */;
+				},
+				{
+					ProductGroup = 3CF24A8F150D8A860048A70B /* Products */;
+					ProjectRef = 3CF24A8E150D8A860048A70B /* SDWebImage.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				3C12D3C3150C45F9000915A5 /* SimpleMoney */,
@@ -265,6 +402,44 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		3CF24A59150C8A540048A70B /* libRestKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRestKit.a;
+			remoteRef = 3CF24A58150C8A540048A70B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3CF24A5B150C8A540048A70B /* RestKitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitTests.octest;
+			remoteRef = 3CF24A5A150C8A540048A70B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3CF24A5D150C8A540048A70B /* RestKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RestKit.framework;
+			remoteRef = 3CF24A5C150C8A540048A70B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3CF24A5F150C8A540048A70B /* RestKitFrameworkTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RestKitFrameworkTests.octest;
+			remoteRef = 3CF24A5E150C8A540048A70B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3CF24A96150D8A860048A70B /* libSDWebImage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSDWebImage.a;
+			remoteRef = 3CF24A95150D8A860048A70B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		3C12D3C2150C45F9000915A5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
@@ -272,8 +447,12 @@
 			files = (
 				3C12D3D3150C45F9000915A5 /* InfoPlist.strings in Resources */,
 				3C12D3DC150C45F9000915A5 /* MainStoryboard_iPhone.storyboard in Resources */,
-				3C12D40D150C64BF000915A5 /* landing-bg.png in Resources */,
-				3C235AA2150C70400036B08B /* profile-default.png in Resources */,
+				3C12D40D150C64BF000915A5 /* landing-bg@2x.png in Resources */,
+				3CF24A83150CB09D0048A70B /* profile.png in Resources */,
+				3CF24A84150CB09D0048A70B /* profile@2x.png in Resources */,
+				3CF24A86150CB25D0048A70B /* landing-bg.png in Resources */,
+				3CF24A89150D6BA70048A70B /* photobutton.png in Resources */,
+				3CF24A8A150D6BA70048A70B /* photobutton@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +494,9 @@
 				3CF24A3F150C74C40048A70B /* CurledViewBase.m in Sources */,
 				3CF24A49150C810B0048A70B /* UIButton+Curled.m in Sources */,
 				3CF24A40150C74C40048A70B /* UIImageView+Curled.m in Sources */,
+				3CF24A72150C9EED0048A70B /* SimpleMoney.xcdatamodeld in Sources */,
+				3CF24A75150C9F1A0048A70B /* User.m in Sources */,
+				3CF24A78150C9FA80048A70B /* Transaction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +518,11 @@
 			isa = PBXTargetDependency;
 			target = 3C12D3C3150C45F9000915A5 /* SimpleMoney */;
 			targetProxy = 3C12D3ED150C45F9000915A5 /* PBXContainerItemProxy */;
+		};
+		3CF24A61150C8AA10048A70B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RestKit;
+			targetProxy = 3CF24A60150C8AA10048A70B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -420,7 +607,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleMoney/SimpleMoney-Prefix.pch";
 				INFOPLIST_FILE = "SimpleMoney/SimpleMoney-Info.plist";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -431,7 +623,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SimpleMoney/SimpleMoney-Prefix.pch";
 				INFOPLIST_FILE = "SimpleMoney/SimpleMoney-Info.plist";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(BUILT_PRODUCTS_DIR)/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -501,6 +698,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3CF24A70150C9EED0048A70B /* SimpleMoney.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3CF24A71150C9EED0048A70B /* SimpleMoney.xcdatamodel */,
+			);
+			currentVersion = 3CF24A71150C9EED0048A70B /* SimpleMoney.xcdatamodel */;
+			path = SimpleMoney.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 3C12D3BB150C45F9000915A5 /* Project object */;
 }

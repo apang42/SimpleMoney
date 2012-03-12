@@ -14,7 +14,78 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
+    
+    //RKLogConfigureByName("RestKit/Network*", RKLogLevelTrace);
+	RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:@"http://localhost:3000/"];
+    // Enable automatic network activity indicator management
+    objectManager.client.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
+    
+    objectManager.objectStore = [RKManagedObjectStore objectStoreWithStoreFilename:@"SimpleMoney.sqlite"];
+    
+    // Map to a target object class
+    /*
+     RKObjectMapping* userMapping = [RKObjectMapping mappingForClass:[User class]];
+     [userMapping mapKeyPath:@"id" toAttribute:@"userID"];
+     [userMapping mapKeyPath:@"email" toAttribute:@"email"];
+     [userMapping mapKeyPath:@"password" toAttribute:@"password"];
+     [userMapping mapKeyPath:@"name" toAttribute:@"name"];
+     [userMapping mapKeyPath:@"balance" toAttribute:@"balance"];
+     */
+    
+    // Map to a target object class
+    /*
+     RKObjectMapping* transactionMapping = [RKObjectMapping mappingForClass:[Transaction class]];
+     [transactionMapping mapKeyPath:@"id" toAttribute:@"transactionID"];
+     [transactionMapping mapKeyPath:@"amount" toAttribute:@"amount"];
+     [transactionMapping mapKeyPath:@"sender_id" toAttribute:@"sender_id"];
+     [transactionMapping mapKeyPath:@"recipient_id" toAttribute:@"recipient_id"];
+     [transactionMapping mapKeyPath:@"complete" toAttribute:@"complete"];
+     [transactionMapping mapKeyPath:@"description" toAttribute:@"transactionDescription"];
+     [transactionMapping mapKeyPath:@"created_at" toAttribute:@"created_at"];
+     [transactionMapping mapKeyPath:@"updated_at" toAttribute:@"updated_at"];
+     
+     [transactionMapping mapRelationship:@"user" withMapping:userMapping];
+     */
+    
+    RKManagedObjectMapping* userMapping = [RKManagedObjectMapping mappingForEntityWithName:@"User"];
+    userMapping.primaryKeyAttribute = @"userID";
+    [userMapping mapKeyPath:@"id" toAttribute:@"userID"];
+    [userMapping mapKeyPath:@"email" toAttribute:@"email"];
+    [userMapping mapKeyPath:@"password" toAttribute:@"password"];
+    [userMapping mapKeyPath:@"name" toAttribute:@"name"];
+    [userMapping mapKeyPath:@"balance" toAttribute:@"balance"];    
+    
+    
+    // This maps User model attributes to JSON params that our rails server understands.
+    RKObjectMapping* userSerializationMapping = [RKObjectMapping mappingForClass:[NSMutableDictionary class]]; 
+    [userSerializationMapping mapKeyPath:@"userID" toAttribute:@"user[id]"];
+    [userSerializationMapping mapKeyPath:@"email" toAttribute:@"user[email]"];
+    [userSerializationMapping mapKeyPath:@"password" toAttribute:@"user[password]"];
+    [userSerializationMapping mapKeyPath:@"name" toAttribute:@"user[name]"];
+    [userSerializationMapping mapKeyPath:@"balance" toAttribute:@"user[balance]"];
+    
+    RKManagedObjectMapping* transactionMapping = [RKManagedObjectMapping mappingForClass:[Transaction class]];
+    transactionMapping.primaryKeyAttribute = @"transactionID";
+    [transactionMapping mapKeyPath:@"id" toAttribute:@"transactionID"];
+    [transactionMapping mapKeyPath:@"amount" toAttribute:@"amount"];
+    [transactionMapping mapKeyPath:@"sender_id" toAttribute:@"sender_id"];
+    [transactionMapping mapKeyPath:@"recipient_id" toAttribute:@"recipient_id"];
+    [transactionMapping mapKeyPath:@"complete" toAttribute:@"complete"];
+    [transactionMapping mapKeyPath:@"description" toAttribute:@"transactionDescription"];
+    [transactionMapping mapKeyPath:@"created_at" toAttribute:@"created_at"];
+    [transactionMapping mapKeyPath:@"updated_at" toAttribute:@"updated_at"];
+    
+    [transactionMapping mapRelationship:@"user" withMapping:userMapping];
+    
+    // Setup date format so our timestamps get converted into NSDate objects.
+    [RKObjectMapping addDefaultDateFormatterForString:@"E MMM d HH:mm:ss Z y" inTimeZone:nil];
+    
+    // Register our mappings with the provider.
+    [objectManager.mappingProvider setMapping:userMapping forKeyPath:@"user"];
+    [objectManager.mappingProvider setSerializationMapping:userSerializationMapping forClass:[User class]];
+    [objectManager.mappingProvider setMapping:transactionMapping forKeyPath:@"transaction"];
+    [objectManager.router routeClass:[User class] toResourcePath:@"/users/"];
     return YES;
 }
 							

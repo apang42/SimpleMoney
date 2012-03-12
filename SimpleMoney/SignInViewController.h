@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SignInViewController : UITableViewController
+@interface SignInViewController : UITableViewController<UITextFieldDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 - (IBAction)cancelButtonWasPressed;
 - (IBAction)dismissKeyboard;
 @end
