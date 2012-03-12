@@ -221,7 +221,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Z5t-K5-Axc">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="Z5t-K5-Axc">
                                     <rect key="frame" x="20" y="53" width="85" height="85"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -233,7 +233,7 @@
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
-                                        <action selector="profileImageWasPressed" destination="Ert-YT-4St" eventType="touchUpInside" id="WyH-SJ-OG9"/>
+                                        <action selector="dismissKeyboard" destination="Ert-YT-4St" eventType="touchUpInside" id="fOO-hQ-O9T"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pzM-5w-zlD">
@@ -316,6 +316,9 @@
                                     <state key="highlighted">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="signUpButtonWasPressed" destination="Ert-YT-4St" eventType="touchUpInside" id="9R1-Vg-42y"/>
+                                    </connections>
                                 </button>
                             </subviews>
                         </view>
@@ -353,7 +356,7 @@
                                                     <rect key="frame" x="20" y="0.0" width="260" height="54"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="18"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="Ert-YT-4St" id="vvJ-0c-AOq"/>
                                                     </connections>
@@ -423,9 +426,9 @@
             <relationships>
                 <relationship kind="action" name="cancelButtonWasPressed"/>
                 <relationship kind="action" name="dismissKeyboard"/>
-                <relationship kind="action" name="profileImageWasPressed"/>
                 <relationship kind="action" name="showCameraUI"/>
                 <relationship kind="action" name="showImagePickerUI"/>
+                <relationship kind="action" name="signUpButtonWasPressed"/>
                 <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>

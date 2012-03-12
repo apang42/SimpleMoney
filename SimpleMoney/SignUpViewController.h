@@ -9,30 +9,34 @@
 #import <UIKit/UIKit.h>
 #import <RestKit/RestKit.h>
 #import <MobileCoreServices/UTCoreTypes.h>
+
 #import "CurledViewBase.h"
 #import "UIButton+Curled.h"
+#import "UIImageView+WebCache.h"
+#import "UIImage+ScaledImage.h"
+#import "MBProgressHUD.h"
 #import "User.h"
 
-@interface SignUpViewController : UITableViewController<UIActionSheetDelegate,UITextFieldDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate,RKObjectLoaderDelegate, RKRequestDelegate>
+@interface SignUpViewController : UITableViewController<UITextFieldDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate,RKObjectLoaderDelegate, RKRequestDelegate,MBProgressHUDDelegate> {
+    UIImage *profileImage;
+    MBProgressHUD *loadingIndicator;
+}
 
 @property (weak, nonatomic) IBOutlet UIButton *profileButton;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 
-- (IBAction)profileImageWasPressed;
 - (IBAction)cancelButtonWasPressed;
+- (IBAction)signUpButtonWasPressed;
 - (IBAction)dismissKeyboard;
 
 - (void)sendRequest;
+- (void)uploadProfileImageForUser:(User *)user;
 
 - (IBAction)showCameraUI;
-- (BOOL)startCameraControllerFromViewController:(UIViewController*) controller
-                                  usingDelegate:(id <UIImagePickerControllerDelegate,
-                                                  UINavigationControllerDelegate>) delegate;
 - (IBAction)showImagePickerUI;
-- (BOOL)startImagePickerFromViewController:(UIViewController*) controller
-                                  usingDelegate:(id <UIImagePickerControllerDelegate,
-                                                 UINavigationControllerDelegate>) delegate;
+- (BOOL)startCameraControllerFromViewController:(UIViewController*) controller usingDelegate:(id <UIImagePickerControllerDelegate, UINavigationControllerDelegate>) delegate;
+- (BOOL)startImagePickerFromViewController:(UIViewController*) controller usingDelegate:(id <UIImagePickerControllerDelegate, UINavigationControllerDelegate>) delegate;
 
 @end

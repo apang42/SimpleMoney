@@ -25,6 +25,12 @@
 		3C235A9F150C6C920036B08B /* CurledViewBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9C150C6C920036B08B /* CurledViewBase.m */; };
 		3C235AA0150C6C920036B08B /* UIImageView+Curled.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9E150C6C920036B08B /* UIImageView+Curled.m */; };
 		3C235AA4150C712D0036B08B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C235AA3150C712D0036B08B /* QuartzCore.framework */; };
+		3C7CB19D150D99DB0056E1FD /* UIImage+ScaledImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C7CB19C150D99DB0056E1FD /* UIImage+ScaledImage.m */; };
+		3C7CB1A1150DBFF20056E1FD /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C7CB1A0150DBFF20056E1FD /* User.m */; };
+		3C7CB1AB150DCC1F0056E1FD /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C7CB1AA150DCC1F0056E1FD /* MBProgressHUD.m */; };
+		3C7CB1B0150DCE330056E1FD /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C7CB1AA150DCC1F0056E1FD /* MBProgressHUD.m */; };
+		3C7CB1B4150DD4890056E1FD /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C7CB1B3150DD4890056E1FD /* checkmark.png */; };
+		3C7CB1B6150DD6500056E1FD /* checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C7CB1B5150DD6500056E1FD /* checkmark@2x.png */; };
 		3CF24A3F150C74C40048A70B /* CurledViewBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9C150C6C920036B08B /* CurledViewBase.m */; };
 		3CF24A40150C74C40048A70B /* UIImageView+Curled.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9E150C6C920036B08B /* UIImageView+Curled.m */; };
 		3CF24A48150C80FC0048A70B /* UIButton+Curled.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF24A47150C80FC0048A70B /* UIButton+Curled.m */; };
@@ -37,7 +43,6 @@
 		3CF24A6D150C8AD40048A70B /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CF24A6C150C8AD40048A70B /* libxml2.dylib */; };
 		3CF24A6E150C8ADE0048A70B /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CF24A59150C8A540048A70B /* libRestKit.a */; };
 		3CF24A72150C9EED0048A70B /* SimpleMoney.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3CF24A70150C9EED0048A70B /* SimpleMoney.xcdatamodeld */; };
-		3CF24A75150C9F1A0048A70B /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF24A74150C9F1A0048A70B /* User.m */; };
 		3CF24A78150C9FA80048A70B /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF24A77150C9FA80048A70B /* Transaction.m */; };
 		3CF24A83150CB09D0048A70B /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CF24A81150CB09D0048A70B /* profile.png */; };
 		3CF24A84150CB09D0048A70B /* profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CF24A82150CB09D0048A70B /* profile@2x.png */; };
@@ -97,6 +102,13 @@
 			remoteGlobalIDString = 53922D6F148C55820056699D;
 			remoteInfo = SDWebImage;
 		};
+		3CF24A9A150D8CFB0048A70B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3CF24A8E150D8A860048A70B /* SDWebImage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 53922D6E148C55810056699D;
+			remoteInfo = SDWebImage;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -127,6 +139,14 @@
 		3C235A9D150C6C920036B08B /* UIImageView+Curled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Curled.h"; sourceTree = "<group>"; };
 		3C235A9E150C6C920036B08B /* UIImageView+Curled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Curled.m"; sourceTree = "<group>"; };
 		3C235AA3150C712D0036B08B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		3C7CB19B150D99DB0056E1FD /* UIImage+ScaledImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ScaledImage.h"; sourceTree = "<group>"; };
+		3C7CB19C150D99DB0056E1FD /* UIImage+ScaledImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ScaledImage.m"; sourceTree = "<group>"; };
+		3C7CB19F150DBFF20056E1FD /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		3C7CB1A0150DBFF20056E1FD /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		3C7CB1A9150DCC1F0056E1FD /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		3C7CB1AA150DCC1F0056E1FD /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		3C7CB1B3150DD4890056E1FD /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
+		3C7CB1B5150DD6500056E1FD /* checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark@2x.png"; sourceTree = "<group>"; };
 		3CF24A46150C80FC0048A70B /* UIButton+Curled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Curled.h"; sourceTree = "<group>"; };
 		3CF24A47150C80FC0048A70B /* UIButton+Curled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Curled.m"; sourceTree = "<group>"; };
 		3CF24A4E150C8A530048A70B /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
@@ -137,8 +157,6 @@
 		3CF24A6A150C8ACB0048A70B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		3CF24A6C150C8AD40048A70B /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		3CF24A71150C9EED0048A70B /* SimpleMoney.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SimpleMoney.xcdatamodel; sourceTree = "<group>"; };
-		3CF24A73150C9F1A0048A70B /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		3CF24A74150C9F1A0048A70B /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		3CF24A76150C9FA80048A70B /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transaction.h; sourceTree = "<group>"; };
 		3CF24A77150C9FA80048A70B /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transaction.m; sourceTree = "<group>"; };
 		3CF24A81150CB09D0048A70B /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
@@ -185,8 +203,6 @@
 		3C12D3B9150C45F9000915A5 = {
 			isa = PBXGroup;
 			children = (
-				3CF24A8E150D8A860048A70B /* SDWebImage.xcodeproj */,
-				3CF24A4E150C8A530048A70B /* RestKit.xcodeproj */,
 				3C12D3CE150C45F9000915A5 /* SimpleMoney */,
 				3C12D3EF150C45F9000915A5 /* SimpleMoneyTests */,
 				3C12D3C7150C45F9000915A5 /* Frameworks */,
@@ -206,6 +222,8 @@
 		3C12D3C7150C45F9000915A5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3CF24A8E150D8A860048A70B /* SDWebImage.xcodeproj */,
+				3CF24A4E150C8A530048A70B /* RestKit.xcodeproj */,
 				3CF24A6C150C8AD40048A70B /* libxml2.dylib */,
 				3CF24A6A150C8ACB0048A70B /* SystemConfiguration.framework */,
 				3CF24A68150C8AC50048A70B /* MobileCoreServices.framework */,
@@ -233,7 +251,7 @@
 				3C12D40A150C4CF5000915A5 /* SignInViewController.m */,
 				3CF24A6F150C9ED00048A70B /* Models */,
 				3C12D40E150C64C6000915A5 /* Assets */,
-				3C235A99150C6C760036B08B /* Helpers */,
+				3C235A99150C6C760036B08B /* Utilities */,
 				3C12D3CF150C45F9000915A5 /* Supporting Files */,
 			);
 			path = SimpleMoney;
@@ -276,23 +294,40 @@
 				3CF24A88150D6BA70048A70B /* photobutton@2x.png */,
 				3CF24A81150CB09D0048A70B /* profile.png */,
 				3CF24A82150CB09D0048A70B /* profile@2x.png */,
+				3C7CB1B3150DD4890056E1FD /* checkmark.png */,
+				3C7CB1B5150DD6500056E1FD /* checkmark@2x.png */,
 				3CF24A85150CB25D0048A70B /* landing-bg.png */,
 				3C12D40C150C64BF000915A5 /* landing-bg@2x.png */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
 		};
-		3C235A99150C6C760036B08B /* Helpers */ = {
+		3C235A99150C6C760036B08B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				3C235A9B150C6C920036B08B /* CurledViewBase.h */,
-				3C235A9C150C6C920036B08B /* CurledViewBase.m */,
-				3CF24A46150C80FC0048A70B /* UIButton+Curled.h */,
-				3CF24A47150C80FC0048A70B /* UIButton+Curled.m */,
-				3C235A9D150C6C920036B08B /* UIImageView+Curled.h */,
-				3C235A9E150C6C920036B08B /* UIImageView+Curled.m */,
+				3C7CB1A8150DCBFF0056E1FD /* MBProgressHUD */,
+				3C7CB19E150D9C6B0056E1FD /* ScaledImage */,
+				3CF24A98150D8C350048A70B /* CurledImageView */,
 			);
-			name = Helpers;
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		3C7CB19E150D9C6B0056E1FD /* ScaledImage */ = {
+			isa = PBXGroup;
+			children = (
+				3C7CB19B150D99DB0056E1FD /* UIImage+ScaledImage.h */,
+				3C7CB19C150D99DB0056E1FD /* UIImage+ScaledImage.m */,
+			);
+			name = ScaledImage;
+			sourceTree = "<group>";
+		};
+		3C7CB1A8150DCBFF0056E1FD /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				3C7CB1A9150DCC1F0056E1FD /* MBProgressHUD.h */,
+				3C7CB1AA150DCC1F0056E1FD /* MBProgressHUD.m */,
+			);
+			name = MBProgressHUD;
 			sourceTree = "<group>";
 		};
 		3CF24A4F150C8A530048A70B /* Products */ = {
@@ -310,10 +345,10 @@
 			isa = PBXGroup;
 			children = (
 				3CF24A70150C9EED0048A70B /* SimpleMoney.xcdatamodeld */,
+				3C7CB19F150DBFF20056E1FD /* User.h */,
+				3C7CB1A0150DBFF20056E1FD /* User.m */,
 				3CF24A76150C9FA80048A70B /* Transaction.h */,
 				3CF24A77150C9FA80048A70B /* Transaction.m */,
-				3CF24A73150C9F1A0048A70B /* User.h */,
-				3CF24A74150C9F1A0048A70B /* User.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -324,6 +359,19 @@
 				3CF24A96150D8A860048A70B /* libSDWebImage.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		3CF24A98150D8C350048A70B /* CurledImageView */ = {
+			isa = PBXGroup;
+			children = (
+				3C235A9B150C6C920036B08B /* CurledViewBase.h */,
+				3C235A9C150C6C920036B08B /* CurledViewBase.m */,
+				3CF24A46150C80FC0048A70B /* UIButton+Curled.h */,
+				3CF24A47150C80FC0048A70B /* UIButton+Curled.m */,
+				3C235A9D150C6C920036B08B /* UIImageView+Curled.h */,
+				3C235A9E150C6C920036B08B /* UIImageView+Curled.m */,
+			);
+			name = CurledImageView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -340,6 +388,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				3CF24A9B150D8CFB0048A70B /* PBXTargetDependency */,
 				3CF24A61150C8AA10048A70B /* PBXTargetDependency */,
 			);
 			name = SimpleMoney;
@@ -453,6 +502,8 @@
 				3CF24A86150CB25D0048A70B /* landing-bg.png in Resources */,
 				3CF24A89150D6BA70048A70B /* photobutton.png in Resources */,
 				3CF24A8A150D6BA70048A70B /* photobutton@2x.png in Resources */,
+				3C7CB1B4150DD4890056E1FD /* checkmark.png in Resources */,
+				3C7CB1B6150DD6500056E1FD /* checkmark@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,8 +546,10 @@
 				3CF24A49150C810B0048A70B /* UIButton+Curled.m in Sources */,
 				3CF24A40150C74C40048A70B /* UIImageView+Curled.m in Sources */,
 				3CF24A72150C9EED0048A70B /* SimpleMoney.xcdatamodeld in Sources */,
-				3CF24A75150C9F1A0048A70B /* User.m in Sources */,
 				3CF24A78150C9FA80048A70B /* Transaction.m in Sources */,
+				3C7CB19D150D99DB0056E1FD /* UIImage+ScaledImage.m in Sources */,
+				3C7CB1B0150DCE330056E1FD /* MBProgressHUD.m in Sources */,
+				3C7CB1A1150DBFF20056E1FD /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,6 +561,7 @@
 				3C235A9F150C6C920036B08B /* CurledViewBase.m in Sources */,
 				3C235AA0150C6C920036B08B /* UIImageView+Curled.m in Sources */,
 				3CF24A48150C80FC0048A70B /* UIButton+Curled.m in Sources */,
+				3C7CB1AB150DCC1F0056E1FD /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +577,11 @@
 			isa = PBXTargetDependency;
 			name = RestKit;
 			targetProxy = 3CF24A60150C8AA10048A70B /* PBXContainerItemProxy */;
+		};
+		3CF24A9B150D8CFB0048A70B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SDWebImage;
+			targetProxy = 3CF24A9A150D8CFB0048A70B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

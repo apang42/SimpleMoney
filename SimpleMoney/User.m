@@ -7,6 +7,7 @@
 //
 
 #import "User.h"
+#import "Transaction.h"
 
 
 @implementation User
@@ -16,5 +17,8 @@
 @dynamic name;
 @dynamic password;
 @dynamic userID;
+@dynamic avatarURL;
+@dynamic avatarURLsmall;
+@dynamic transaction;
 
 @end
