@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C0FC88015114B2700A30E66 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0FC87F15114B2700A30E66 /* HomeViewController.m */; };
+		3C0FC88315114BF800A30E66 /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0FC88215114BF800A30E66 /* AuthViewController.m */; };
 		3C12D3C9150C45F9000915A5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C12D3C8150C45F9000915A5 /* UIKit.framework */; };
 		3C12D3CB150C45F9000915A5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C12D3CA150C45F9000915A5 /* Foundation.framework */; };
 		3C12D3CD150C45F9000915A5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C12D3CC150C45F9000915A5 /* CoreGraphics.framework */; };
@@ -25,12 +27,17 @@
 		3C235A9F150C6C920036B08B /* CurledViewBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9C150C6C920036B08B /* CurledViewBase.m */; };
 		3C235AA0150C6C920036B08B /* UIImageView+Curled.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9E150C6C920036B08B /* UIImageView+Curled.m */; };
 		3C235AA4150C712D0036B08B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C235AA3150C712D0036B08B /* QuartzCore.framework */; };
+		3C5F9C84151138C300201B20 /* InitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5F9C83151138C300201B20 /* InitialViewController.m */; };
+		3C5F9C881511401F00201B20 /* KeychainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5F9C871511401F00201B20 /* KeychainWrapper.m */; };
 		3C7CB19D150D99DB0056E1FD /* UIImage+ScaledImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C7CB19C150D99DB0056E1FD /* UIImage+ScaledImage.m */; };
 		3C7CB1A1150DBFF20056E1FD /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C7CB1A0150DBFF20056E1FD /* User.m */; };
 		3C7CB1AB150DCC1F0056E1FD /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C7CB1AA150DCC1F0056E1FD /* MBProgressHUD.m */; };
 		3C7CB1B0150DCE330056E1FD /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C7CB1AA150DCC1F0056E1FD /* MBProgressHUD.m */; };
 		3C7CB1B4150DD4890056E1FD /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C7CB1B3150DD4890056E1FD /* checkmark.png */; };
 		3C7CB1B6150DD6500056E1FD /* checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C7CB1B5150DD6500056E1FD /* checkmark@2x.png */; };
+		3C88E1801513EBDE002D5C7C /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C88E17E1513EBDD002D5C7C /* AddressBook.framework */; };
+		3C88E1811513EBDE002D5C7C /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C88E17F1513EBDD002D5C7C /* AddressBookUI.framework */; };
+		3CE836821511637A00A72EAE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CE836811511637A00A72EAE /* MapKit.framework */; };
 		3CF24A3F150C74C40048A70B /* CurledViewBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9C150C6C920036B08B /* CurledViewBase.m */; };
 		3CF24A40150C74C40048A70B /* UIImageView+Curled.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9E150C6C920036B08B /* UIImageView+Curled.m */; };
 		3CF24A48150C80FC0048A70B /* UIButton+Curled.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF24A47150C80FC0048A70B /* UIButton+Curled.m */; };
@@ -112,6 +119,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C0FC87E15114B2700A30E66 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		3C0FC87F15114B2700A30E66 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		3C0FC88115114BF800A30E66 /* AuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthViewController.h; sourceTree = "<group>"; };
+		3C0FC88215114BF800A30E66 /* AuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthViewController.m; sourceTree = "<group>"; };
 		3C12D3C4150C45F9000915A5 /* SimpleMoney.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleMoney.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C12D3C8150C45F9000915A5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3C12D3CA150C45F9000915A5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -139,6 +150,10 @@
 		3C235A9D150C6C920036B08B /* UIImageView+Curled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Curled.h"; sourceTree = "<group>"; };
 		3C235A9E150C6C920036B08B /* UIImageView+Curled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Curled.m"; sourceTree = "<group>"; };
 		3C235AA3150C712D0036B08B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		3C5F9C82151138C300201B20 /* InitialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialViewController.h; sourceTree = "<group>"; };
+		3C5F9C83151138C300201B20 /* InitialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialViewController.m; sourceTree = "<group>"; };
+		3C5F9C861511401F00201B20 /* KeychainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainWrapper.h; sourceTree = "<group>"; };
+		3C5F9C871511401F00201B20 /* KeychainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainWrapper.m; sourceTree = "<group>"; };
 		3C7CB19B150D99DB0056E1FD /* UIImage+ScaledImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ScaledImage.h"; sourceTree = "<group>"; };
 		3C7CB19C150D99DB0056E1FD /* UIImage+ScaledImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ScaledImage.m"; sourceTree = "<group>"; };
 		3C7CB19F150DBFF20056E1FD /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -147,6 +162,9 @@
 		3C7CB1AA150DCC1F0056E1FD /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		3C7CB1B3150DD4890056E1FD /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
 		3C7CB1B5150DD6500056E1FD /* checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark@2x.png"; sourceTree = "<group>"; };
+		3C88E17E1513EBDD002D5C7C /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		3C88E17F1513EBDD002D5C7C /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		3CE836811511637A00A72EAE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3CF24A46150C80FC0048A70B /* UIButton+Curled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Curled.h"; sourceTree = "<group>"; };
 		3CF24A47150C80FC0048A70B /* UIButton+Curled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Curled.m"; sourceTree = "<group>"; };
 		3CF24A4E150C8A530048A70B /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
@@ -172,6 +190,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C88E1801513EBDE002D5C7C /* AddressBook.framework in Frameworks */,
+				3C88E1811513EBDE002D5C7C /* AddressBookUI.framework in Frameworks */,
+				3CE836821511637A00A72EAE /* MapKit.framework in Frameworks */,
 				3CF24A97150D8AA80048A70B /* libSDWebImage.a in Frameworks */,
 				3CF24A6E150C8ADE0048A70B /* libRestKit.a in Frameworks */,
 				3CF24A6D150C8AD40048A70B /* libxml2.dylib in Frameworks */,
@@ -222,8 +243,11 @@
 		3C12D3C7150C45F9000915A5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3C88E17E1513EBDD002D5C7C /* AddressBook.framework */,
+				3C88E17F1513EBDD002D5C7C /* AddressBookUI.framework */,
 				3CF24A8E150D8A860048A70B /* SDWebImage.xcodeproj */,
 				3CF24A4E150C8A530048A70B /* RestKit.xcodeproj */,
+				3CE836811511637A00A72EAE /* MapKit.framework */,
 				3CF24A6C150C8AD40048A70B /* libxml2.dylib */,
 				3CF24A6A150C8ACB0048A70B /* SystemConfiguration.framework */,
 				3CF24A68150C8AC50048A70B /* MobileCoreServices.framework */,
@@ -245,6 +269,12 @@
 				3C12D3DA150C45F9000915A5 /* MainStoryboard_iPhone.storyboard */,
 				3C12D3D7150C45F9000915A5 /* AppDelegate.h */,
 				3C12D3D8150C45F9000915A5 /* AppDelegate.m */,
+				3C5F9C82151138C300201B20 /* InitialViewController.h */,
+				3C5F9C83151138C300201B20 /* InitialViewController.m */,
+				3C0FC88115114BF800A30E66 /* AuthViewController.h */,
+				3C0FC88215114BF800A30E66 /* AuthViewController.m */,
+				3C0FC87E15114B2700A30E66 /* HomeViewController.h */,
+				3C0FC87F15114B2700A30E66 /* HomeViewController.m */,
 				3C12D40F150C6837000915A5 /* SignUpViewController.h */,
 				3C12D410150C6837000915A5 /* SignUpViewController.m */,
 				3C12D409150C4CF5000915A5 /* SignInViewController.h */,
@@ -305,11 +335,21 @@
 		3C235A99150C6C760036B08B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				3C5F9C8515113FFC00201B20 /* KeychainWrapper */,
 				3C7CB1A8150DCBFF0056E1FD /* MBProgressHUD */,
 				3C7CB19E150D9C6B0056E1FD /* ScaledImage */,
 				3CF24A98150D8C350048A70B /* CurledImageView */,
 			);
 			name = Utilities;
+			sourceTree = "<group>";
+		};
+		3C5F9C8515113FFC00201B20 /* KeychainWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				3C5F9C861511401F00201B20 /* KeychainWrapper.h */,
+				3C5F9C871511401F00201B20 /* KeychainWrapper.m */,
+			);
+			name = KeychainWrapper;
 			sourceTree = "<group>";
 		};
 		3C7CB19E150D9C6B0056E1FD /* ScaledImage */ = {
@@ -550,6 +590,10 @@
 				3C7CB19D150D99DB0056E1FD /* UIImage+ScaledImage.m in Sources */,
 				3C7CB1B0150DCE330056E1FD /* MBProgressHUD.m in Sources */,
 				3C7CB1A1150DBFF20056E1FD /* User.m in Sources */,
+				3C5F9C84151138C300201B20 /* InitialViewController.m in Sources */,
+				3C5F9C881511401F00201B20 /* KeychainWrapper.m in Sources */,
+				3C0FC88015114B2700A30E66 /* HomeViewController.m in Sources */,
+				3C0FC88315114BF800A30E66 /* AuthViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

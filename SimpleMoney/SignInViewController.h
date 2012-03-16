@@ -7,10 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <RestKit/RestKit.h>
+#import "KeychainWrapper.h"
+#import "User.h"
 
-@interface SignInViewController : UITableViewController<UITextFieldDelegate>
+
+@interface SignInViewController : UITableViewController<UITextFieldDelegate, RKObjectLoaderDelegate>
+
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+
 - (IBAction)cancelButtonWasPressed;
+- (IBAction)signUpButtonWasPressed;
 - (IBAction)dismissKeyboard;
+- (void)sendRequest;
+
 @end

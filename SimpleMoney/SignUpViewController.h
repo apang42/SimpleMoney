@@ -9,13 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <RestKit/RestKit.h>
 #import <MobileCoreServices/UTCoreTypes.h>
-
+#import "User.h"
+#import "MBProgressHUD.h"
 #import "CurledViewBase.h"
 #import "UIButton+Curled.h"
-#import "UIImageView+WebCache.h"
 #import "UIImage+ScaledImage.h"
-#import "MBProgressHUD.h"
-#import "User.h"
+#import "UIImageView+WebCache.h"
 
 @interface SignUpViewController : UITableViewController<UITextFieldDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate,RKObjectLoaderDelegate, RKRequestDelegate,MBProgressHUDDelegate> {
     UIImage *profileImage;
@@ -30,10 +29,8 @@
 - (IBAction)cancelButtonWasPressed;
 - (IBAction)signUpButtonWasPressed;
 - (IBAction)dismissKeyboard;
-
 - (void)sendRequest;
 - (void)uploadProfileImageForUser:(User *)user;
-
 - (IBAction)showCameraUI;
 - (IBAction)showImagePickerUI;
 - (BOOL)startCameraControllerFromViewController:(UIViewController*) controller usingDelegate:(id <UIImagePickerControllerDelegate, UINavigationControllerDelegate>) delegate;

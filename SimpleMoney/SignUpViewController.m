@@ -163,20 +163,20 @@
     [[self tableView] scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
-#pragma mark RKObjectLoaderDelegate methods
-
+#pragma mark RKObjectLoader delegate methods
 - (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray*)objects {
     User *user = [objects objectAtIndex:0];
     NSLog(@"%@ created successfully!", user.email);
     [self uploadProfileImageForUser:user];
+    // This might cancel profile image upload!
+    [self performSegueWithIdentifier:@"signUpSegue" sender:self];
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
 	NSLog(@"RKObjectLoader failed with error: %@", error);
 }
 
-#pragma mark RKRequestDelegate methods
-
+#pragma mark RKRequest delegate methods
 - (void)requestDidStartLoad:(RKRequest *)request {
     NSLog(@"RKRequest did start load");
 }
@@ -239,8 +239,6 @@
 
 - (void)viewDidUnload {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
     self.profileButton = nil;
     self.nameTextField = nil;
     self.emailTextField = nil;
