@@ -57,7 +57,10 @@
     }
     
     NSLog(@"user transactions: %@", currentUser.transactions);
-
+    NSMutableArray *array = [NSMutableArray arrayWithArray:[currentUser.transactions allObjects]];
+    NSLog(@"user transactions as array: %@", array);
+    Transaction *first = [array objectAtIndex:0];
+    NSLog(@"first transaction: %@", first.transactionDescription);
     
     [self loadData];
     pull = [[PullToRefreshView alloc] initWithScrollView:self.tableView];
