@@ -11,11 +11,11 @@
 @implementation AppDelegate
 @synthesize window = _window;
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
     
-    RKLogConfigureByName("RestKit/Network*", RKLogLevelTrace);
-	RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:@"http://192.168.1.2:3000/"];
+    //RKLogConfigureByName("RestKit/Network*", RKLogLevelTrace);
+	RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:@"http://192.168.1.10:3000/"];
     
     // Enable automatic network activity indicator management
     objectManager.client.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
@@ -31,7 +31,7 @@
     [userMapping mapKeyPath:@"password" toAttribute:@"password"];
     [userMapping mapKeyPath:@"name" toAttribute:@"name"];
     [userMapping mapKeyPath:@"balance" toAttribute:@"balance"];    
-    
+
     // Map User model attributes to JSON params that our rails server understands.
     RKObjectMapping* userSerializationMapping = [RKObjectMapping mappingForClass:[NSMutableDictionary class]]; 
     [userSerializationMapping mapKeyPath:@"userID" toAttribute:@"user[id]"];
@@ -45,16 +45,16 @@
     transactionMapping.primaryKeyAttribute = @"transactionID";
     [transactionMapping mapKeyPath:@"id" toAttribute:@"transactionID"];
     [transactionMapping mapKeyPath:@"amount" toAttribute:@"amount"];
-    [transactionMapping mapKeyPath:@"sender_id" toAttribute:@"sender_id"];
-    [transactionMapping mapKeyPath:@"recipient_id" toAttribute:@"recipient_id"];
+    [transactionMapping mapKeyPath:@"sender_email" toAttribute:@"sender_email"];
+    [transactionMapping mapKeyPath:@"recipient_email" toAttribute:@"recipient_email"];
     [transactionMapping mapKeyPath:@"complete" toAttribute:@"complete"];
     [transactionMapping mapKeyPath:@"description" toAttribute:@"transactionDescription"];
     [transactionMapping mapKeyPath:@"created_at" toAttribute:@"created_at"];
     [transactionMapping mapKeyPath:@"updated_at" toAttribute:@"updated_at"];
-    
-    // Nest the Transaction hash in the User model
-    [transactionMapping mapRelationship:@"user" withMapping:userMapping];
-    
+        
+    // Setup relationships
+    [userMapping hasMany:@"transactions" withMapping:transactionMapping];
+
     // Setup date format so our timestamps get converted into NSDate objects.
     // TODO: Test date formatter
     // TODO: Change user and transaction date properties from NSString to NSDate.
@@ -64,6 +64,7 @@
     [objectManager.mappingProvider setMapping:userMapping forKeyPath:@"user"];
     [objectManager.mappingProvider setSerializationMapping:userSerializationMapping forClass:[User class]];
     [objectManager.mappingProvider setMapping:transactionMapping forKeyPath:@"transaction"];
+
     [objectManager.router routeClass:[User class] toResourcePath:@"/users/"];
     return YES;
 }

@@ -7,12 +7,15 @@
 //
 
 #import "HomeViewController.h"
+#import "Transaction.h"
 
 @interface HomeViewController (PrivateMethods)
 - (void)signOut;
 @end
 
 @implementation HomeViewController
+@synthesize accountName;
+@synthesize accountBalance;
 
 // Sends a DELETE request to /users/sign_out
 - (IBAction)signOutButtonWasPressed:(id)sender {
@@ -21,6 +24,7 @@
         loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[User class]];
         loader.method = RKRequestMethodDELETE;
     }];
+    [self performSegueWithIdentifier:@"loggedOutSegue" sender:self];
 }
 
 - (void)selectPerson:(ABRecordRef)person {
@@ -98,7 +102,25 @@
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
-    [self performSegueWithIdentifier:@"loggedOutSegue" sender:self];
+    User *user = object;
+    NSLog(@"loaded user with transaction count: %u", user.transactions.count);
+}
+
+- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
+    // TODO: remove this code!
+    /*NSLog(@"loaded objects: %@", objects);
+    NSFetchRequest *userRequest = [User fetchRequest];
+    NSPredicate *userPredicate = [NSPredicate predicateWithFormat:@"email = %@",[KeychainWrapper load:@"userEmail"]];
+    [userRequest setPredicate:userPredicate];
+    User *currentUser = [User objectWithFetchRequest:userRequest];
+    
+    NSLog(@"current user: %@", currentUser);
+    for (id t in currentUser.transactions) {
+        Transaction *transaction = t;
+        NSLog(@"Transaction: %@", transaction.transactionDescription);
+    }
+    
+    NSLog(@"user transactions: %@", currentUser.transactions);*/
 }
 
 
@@ -114,6 +136,15 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.hidesBackButton = YES;
+    
+    self.accountName.text = [KeychainWrapper load:@"userEmail"];
+    self.accountBalance.text = [KeychainWrapper load:@"userEmail"];
+
+    // TODO: remove this code!
+    RKObjectManager* objectManager = [RKObjectManager sharedManager];
+    [objectManager loadObjectsAtResourcePath:[NSString stringWithFormat:@"/users/%@", [KeychainWrapper load:@"userID"]] delegate:self block:^(RKObjectLoader* loader) {
+        loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[User class]];
+    }];
 }
 
 - (void)viewDidUnload {

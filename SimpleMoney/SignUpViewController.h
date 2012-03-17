@@ -12,6 +12,7 @@
 #import "User.h"
 #import "MBProgressHUD.h"
 #import "CurledViewBase.h"
+#import "KeychainWrapper.h"
 #import "UIButton+Curled.h"
 #import "UIImage+ScaledImage.h"
 #import "UIImageView+WebCache.h"

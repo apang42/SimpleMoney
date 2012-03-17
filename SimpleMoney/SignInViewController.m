@@ -57,6 +57,8 @@
     // Signed in successfully, let's add the user's credentials to the iOS keychain so we can sign them in automatically
     if ([user.email isEqualToString:self.emailTextField.text]) {
         NSLog(@"Attempting to save user %@", user.email);
+
+        [KeychainWrapper save:@"userID" data:user.userID];
         [KeychainWrapper save:@"userEmail" data:user.email];
         [KeychainWrapper save:@"userPassword" data:self.passwordTextField.text];
     }

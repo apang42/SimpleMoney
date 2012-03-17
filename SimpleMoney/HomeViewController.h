@@ -14,6 +14,9 @@
 
 @interface HomeViewController : UITableViewController <RKObjectLoaderDelegate, ABPeoplePickerNavigationControllerDelegate>
 
+@property (weak, nonatomic) IBOutlet UILabel *accountName;
+@property (weak, nonatomic) IBOutlet UILabel *accountBalance;
+
 - (IBAction)signOutButtonWasPressed:(id)sender;
 - (void)selectPerson:(ABRecordRef)person;
 - (void)showPeoplePicker;
