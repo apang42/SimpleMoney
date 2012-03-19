@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class User;
 
 @interface Transaction : NSManagedObject
 
@@ -20,6 +21,8 @@
 @property (nonatomic, retain) NSString * transactionDescription;
 @property (nonatomic, retain) NSNumber * transactionID;
 @property (nonatomic, retain) NSDate * updated_at;
-@property (nonatomic, retain) NSManagedObject *user;
+@property (nonatomic, retain) User *user;
+@property (nonatomic, retain) User *recipient;
+@property (nonatomic, retain) User *sender;
 
 @end

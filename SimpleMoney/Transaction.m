@@ -7,6 +7,7 @@
 //
 
 #import "Transaction.h"
+#import "User.h"
 
 
 @implementation Transaction
@@ -20,5 +21,7 @@
 @dynamic transactionID;
 @dynamic updated_at;
 @dynamic user;
+@dynamic recipient;
+@dynamic sender;
 
 @end

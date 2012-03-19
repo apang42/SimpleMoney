@@ -8,14 +8,31 @@
 
 #import "AppDelegate.h"
 
+#define kSERVICE_URL @"http://192.168.1.10:3000/"
+
 @implementation AppDelegate
 @synthesize window = _window;
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
+    [[UITabBar appearance] setTintColor:[UIColor colorWithWhite:0.9 alpha:1.0]];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithWhite:0.9 alpha:1.0]];
+    [[UINavigationBar appearance]setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                   [UIColor colorWithHue:0 saturation:0 brightness:0.6 alpha:1], UITextAttributeTextColor,
+                                                                   [UIColor whiteColor],UITextAttributeTextShadowColor,
+                                                                   [NSValue valueWithUIOffset:UIOffsetMake(0, 1)],UITextAttributeTextShadowOffset,
+                                                                   [UIFont fontWithName:@"HelveticaNeue-Bold" size:0.0],UITextAttributeFont,
+                                                                   nil]];
+    
+    [[UIBarButtonItem appearance]setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                         [UIColor colorWithWhite:0.4 alpha:1.0], UITextAttributeTextColor,
+                                                         [UIColor whiteColor], UITextAttributeTextShadowColor,
+                                                         [NSValue valueWithUIOffset:UIOffsetMake(0, 1)],UITextAttributeTextShadowOffset,
+                                                         [UIFont fontWithName:@"HelveticaNeue-Medium" size:0.0],UITextAttributeFont,
+                                                         nil] forState:UIControlStateNormal];
     
     //RKLogConfigureByName("RestKit/Network*", RKLogLevelTrace);
-	RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:@"http://192.168.1.10:3000/"];
+	RKObjectManager* objectManager = [RKObjectManager objectManagerWithBaseURL:kSERVICE_URL];
     
     // Enable automatic network activity indicator management
     objectManager.client.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
@@ -54,6 +71,8 @@
         
     // Setup relationships
     [userMapping hasMany:@"transactions" withMapping:transactionMapping];
+    [transactionMapping hasOne:@"recipient" withMapping:userMapping];
+    [transactionMapping hasOne:@"sender" withMapping:userMapping];
 
     // Setup date format so our timestamps get converted into NSDate objects.
     // TODO: Test date formatter

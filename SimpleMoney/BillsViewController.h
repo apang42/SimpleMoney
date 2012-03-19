@@ -9,11 +9,19 @@
 #import <UIKit/UIKit.h>
 #import <RestKit/RestKit.h>
 #import "PullToRefreshView.h"
+#import "KeychainWrapper.h"
 #import "Transaction.h"
 #import "User.h"
+#import "UIImage+ScaledImage.h"
+#import "UIImageView+WebCache.h"
+#import "TransactionCell.h"
+
 @interface BillsViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, RKObjectLoaderDelegate, PullToRefreshViewDelegate> {
     PullToRefreshView *pull;
-    NSArray *pendingTransactions;
+    NSMutableArray *unpaidBillsArray;
+    NSMutableArray *paidBillsArray;
 }
+
+@property (weak, nonatomic) NSIndexPath *selectedRowIndex;
 
 @end

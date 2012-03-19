@@ -7,20 +7,22 @@
 //
 
 #import "BillsViewController.h"
-#import "KeychainWrapper.h"
+#import <Foundation/Foundation.h>
 
 @interface BillsViewController (PrivateMethods)
-
 - (void)loadData;
 - (void)reloadTableData;
+- (void)deselectAllCells;
 @end
 
 @implementation BillsViewController
+@synthesize selectedRowIndex;
 
 - (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
@@ -30,6 +32,7 @@
 }
 
 - (void)reloadTableData {
+    [self deselectAllCells];
     [self loadData];
     [pull finishedLoading];
 }
@@ -37,31 +40,17 @@
 - (void)loadData {
     // Load the object model via RestKit	
     RKObjectManager* objectManager = [RKObjectManager sharedManager];
-    [objectManager loadObjectsAtResourcePath:[NSString stringWithFormat:@"/users/%@/bills", [KeychainWrapper load:@"userID"]] delegate:self block:^(RKObjectLoader* loader) {
-        loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[Transaction class]];
+    [objectManager loadObjectsAtResourcePath:[NSString stringWithFormat:@"/users/%@", [KeychainWrapper load:@"userID"]] delegate:self block:^(RKObjectLoader* loader) {
+        loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[User class]];
     }];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    NSFetchRequest *userRequest = [User fetchRequest];
-    NSPredicate *userPredicate = [NSPredicate predicateWithFormat:@"email = %@",[KeychainWrapper load:@"userEmail"]];
-    [userRequest setPredicate:userPredicate];
-    User *currentUser = [User objectWithFetchRequest:userRequest];
-    
-    NSLog(@"current user: %@", currentUser);
-    for (id t in currentUser.transactions) {
-        Transaction *transaction = t;
-        NSLog(@"Transaction: %@", transaction.transactionDescription);
-    }
-    
-    NSLog(@"user transactions: %@", currentUser.transactions);
-    NSMutableArray *array = [NSMutableArray arrayWithArray:[currentUser.transactions allObjects]];
-    NSLog(@"user transactions as array: %@", array);
-    Transaction *first = [array objectAtIndex:0];
-    NSLog(@"first transaction: %@", first.transactionDescription);
-    
+    [self deselectAllCells];
+
+    unpaidBillsArray = [[NSMutableArray alloc] initWithCapacity:1];
+    paidBillsArray = [[NSMutableArray alloc] initWithCapacity:1];
     [self loadData];
     pull = [[PullToRefreshView alloc] initWithScrollView:self.tableView];
     pull.delegate = self;
@@ -85,38 +74,61 @@
 }
 
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    if ([pendingTransactions count] > 0) {
-        return [pendingTransactions count];
+    if (section == 0 ) {
+        if ([unpaidBillsArray count] > 0) {
+            return [unpaidBillsArray count];
+        }
     } else {
-        return 1;
+        if ([paidBillsArray count] > 0) {
+            return [paidBillsArray count];
+        }
     }
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     // Check for a reusable cell first, use that if it exists
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"billCell"];
+    TransactionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"billCell"];
     
     // If there is no reusable cell of this type, create a new one
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"billCell"];
+        cell = [[TransactionCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"billCell"];
     }
-
-    if ([pendingTransactions count] > 0) {
-        Transaction *transaction = [pendingTransactions objectAtIndex:indexPath.row];
-        cell.textLabel.text = transaction.transactionDescription;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"Amount due: $%@",transaction.amount];
-    } else {
-        cell.textLabel.text = @"No bills";
+    
+    if (indexPath.section == 0) {
+        // Unpaid bills
+        if ([unpaidBillsArray count] > 0) {
+            Transaction *transaction = [unpaidBillsArray objectAtIndex:indexPath.row];
+            [cell configureWithTransaction:transaction];
+        } else {
+            cell.transactionAmountLabel.text = @"You have no unpaid bills";
+        }
     }
+    else {
+        // Paid bills
+        if ([paidBillsArray count] > 0) {
+            Transaction *transaction = [paidBillsArray objectAtIndex:indexPath.row];
+            [cell configureWithTransaction:transaction];
+        } else {
+            cell.transactionAmountLabel.text = @"You have no paid bills";
+        }
+    }
+    //[cell showDescription:NO];
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.selectedRowIndex && ([self.selectedRowIndex compare:indexPath] == NSOrderedSame)) {
+        return 130;
+    } else {
+        return 85;
+    }
 }
 
 /*
@@ -154,28 +166,50 @@
 }
 */
 
+- (void)deselectAllCells {
+    for (int i = 0; i < [unpaidBillsArray count]; i++) {
+        TransactionCell *cell = (TransactionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        NSLog(@"cell: %@", cell);
+        [cell showDescription:NO];
+    }
+    for (int i = 0; i < [paidBillsArray count]; i++) {
+        TransactionCell *cell = (TransactionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1]];
+        NSLog(@"cell: %@", cell);
+        [cell showDescription:NO];
+    }
+}
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    [self deselectAllCells];
+    self.selectedRowIndex = indexPath;
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+    
+    TransactionCell *selectedCell = (TransactionCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    [selectedCell showDescription:YES];
 }
 
 #pragma mark RKObjectLoaderDelegate methods
-
-- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray*)objects {
-	NSLog(@"Loaded objects: %@", objects);
-    if (objects.count > 0) {
-        pendingTransactions = objects;
-        Transaction *transaction = [pendingTransactions objectAtIndex:0];
-        NSLog(@"transaction description: %@", transaction.transactionDescription);
-        [self.tableView reloadData];
+- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
+    User *user = object;
+    
+    [paidBillsArray removeAllObjects];
+    [unpaidBillsArray removeAllObjects];
+    for (id transaction in user.transactions) {
+        Transaction *t = transaction;
+        if ([t.sender_email isEqualToString:user.email]) {
+            if ([t.complete boolValue]) {
+                [paidBillsArray addObject:t];
+            } else {
+                [unpaidBillsArray addObject:t];
+            }
+        }
     }
+    //NSLog(@"unpaid bills: %@", unpaidBillsArray);
+    //NSLog(@"paid bills: %@", paidBillsArray);
+    [self.tableView reloadData];
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {

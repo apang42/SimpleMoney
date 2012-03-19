@@ -1,5 +1,5 @@
 //
-//  paidInvoicesViewController.m
+//  InvoicesViewController.m
 //  SimpleMoney
 //
 //  Created by Arthur Pang on 3/16/12.
@@ -7,18 +7,22 @@
 //
 
 #import "InvoicesViewController.h"
+#import <Foundation/Foundation.h>
 
 @interface InvoicesViewController (PrivateMethods)
 - (void)loadData;
 - (void)reloadTableData;
+- (void)deselectAllCells;
 @end
 
 @implementation InvoicesViewController
+@synthesize selectedRowIndex;
 
 - (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
@@ -28,6 +32,7 @@
 }
 
 - (void)reloadTableData {
+    [self deselectAllCells];
     [self loadData];
     [pull finishedLoading];
 }
@@ -35,14 +40,17 @@
 - (void)loadData {
     // Load the object model via RestKit	
     RKObjectManager* objectManager = [RKObjectManager sharedManager];
-    [objectManager loadObjectsAtResourcePath:[NSString stringWithFormat:@"/users/%@/invoices", [KeychainWrapper load:@"userID"]] delegate:self block:^(RKObjectLoader* loader) {
-        loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[Transaction class]];
+    [objectManager loadObjectsAtResourcePath:[NSString stringWithFormat:@"/users/%@", [KeychainWrapper load:@"userID"]] delegate:self block:^(RKObjectLoader* loader) {
+        loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[User class]];
     }];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self deselectAllCells];
     
+    unpaidInvoicesArray = [[NSMutableArray alloc] initWithCapacity:1];
+    paidInvoicesArray = [[NSMutableArray alloc] initWithCapacity:1];
     [self loadData];
     pull = [[PullToRefreshView alloc] initWithScrollView:self.tableView];
     pull.delegate = self;
@@ -66,38 +74,61 @@
 }
 
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    if ([paidInvoices count] > 0) {
-        return [paidInvoices count];
+    if (section == 0 ) {
+        if ([unpaidInvoicesArray count] > 0) {
+            return [unpaidInvoicesArray count];
+        }
     } else {
-        return 1;
+        if ([paidInvoicesArray count] > 0) {
+            return [paidInvoicesArray count];
+        }
     }
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     // Check for a reusable cell first, use that if it exists
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"invoiceCell"];
+    TransactionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"invoiceCell"];
     
     // If there is no reusable cell of this type, create a new one
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"invoiceCell"];
+        cell = [[TransactionCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"invoiceCell"];
     }
     
-    if ([paidInvoices count] > 0) {
-        Transaction *transaction = [paidInvoices objectAtIndex:indexPath.row];
-        cell.textLabel.text = transaction.transactionDescription;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"Amount paid: $%@",transaction.amount];
-    } else {
-        cell.textLabel.text = @"No invoices";
+    if (indexPath.section == 0) {
+        // Unpaid Invoices
+        if ([unpaidInvoicesArray count] > 0) {
+            Transaction *transaction = [unpaidInvoicesArray objectAtIndex:indexPath.row];
+            [cell configureWithTransaction:transaction];
+        } else {
+            cell.transactionAmountLabel.text = @"You have no unpaid Invoices";
+        }
     }
+    else {
+        // Paid Invoices
+        if ([paidInvoicesArray count] > 0) {
+            Transaction *transaction = [paidInvoicesArray objectAtIndex:indexPath.row];
+            [cell configureWithTransaction:transaction];
+        } else {
+            cell.transactionAmountLabel.text = @"You have no paid Invoices";
+        }
+    }
+    //[cell showDescription:NO];
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.selectedRowIndex && ([self.selectedRowIndex compare:indexPath] == NSOrderedSame)) {
+        return 130;
+    } else {
+        return 85;
+    }
 }
 
 /*
@@ -135,28 +166,50 @@
  }
  */
 
+- (void)deselectAllCells {
+    for (int i = 0; i < [unpaidInvoicesArray count]; i++) {
+        TransactionCell *cell = (TransactionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        NSLog(@"cell: %@", cell);
+        [cell showDescription:NO];
+    }
+    for (int i = 0; i < [paidInvoicesArray count]; i++) {
+        TransactionCell *cell = (TransactionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1]];
+        NSLog(@"cell: %@", cell);
+        [cell showDescription:NO];
+    }
+}
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    [self deselectAllCells];
+    self.selectedRowIndex = indexPath;
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+    
+    TransactionCell *selectedCell = (TransactionCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    [selectedCell showDescription:YES];
 }
 
 #pragma mark RKObjectLoaderDelegate methods
-
-- (void)objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray*)objects {
-	NSLog(@"Loaded objects: %@", objects);
-    if (objects.count > 0) {
-        paidInvoices = objects;
-        Transaction *transaction = [paidInvoices objectAtIndex:0];
-        NSLog(@"transaction description: %@", transaction.transactionDescription);
-        [self.tableView reloadData];
+- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
+    User *user = object;
+    
+    [paidInvoicesArray removeAllObjects];
+    [unpaidInvoicesArray removeAllObjects];
+    for (id transaction in user.transactions) {
+        Transaction *t = transaction;
+        if ([t.recipient_email isEqualToString:user.email]) {
+            if ([t.complete boolValue]) {
+                [paidInvoicesArray addObject:t];
+            } else {
+                [unpaidInvoicesArray addObject:t];
+            }
+        }
     }
+    //NSLog(@"unpaid Invoices: %@", unpaidInvoicesArray);
+    //NSLog(@"paid Invoices: %@", paidInvoicesArray);
+    [self.tableView reloadData];
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
@@ -186,5 +239,6 @@
 - (void)request:(RKRequest *)request didReceiveData:(NSInteger)bytesReceived totalBytesReceived:(NSInteger)totalBytesReceived totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
     
 }
+
 
 @end

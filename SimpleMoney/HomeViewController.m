@@ -17,6 +17,21 @@
 @synthesize accountName;
 @synthesize accountBalance;
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+	// Do any additional setup after loading the view, typically from a nib.
+    self.navigationItem.hidesBackButton = YES;
+
+    self.accountName.text = [KeychainWrapper load:@"userEmail"];
+    self.accountBalance.text = [KeychainWrapper load:@"userEmail"];
+    
+    // TODO: remove this code!
+    RKObjectManager* objectManager = [RKObjectManager sharedManager];
+    [objectManager loadObjectsAtResourcePath:[NSString stringWithFormat:@"/users/%@", [KeychainWrapper load:@"userID"]] delegate:self block:^(RKObjectLoader* loader) {
+        loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[User class]];
+    }];
+}
+
 // Sends a DELETE request to /users/sign_out
 - (IBAction)signOutButtonWasPressed:(id)sender {
     RKObjectManager *objectManager = [RKObjectManager sharedManager];
@@ -130,21 +145,6 @@
         // Custom initialization
     }
     return self;
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.hidesBackButton = YES;
-    
-    self.accountName.text = [KeychainWrapper load:@"userEmail"];
-    self.accountBalance.text = [KeychainWrapper load:@"userEmail"];
-
-    // TODO: remove this code!
-    RKObjectManager* objectManager = [RKObjectManager sharedManager];
-    [objectManager loadObjectsAtResourcePath:[NSString stringWithFormat:@"/users/%@", [KeychainWrapper load:@"userID"]] delegate:self block:^(RKObjectLoader* loader) {
-        loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[User class]];
-    }];
 }
 
 - (void)viewDidUnload {
