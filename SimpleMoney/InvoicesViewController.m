@@ -103,7 +103,12 @@
     
     unpaidInvoicesArray = [[NSMutableArray alloc] initWithCapacity:1];
     paidInvoicesArray = [[NSMutableArray alloc] initWithCapacity:1];
-    [self loadData];
+    
+    NSString *userEmail = [[NSUserDefaults standardUserDefaults] objectForKey:@"userEmail"];
+    NSPredicate *userPredicate = [NSPredicate predicateWithFormat:@"email == %@", userEmail];
+    User *user = [User objectWithPredicate:userPredicate];
+    [self loadObjectsFromDataStoreWithUser:user];
+    
     pull = [[PullToRefreshView alloc] initWithScrollView:self.tableView];
     pull.delegate = self;
     [self.tableView addSubview:pull];
