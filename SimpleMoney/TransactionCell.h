@@ -13,6 +13,7 @@
 #import "UIImageView+WebCache.h"
 #import "UIImageView+Curled.h"
 @interface TransactionCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UIImageView *userImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *emailLabel;

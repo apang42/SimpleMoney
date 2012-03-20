@@ -12,7 +12,8 @@
 @interface InvoicesViewController (PrivateMethods)
 - (void)loadData;
 - (void)reloadTableData;
-- (void)deselectAllCells;
+- (UIView *)unpaidHeaderView;
+- (UIView *)paidHeaderView;
 @end
 
 @implementation InvoicesViewController
@@ -27,12 +28,57 @@
     return self;
 }
 
+- (UIView *)unpaidHeaderView {
+    if (unpaidHeaderView) return unpaidHeaderView;
+    
+    float w = [[UIScreen mainScreen] bounds].size.width;
+    CGRect headerFrame = CGRectMake(0.0, 0.0, w, 40.0);
+    unpaidHeaderView = [[UIView alloc] initWithFrame:headerFrame];
+    unpaidHeaderView.backgroundColor = [UIColor clearColor];
+    
+    CGRect labelFrame = CGRectMake(20.0, 8.0, w-8.0, 20.0);
+    UILabel *label = [[UILabel alloc] initWithFrame:labelFrame];
+    label.backgroundColor = [UIColor clearColor];
+    label.text = @"Unpaid Invoices";
+    label.textAlignment = UITextAlignmentLeft;
+    label.textColor = [UIColor colorWithWhite:0.13 alpha:1];
+    label.shadowColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(0.0, 2.0);
+    label.font = [UIFont fontWithName:@"Helvetica-Light" size:18.0];
+    
+    [unpaidHeaderView addSubview:label];
+    
+    return unpaidHeaderView;
+}
+
+- (UIView *)paidHeaderView {
+    if (paidHeaderView) return paidHeaderView;
+    
+    float w = [[UIScreen mainScreen] bounds].size.width;
+    CGRect headerFrame = CGRectMake(0.0, 0.0, w, 40.0);
+    paidHeaderView = [[UIView alloc] initWithFrame:headerFrame];
+    paidHeaderView.backgroundColor = [UIColor clearColor];
+    
+    CGRect labelFrame = CGRectMake(20.0, 8.0, w-8.0, 20.0);
+    UILabel *label = [[UILabel alloc] initWithFrame:labelFrame];
+    label.backgroundColor = [UIColor clearColor];
+    label.text = @"Paid Invoices";
+    label.textAlignment = UITextAlignmentLeft;
+    label.textColor = [UIColor colorWithWhite:0.13 alpha:1];
+    label.shadowColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(0.0, 2.0);
+    label.font = [UIFont fontWithName:@"Helvetica-Light" size:18.0];
+    
+    [paidHeaderView addSubview:label];
+    
+    return paidHeaderView;
+}
+
 - (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view {
     [self reloadTableData];
 }
 
 - (void)reloadTableData {
-    [self deselectAllCells];
     [self loadData];
     [pull finishedLoading];
 }
@@ -45,9 +91,14 @@
     }];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self deselectAllCells];
     
     unpaidInvoicesArray = [[NSMutableArray alloc] initWithCapacity:1];
     paidInvoicesArray = [[NSMutableArray alloc] initWithCapacity:1];
@@ -57,7 +108,7 @@
     [self.tableView addSubview:pull];
     
     // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.clearsSelectionOnViewWillAppear = YES;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -92,6 +143,15 @@
     return 1;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (section == 0) return [self unpaidHeaderView];
+    else return [self paidHeaderView];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 40.0;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     // Check for a reusable cell first, use that if it exists
     TransactionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"invoiceCell"];
@@ -107,7 +167,8 @@
             Transaction *transaction = [unpaidInvoicesArray objectAtIndex:indexPath.row];
             [cell configureWithTransaction:transaction];
         } else {
-            cell.transactionAmountLabel.text = @"You have no unpaid Invoices";
+            cell = [tableView dequeueReusableCellWithIdentifier:@"emptyCell"];
+            cell.textLabel.text = @"You have no unpaid invoices";
         }
     }
     else {
@@ -116,14 +177,23 @@
             Transaction *transaction = [paidInvoicesArray objectAtIndex:indexPath.row];
             [cell configureWithTransaction:transaction];
         } else {
-            cell.transactionAmountLabel.text = @"You have no paid Invoices";
+            cell = [tableView dequeueReusableCellWithIdentifier:@"emptyCell"];
+            cell.textLabel.text = @"You have no paid invoices";
         }
     }
-    //[cell showDescription:NO];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case 0:
+            if (!unpaidInvoicesArray || !unpaidInvoicesArray.count) return 40;
+            break;
+            
+        default:
+            if (!paidInvoicesArray || !paidInvoicesArray.count) return 40;
+            break;
+    }
     if (self.selectedRowIndex && ([self.selectedRowIndex compare:indexPath] == NSOrderedSame)) {
         return 130;
     } else {
@@ -166,29 +236,17 @@
  }
  */
 
-- (void)deselectAllCells {
-    for (int i = 0; i < [unpaidInvoicesArray count]; i++) {
-        TransactionCell *cell = (TransactionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-        NSLog(@"cell: %@", cell);
-        [cell showDescription:NO];
-    }
-    for (int i = 0; i < [paidInvoicesArray count]; i++) {
-        TransactionCell *cell = (TransactionCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:1]];
-        NSLog(@"cell: %@", cell);
-        [cell showDescription:NO];
-    }
-}
-
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self deselectAllCells];
     self.selectedRowIndex = indexPath;
     [self.tableView beginUpdates];
     [self.tableView endUpdates];
     
     TransactionCell *selectedCell = (TransactionCell *)[self.tableView cellForRowAtIndexPath:indexPath];
-    [selectedCell showDescription:YES];
+    if (![selectedCell.reuseIdentifier isEqualToString:@"emptyCell"]){
+        [selectedCell showDescription:YES];   
+    }
 }
 
 #pragma mark RKObjectLoaderDelegate methods

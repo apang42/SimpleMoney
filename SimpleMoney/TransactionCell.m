@@ -21,6 +21,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+    [self showDescription:selected];
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
@@ -33,7 +34,6 @@
             self.dateLabel.alpha = 1.0;
             self.emailLabel.alpha = 1.0;
         } completion:^(BOOL finished){}];
-
     } else {
         [UIView animateWithDuration:0.12 delay:0.0 options:UIViewAnimationCurveEaseIn animations:^(void){
             self.dateLabel.alpha = 0.0;

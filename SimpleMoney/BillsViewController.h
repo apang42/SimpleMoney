@@ -20,6 +20,8 @@
     PullToRefreshView *pull;
     NSMutableArray *unpaidBillsArray;
     NSMutableArray *paidBillsArray;
+    UIView *unpaidHeaderView;
+    UIView *paidHeaderView;
 }
 
 @property (weak, nonatomic) NSIndexPath *selectedRowIndex;

@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-#define kSERVICE_URL @"http://192.168.1.10:3000/"
+#define kSERVICE_URL @"http://192.168.0.106:3000/"
 
 @implementation AppDelegate
 @synthesize window = _window;
