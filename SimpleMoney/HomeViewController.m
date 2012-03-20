@@ -7,7 +7,6 @@
 //
 
 #import "HomeViewController.h"
-#import "Transaction.h"
 
 @interface HomeViewController (PrivateMethods)
 - (void)signOut;
@@ -21,11 +20,12 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.hidesBackButton = YES;
-
+    
     self.accountName.text = [KeychainWrapper load:@"userEmail"];
-    self.accountBalance.text = [KeychainWrapper load:@"userEmail"];
+    self.accountBalance.text = [KeychainWrapper load:@"userBalance"];
     
     // TODO: remove this code!
+    
     RKObjectManager* objectManager = [RKObjectManager sharedManager];
     [objectManager loadObjectsAtResourcePath:[NSString stringWithFormat:@"/users/%@", [KeychainWrapper load:@"userID"]] delegate:self block:^(RKObjectLoader* loader) {
         loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[User class]];
@@ -82,7 +82,7 @@
                 break;
             case 1:
                 NSLog(@"SendMoney");
-                [self showPeoplePicker];
+                //[self showPeoplePicker];
                 break;
             case 2:
                 NSLog(@"RequestMoney");

@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <RestKit/RestKit.h>
 #import "KeychainWrapper.h"
 #import "AuthViewController.h"
 #import "HomeViewController.h"
 
-@interface InitialViewController : UIViewController
+@interface InitialViewController : UIViewController <RKObjectLoaderDelegate>
 
 @end

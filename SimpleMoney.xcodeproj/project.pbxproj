@@ -27,6 +27,7 @@
 		3C235A9F150C6C920036B08B /* CurledViewBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9C150C6C920036B08B /* CurledViewBase.m */; };
 		3C235AA0150C6C920036B08B /* UIImageView+Curled.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9E150C6C920036B08B /* UIImageView+Curled.m */; };
 		3C235AA4150C712D0036B08B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C235AA3150C712D0036B08B /* QuartzCore.framework */; };
+		3C29A6231518195B003AFA75 /* SendMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C29A6221518195B003AFA75 /* SendMoneyViewController.m */; };
 		3C5F9C84151138C300201B20 /* InitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5F9C83151138C300201B20 /* InitialViewController.m */; };
 		3C5F9C881511401F00201B20 /* KeychainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5F9C871511401F00201B20 /* KeychainWrapper.m */; };
 		3C75D62E15159B51004269B1 /* TransactionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C75D62D15159B51004269B1 /* TransactionCell.m */; };
@@ -157,6 +158,8 @@
 		3C235A9D150C6C920036B08B /* UIImageView+Curled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Curled.h"; sourceTree = "<group>"; };
 		3C235A9E150C6C920036B08B /* UIImageView+Curled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Curled.m"; sourceTree = "<group>"; };
 		3C235AA3150C712D0036B08B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		3C29A6211518195B003AFA75 /* SendMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMoneyViewController.h; sourceTree = "<group>"; };
+		3C29A6221518195B003AFA75 /* SendMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendMoneyViewController.m; sourceTree = "<group>"; };
 		3C5F9C82151138C300201B20 /* InitialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialViewController.h; sourceTree = "<group>"; };
 		3C5F9C83151138C300201B20 /* InitialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialViewController.m; sourceTree = "<group>"; };
 		3C5F9C861511401F00201B20 /* KeychainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainWrapper.h; sourceTree = "<group>"; };
@@ -292,6 +295,8 @@
 				3C5F9C83151138C300201B20 /* InitialViewController.m */,
 				3C0FC87E15114B2700A30E66 /* HomeViewController.h */,
 				3C0FC87F15114B2700A30E66 /* HomeViewController.m */,
+				3C29A6211518195B003AFA75 /* SendMoneyViewController.h */,
+				3C29A6221518195B003AFA75 /* SendMoneyViewController.m */,
 				3CF2B0F31514294D00B067B0 /* BillsViewController.h */,
 				3CF2B0F41514294D00B067B0 /* BillsViewController.m */,
 				3CF2B0F01514293800B067B0 /* InvoicesViewController.h */,
@@ -637,6 +642,7 @@
 				3C8714CB1514774200722C6C /* User.m in Sources */,
 				3C75D62E15159B51004269B1 /* TransactionCell.m in Sources */,
 				3C75D6311515B23E004269B1 /* Transaction.m in Sources */,
+				3C29A6231518195B003AFA75 /* SendMoneyViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,6 +20,5 @@
 - (IBAction)cancelButtonWasPressed;
 - (IBAction)signUpButtonWasPressed;
 - (IBAction)dismissKeyboard;
-- (void)sendRequest;
 
 @end

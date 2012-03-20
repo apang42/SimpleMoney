@@ -181,7 +181,6 @@
             cell.textLabel.text = @"You have no paid bills";
         }
     }
-    //[cell showDescription:NO];
     return cell;
 }
 
@@ -247,7 +246,7 @@
 #pragma mark RKObjectLoaderDelegate methods
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
     User *user = object;
-    
+
     [paidBillsArray removeAllObjects];
     [unpaidBillsArray removeAllObjects];
     for (id transaction in user.transactions) {

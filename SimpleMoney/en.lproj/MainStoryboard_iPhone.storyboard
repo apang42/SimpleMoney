@@ -170,15 +170,15 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="sendMoneyCell" textLabel="OtG-oW-dbq" style="IBUITableViewCellStyleDefault" id="VGj-r0-c1Z">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="sendMoneyCell" textLabel="OtG-oW-dbq" style="IBUITableViewCellStyleDefault" id="VGj-r0-c1Z">
                                         <rect key="frame" x="0.0" y="157" width="320" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="61"/>
+                                            <rect key="frame" x="10" y="0.0" width="280" height="61"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Send Money" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" id="OtG-oW-dbq">
-                                                    <rect key="frame" x="10" y="0.0" width="280" height="61"/>
+                                                    <rect key="frame" x="10" y="0.0" width="260" height="61"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" red="0.098039217293262482" green="0.098039217293262482" blue="0.098039217293262482" alpha="1" colorSpace="calibratedRGB"/>
@@ -189,6 +189,9 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <connections>
+                                            <segue destination="lhy-hk-41k" kind="push" id="aDm-zP-fBE"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="requestMoneyCell" textLabel="Ddj-Yq-aGT" style="IBUITableViewCellStyleDefault" id="Nkb-7P-tXp">
                                         <rect key="frame" x="0.0" y="219" width="320" height="62"/>
@@ -276,6 +279,74 @@
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="-164" y="932"/>
+        </scene>
+        <!--Send Money View Controller - Send Money-->
+        <scene sceneID="gLw-SC-tIj">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lab-7W-FxU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController title="Send Money" id="lhy-hk-41k" customClass="SendMoneyViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="REJ-IH-OiU" customClass="UIControl">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="To:" minimumFontSize="17" id="qZY-jL-vLa">
+                                <rect key="frame" x="20" y="20" width="280" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                <connections>
+                                    <outlet property="delegate" destination="lhy-hk-41k" id="WL6-9d-IgA"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Amount" minimumFontSize="17" id="2Ob-BK-Qjz">
+                                <rect key="frame" x="20" y="59" width="280" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="lhy-hk-41k" id="tb7-Nf-h4k"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" minimumFontSize="17" id="hc7-nR-rAG">
+                                <rect key="frame" x="20" y="98" width="280" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="lhy-hk-41k" id="01e-Mo-ugb"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="p5L-IB-7X6">
+                                <rect key="frame" x="20" y="137" width="280" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Send Money">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendMoneyButtonWasPressed" destination="lhy-hk-41k" eventType="touchUpInside" id="SfQ-yZ-vj1"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <connections>
+                            <action selector="dismissKeyboard" destination="lhy-hk-41k" eventType="valueChanged" id="VJA-it-5SH"/>
+                        </connections>
+                    </view>
+                    <navigationItem key="navigationItem" title="Send Money" id="cud-en-3Rh"/>
+                    <connections>
+                        <outlet property="amountTextField" destination="2Ob-BK-Qjz" id="U20-6m-4cF"/>
+                        <outlet property="descriptionTextField" destination="hc7-nR-rAG" id="UMV-7k-bIb"/>
+                        <outlet property="emailTextField" destination="qZY-jL-vLa" id="nKB-ri-lF5"/>
+                        <outlet property="view" destination="REJ-IH-OiU" id="QAH-li-JjV"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="236" y="336"/>
         </scene>
         <!--Tab Bar Controller - Transaction History-->
         <scene sceneID="N5y-bu-wb6">
@@ -953,6 +1024,16 @@
         </class>
         <class className="InvoicesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/InvoicesViewController.h"/>
+        </class>
+        <class className="SendMoneyViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SendMoneyViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="dismissKeyboard"/>
+                <relationship kind="action" name="sendMoneyButtonWasPressed"/>
+                <relationship kind="outlet" name="amountTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="descriptionTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
+            </relationships>
         </class>
         <class className="SignInViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SignInViewController.h"/>

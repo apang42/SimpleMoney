@@ -11,6 +11,7 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import "KeychainWrapper.h"
 #import "User.h"
+#import "Transaction.h"
 
 @interface HomeViewController : UITableViewController <RKObjectLoaderDelegate, ABPeoplePickerNavigationControllerDelegate>
 
