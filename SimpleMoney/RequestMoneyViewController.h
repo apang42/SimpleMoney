@@ -1,5 +1,5 @@
 //
-//  SendMoneyViewController.h
+//  RequestMoneyViewController.h
 //  SimpleMoney
 //
 //  Created by Arthur Pang on 3/19/12.
@@ -12,13 +12,13 @@
 #import "KeychainWrapper.h"
 #import "User.h"
 #import "Transaction.h"
-@interface SendMoneyViewController : UIViewController <UITextFieldDelegate, RKObjectLoaderDelegate, ABPeoplePickerNavigationControllerDelegate>
+@interface RequestMoneyViewController : UIViewController <UITextFieldDelegate, RKObjectLoaderDelegate, ABPeoplePickerNavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *amountTextField;
 @property (weak, nonatomic) IBOutlet UITextField *descriptionTextField;
 
-- (IBAction)sendMoneyButtonWasPressed;
+- (IBAction)requestMoneyButtonWasPressed;
 - (IBAction)addContactButtonWasPressed;
 - (IBAction)dismissKeyboard;
 

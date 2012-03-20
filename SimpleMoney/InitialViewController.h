@@ -11,6 +11,8 @@
 #import "KeychainWrapper.h"
 #import "AuthViewController.h"
 #import "HomeViewController.h"
+#import "User.h"
+#import "KeychainWrapper.h"
 
 @interface InitialViewController : UIViewController <RKObjectLoaderDelegate>
 

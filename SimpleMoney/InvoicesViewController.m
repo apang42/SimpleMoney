@@ -14,6 +14,7 @@
 - (void)reloadTableData;
 - (UIView *)unpaidHeaderView;
 - (UIView *)paidHeaderView;
+- (void)loadObjectsFromDataStoreWithUser:(User *)user;
 @end
 
 @implementation InvoicesViewController
@@ -249,9 +250,14 @@
     }
 }
 
-#pragma mark RKObjectLoaderDelegate methods
-- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
-    User *user = object;
+- (void)loadObjectsFromDataStoreWithUser:(User *)user {
+    NSString *userEmail = [[NSUserDefaults standardUserDefaults] objectForKey:@"userEmail"];
+    NSFetchRequest* request = [Transaction fetchRequest];
+    NSSortDescriptor* descriptor = [NSSortDescriptor sortDescriptorWithKey:@"created_at" ascending:NO];
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"(sender_email == %@ OR recipient_email == %@) AND user == %@", userEmail,userEmail,user];
+    [request setSortDescriptors:[NSArray arrayWithObject:descriptor]];
+    [request setPredicate:predicate];
+    NSArray *transactions = [Transaction objectsWithFetchRequest:request];
     
     [paidInvoicesArray removeAllObjects];
     [unpaidInvoicesArray removeAllObjects];
@@ -265,9 +271,18 @@
             }
         }
     }
-    //NSLog(@"unpaid Invoices: %@", unpaidInvoicesArray);
-    //NSLog(@"paid Invoices: %@", paidInvoicesArray);
+}
+
+#pragma mark RKObjectLoaderDelegate methods
+- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
+    User *user = object;
+    NSLog(@"user from objL: %@", user);
+    [[NSUserDefaults standardUserDefaults] setObject:user.email forKey:@"userEmail"];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+    [self loadObjectsFromDataStoreWithUser: user];
     [self.tableView reloadData];
+    
+
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {

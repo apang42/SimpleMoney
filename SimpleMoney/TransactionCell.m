@@ -54,12 +54,8 @@
 
     } else {
         [self.userImageView setImageWithURL:[NSURL URLWithString:transaction.recipient.avatarURLsmall] placeholderImage:[UIImage imageNamed:@"profile.png"]
-        success:^(UIImage *image) {
-            NSLog(@"Success!");
-        }
-        failure:^(NSError *error) {
-            NSLog(@"Failure!");
-        }];
+        success:^(UIImage *image) {}
+        failure:^(NSError *error) {}];
     }
     self.userImageView.layer.cornerRadius = 5.0;
     self.userImageView.layer.masksToBounds = YES;

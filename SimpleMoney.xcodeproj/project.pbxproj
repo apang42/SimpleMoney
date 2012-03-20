@@ -41,6 +41,7 @@
 		3C8714CB1514774200722C6C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8714CA1514774200722C6C /* User.m */; };
 		3C88E1801513EBDE002D5C7C /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C88E17E1513EBDD002D5C7C /* AddressBook.framework */; };
 		3C88E1811513EBDE002D5C7C /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C88E17F1513EBDD002D5C7C /* AddressBookUI.framework */; };
+		3CC0B734151836F10059A5F5 /* RequestMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC0B733151836F10059A5F5 /* RequestMoneyViewController.m */; };
 		3CE836821511637A00A72EAE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CE836811511637A00A72EAE /* MapKit.framework */; };
 		3CF24A3F150C74C40048A70B /* CurledViewBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9C150C6C920036B08B /* CurledViewBase.m */; };
 		3CF24A40150C74C40048A70B /* UIImageView+Curled.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9E150C6C920036B08B /* UIImageView+Curled.m */; };
@@ -180,6 +181,8 @@
 		3C88E17E1513EBDD002D5C7C /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		3C88E17F1513EBDD002D5C7C /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		3C9EC44315147278004A5563 /* CWLSynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWLSynthesizeSingleton.h; sourceTree = "<group>"; };
+		3CC0B732151836F10059A5F5 /* RequestMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestMoneyViewController.h; sourceTree = "<group>"; };
+		3CC0B733151836F10059A5F5 /* RequestMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestMoneyViewController.m; sourceTree = "<group>"; };
 		3CE836811511637A00A72EAE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3CF24A46150C80FC0048A70B /* UIButton+Curled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Curled.h"; sourceTree = "<group>"; };
 		3CF24A47150C80FC0048A70B /* UIButton+Curled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Curled.m"; sourceTree = "<group>"; };
@@ -297,6 +300,8 @@
 				3C0FC87F15114B2700A30E66 /* HomeViewController.m */,
 				3C29A6211518195B003AFA75 /* SendMoneyViewController.h */,
 				3C29A6221518195B003AFA75 /* SendMoneyViewController.m */,
+				3CC0B732151836F10059A5F5 /* RequestMoneyViewController.h */,
+				3CC0B733151836F10059A5F5 /* RequestMoneyViewController.m */,
 				3CF2B0F31514294D00B067B0 /* BillsViewController.h */,
 				3CF2B0F41514294D00B067B0 /* BillsViewController.m */,
 				3CF2B0F01514293800B067B0 /* InvoicesViewController.h */,
@@ -643,6 +648,7 @@
 				3C75D62E15159B51004269B1 /* TransactionCell.m in Sources */,
 				3C75D6311515B23E004269B1 /* Transaction.m in Sources */,
 				3C29A6231518195B003AFA75 /* SendMoneyViewController.m in Sources */,
+				3CC0B734151836F10059A5F5 /* RequestMoneyViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

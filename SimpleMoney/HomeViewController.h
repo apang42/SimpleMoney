@@ -8,18 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import <RestKit/Restkit.h>
-#import <AddressBookUI/AddressBookUI.h>
 #import "KeychainWrapper.h"
 #import "User.h"
 #import "Transaction.h"
 
-@interface HomeViewController : UITableViewController <RKObjectLoaderDelegate, ABPeoplePickerNavigationControllerDelegate>
+@interface HomeViewController : UITableViewController <RKObjectLoaderDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *accountName;
 @property (weak, nonatomic) IBOutlet UILabel *accountBalance;
 
 - (IBAction)signOutButtonWasPressed:(id)sender;
-- (void)selectPerson:(ABRecordRef)person;
-- (void)showPeoplePicker;
 
 @end

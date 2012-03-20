@@ -1,20 +1,20 @@
 //
-//  SendMoneyViewController.m
+//  RequestMoneyViewController.m
 //  SimpleMoney
 //
 //  Created by Arthur Pang on 3/19/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "SendMoneyViewController.h"
+#import "RequestMoneyViewController.h"
 
-@interface SendMoneyViewController (PrivateMethods)
+@interface RequestMoneyViewController (PrivateMethods)
 - (void)sendRequest;
 - (void)showPeoplePicker;
 - (void)selectPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier;
 @end
 
-@implementation SendMoneyViewController
+@implementation RequestMoneyViewController
 @synthesize emailTextField;
 @synthesize amountTextField;
 @synthesize descriptionTextField;
@@ -23,7 +23,7 @@
     [self.view endEditing:YES];
 }
 
-- (IBAction)sendMoneyButtonWasPressed {
+- (IBAction)requestMoneyButtonWasPressed {
     [self sendRequest];
 }
 
@@ -47,21 +47,21 @@
         NSLog(@"email : %@", email);
         emailTextField.text = email;
     } else {
-     email = @"no email address";
+        email = @"no email address";
     }
 }
 
 - (void)sendRequest {
     if ([emailTextField.text isEqualToString:[KeychainWrapper load:@"userEmail"]]) {
-        // You shouldn't be able to send money to yourself.
+        // You shouldn't be able to request money from yourself.
     }
     RKObjectManager *objectManager = [RKObjectManager sharedManager];
-    [objectManager loadObjectsAtResourcePath:@"/transactions" delegate:self block:^(RKObjectLoader* loader) {
+    [objectManager loadObjectsAtResourcePath:@"/invoices" delegate:self block:^(RKObjectLoader* loader) {
         RKParams *params = [RKParams params];
-        [params setValue:emailTextField.text forParam:@"transaction[recipient_email]"];
+        [params setValue:emailTextField.text forParam:@"transaction[sender_email]"];
         [params setValue:amountTextField.text forParam:@"transaction[amount]"];
         [params setValue:descriptionTextField.text forParam:@"transaction[description]"];
-        [params setValue:@"true" forParam:@"transaction[complete]"];
+        [params setValue:@"false" forParam:@"transaction[complete]"];
         loader.params = params;
         loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[User class]];
         loader.method = RKRequestMethodPOST;

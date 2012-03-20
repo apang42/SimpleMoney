@@ -14,6 +14,7 @@
 - (void)reloadTableData;
 - (UIView *)unpaidHeaderView;
 - (UIView *)paidHeaderView;
+- (void)loadObjectsFromDataStoreWithUser:(User *)user;
 @end
 
 @implementation BillsViewController
@@ -99,19 +100,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.clearsSelectionOnViewWillAppear = YES;
     unpaidBillsArray = [[NSMutableArray alloc] initWithCapacity:1];
     paidBillsArray = [[NSMutableArray alloc] initWithCapacity:1];
     [self loadData];
     pull = [[PullToRefreshView alloc] initWithScrollView:self.tableView];
     pull.delegate = self;
     [self.tableView addSubview:pull];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    self.clearsSelectionOnViewWillAppear = YES;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewDidUnload {
@@ -243,15 +238,20 @@
     [self.tableView endUpdates];
 }
 
-#pragma mark RKObjectLoaderDelegate methods
-- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
-    User *user = object;
-
+- (void)loadObjectsFromDataStoreWithUser:(User *)user {
+    NSString *userEmail = [[NSUserDefaults standardUserDefaults] objectForKey:@"userEmail"];
+    NSFetchRequest* request = [Transaction fetchRequest];
+    NSSortDescriptor* descriptor = [NSSortDescriptor sortDescriptorWithKey:@"created_at" ascending:NO];
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"(sender_email == %@ OR recipient_email == %@) AND user == %@", userEmail,userEmail,user];
+    [request setSortDescriptors:[NSArray arrayWithObject:descriptor]];
+    [request setPredicate:predicate];
+    NSArray *transactions = [Transaction objectsWithFetchRequest:request];
+    
     [paidBillsArray removeAllObjects];
     [unpaidBillsArray removeAllObjects];
-    for (id transaction in user.transactions) {
+    for (id transaction in transactions) {
         Transaction *t = transaction;
-        if ([t.sender_email isEqualToString:user.email]) {
+        if ([t.sender_email isEqualToString:[KeychainWrapper load:@"userEmail"]]) {
             if ([t.complete boolValue]) {
                 [paidBillsArray addObject:t];
             } else {
@@ -259,6 +259,15 @@
             }
         }
     }
+}
+
+#pragma mark RKObjectLoaderDelegate methods
+- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
+    User *user = object;
+    NSLog(@"user from objL: %@", user);
+    [[NSUserDefaults standardUserDefaults] setObject:user.email forKey:@"userEmail"];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+    [self loadObjectsFromDataStoreWithUser: user];
     [self.tableView reloadData];
 }
 

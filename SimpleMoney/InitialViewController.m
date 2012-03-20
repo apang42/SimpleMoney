@@ -54,6 +54,10 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
     NSLog(@"loaded: %@",object);
+    User *user = object;
+    [KeychainWrapper save:@"userID" data:user.userID];
+    [KeychainWrapper save:@"userEmail" data:user.email];
+    [KeychainWrapper save:@"userBalance" data:user.balance];
 }
 
 - (void)viewDidUnload {
