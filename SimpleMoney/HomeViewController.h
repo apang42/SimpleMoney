@@ -11,11 +11,15 @@
 #import "KeychainWrapper.h"
 #import "User.h"
 #import "Transaction.h"
+#import "UIImage+ScaledImage.h"
+#import "UIImageView+WebCache.h"
+#import "UIImageView+Curled.h"
 
 @interface HomeViewController : UITableViewController <RKObjectLoaderDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *accountName;
 @property (weak, nonatomic) IBOutlet UILabel *accountBalance;
+@property (weak, nonatomic) IBOutlet UIImageView *accountImage;
 
 - (IBAction)signOutButtonWasPressed:(id)sender;
 

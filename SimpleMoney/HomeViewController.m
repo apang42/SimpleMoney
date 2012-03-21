@@ -29,6 +29,18 @@
     self.navigationItem.hidesBackButton = YES;
     self.accountName.text = [KeychainWrapper load:@"userEmail"];
     self.accountBalance.text = [NSString stringWithFormat:@"Balance: %@", [[KeychainWrapper load:@"userBalance"] stringValue]];
+    NSString *avatarURL = [KeychainWrapper load:@"userAvatarSmall"];
+    if ([avatarURL isEqualToString:@"/images/small/missing.png"]) {
+        
+    } else {
+        [self.accountImage setImageWithURL:[NSURL URLWithString:avatarURL] placeholderImage:[UIImage imageNamed:@"profile.png"]
+                                    success:^(UIImage *image) {}
+                                    failure:^(NSError *error) {}];
+    }
+    self.accountImage.layer.cornerRadius = 5.0;
+    self.accountImage.layer.masksToBounds = YES;
+    
+    
 }
 
 // Sends a DELETE request to /users/sign_out

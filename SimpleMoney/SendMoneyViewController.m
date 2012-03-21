@@ -24,10 +24,11 @@
 }
 
 - (IBAction)sendMoneyButtonWasPressed {
+    [self dismissKeyboard];
     [self sendRequest];
     loadingIndicator = [[MBProgressHUD alloc] initWithView:self.view];
     loadingIndicator.delegate = self;
-    [self.view.window addSubview:loadingIndicator];
+    [self.view addSubview:loadingIndicator];
     loadingIndicator.dimBackground = YES;
     [loadingIndicator show:YES];
 }
@@ -117,7 +118,10 @@
 
 # pragma mark - RKObjectLoader Delegate methods
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-	NSLog(@"RKObjectLoader failed with error: %@", error);    
+	NSLog(@"RKObjectLoader failed with error: %@", error);
+    loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"error"]];
+    loadingIndicator.mode = MBProgressHUDModeCustomView;
+    [loadingIndicator hide:YES afterDelay:1];
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
@@ -126,7 +130,6 @@
     loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark"]];
     loadingIndicator.mode = MBProgressHUDModeCustomView;
     [loadingIndicator hide:YES afterDelay:1];
-    [self.view endEditing:YES];
 }
 
 - (void)viewDidLoad {

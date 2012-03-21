@@ -65,6 +65,7 @@
         [KeychainWrapper save:@"userID" data:user.userID];
         [KeychainWrapper save:@"userEmail" data:user.email];
         [KeychainWrapper save:@"userBalance" data:user.balance];
+        [KeychainWrapper save:@"userAvatarSmall" data:user.avatarURLsmall];
         [KeychainWrapper save:@"userPassword" data:self.passwordTextField.text];
     }
     NSLog(@"about to perform segue");

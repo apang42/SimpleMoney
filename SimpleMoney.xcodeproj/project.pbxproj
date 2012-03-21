@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C0C1331151A4ED800D034B8 /* error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C0C132F151A4ED800D034B8 /* error@2x.png */; };
+		3C0C1332151A4ED800D034B8 /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C0C1330151A4ED800D034B8 /* error.png */; };
 		3C0FC88015114B2700A30E66 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0FC87F15114B2700A30E66 /* HomeViewController.m */; };
 		3C0FC88315114BF800A30E66 /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0FC88215114BF800A30E66 /* AuthViewController.m */; };
 		3C12D3C9150C45F9000915A5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C12D3C8150C45F9000915A5 /* UIKit.framework */; };
@@ -157,6 +159,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C0C132F151A4ED800D034B8 /* error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error@2x.png"; sourceTree = "<group>"; };
+		3C0C1330151A4ED800D034B8 /* error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error.png; sourceTree = "<group>"; };
 		3C0FC87E15114B2700A30E66 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		3C0FC87F15114B2700A30E66 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		3C0FC88115114BF800A30E66 /* AuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthViewController.h; sourceTree = "<group>"; };
@@ -428,6 +432,8 @@
 		3C12D40E150C64C6000915A5 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				3C0C132F151A4ED800D034B8 /* error@2x.png */,
+				3C0C1330151A4ED800D034B8 /* error.png */,
 				3CF2B0FA15142F3300B067B0 /* arrow.png */,
 				3CF2B0FB15142F3300B067B0 /* arrow@2x.png */,
 				3CF24A87150D6BA70048A70B /* photobutton.png */,
@@ -765,6 +771,8 @@
 				3C7CB1B6150DD6500056E1FD /* checkmark@2x.png in Resources */,
 				3CF2B0FC15142F3300B067B0 /* arrow.png in Resources */,
 				3CF2B0FD15142F3300B067B0 /* arrow@2x.png in Resources */,
+				3C0C1331151A4ED800D034B8 /* error@2x.png in Resources */,
+				3C0C1332151A4ED800D034B8 /* error.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -125,8 +125,12 @@
                                             <rect key="frame" x="10" y="1" width="300" height="61"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="profile.png" id="Jco-J1-uJm">
+                                                    <rect key="frame" x="10" y="11" width="40" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" id="DPd-uc-6HC">
-                                                    <rect key="frame" x="20" y="13" width="260" height="25"/>
+                                                    <rect key="frame" x="58" y="11" width="209" height="25"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
@@ -135,7 +139,7 @@
                                                     <size key="shadowOffset" width="0.0" height="1"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Balance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" id="v0j-94-uRg">
-                                                    <rect key="frame" x="20" y="29" width="260" height="25"/>
+                                                    <rect key="frame" x="58" y="26" width="209" height="25"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
@@ -281,6 +285,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="accountBalance" destination="v0j-94-uRg" id="mKf-sL-gUK"/>
+                        <outlet property="accountImage" destination="Jco-J1-uJm" id="5Wi-j4-0Cj"/>
                         <outlet property="accountName" destination="DPd-uc-6HC" id="yh7-9d-bMw"/>
                         <segue destination="xgE-ZP-IL1" identifier="loggedOutSegue" kind="modal" id="yBi-Pc-x96"/>
                     </connections>
@@ -398,7 +403,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DsU-tg-Ugt" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="C3F-xG-P6O" customClass="QRViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="D6P-9X-Ei6">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -1139,6 +1144,7 @@
             <relationships>
                 <relationship kind="action" name="signOutButtonWasPressed:"/>
                 <relationship kind="outlet" name="accountBalance" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="accountImage" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="accountName" candidateClass="UILabel"/>
             </relationships>
         </class>
