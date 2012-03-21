@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ZXingWidgetController.h>
+#import <QRCodeReader.h>
 
-@interface QRViewController : UIViewController
+@interface QRViewController : UIViewController <ZXingDelegate>
 
 @end
