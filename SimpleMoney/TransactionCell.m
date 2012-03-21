@@ -42,18 +42,25 @@
     }
 }
 
-- (void)configureWithTransaction:(Transaction *)transaction {
-    self.nameLabel.text = transaction.recipient.name;
-    self.emailLabel.text = transaction.recipient.email;
-    self.descriptionLabel.text = transaction.transactionDescription;
+- (void)configureWithTransaction:(Transaction *)transaction isBill:(BOOL)bill {
+    NSString *avatarURL = nil;
+    if (bill) {
+        self.nameLabel.text = transaction.recipient.name;
+        self.emailLabel.text = transaction.recipient_email;
+        self.descriptionLabel.text = transaction.transactionDescription;
+        avatarURL = transaction.recipient.avatarURLsmall;
+    } else {
+        self.nameLabel.text = transaction.sender.name;
+        self.emailLabel.text = transaction.sender_email;
+        self.descriptionLabel.text = transaction.transactionDescription;
+        avatarURL = transaction.sender.avatarURLsmall;
+    }
     self.transactionAmountLabel.text = [NSString stringWithFormat:@"Amount: $%@",transaction.amount];
     self.dateLabel.text = [NSDateFormatter localizedStringFromDate:transaction.created_at dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
-    
-    NSString *avatarURL = transaction.recipient.avatarURLsmall;
     if ([avatarURL isEqualToString:@"/images/small/missing.png"]) {
 
     } else {
-        [self.userImageView setImageWithURL:[NSURL URLWithString:transaction.recipient.avatarURLsmall] placeholderImage:[UIImage imageNamed:@"profile.png"]
+        [self.userImageView setImageWithURL:[NSURL URLWithString:avatarURL] placeholderImage:[UIImage imageNamed:@"profile.png"]
         success:^(UIImage *image) {}
         failure:^(NSError *error) {}];
     }

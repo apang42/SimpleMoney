@@ -21,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
-- (void)configureWithTransaction:(Transaction *)transaction;
+- (void)configureWithTransaction:(Transaction *)transaction isBill:(BOOL)bill;
 - (void)showDescription:(BOOL)shown;
 
 @end

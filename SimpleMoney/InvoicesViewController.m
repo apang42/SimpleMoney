@@ -100,14 +100,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.clearsSelectionOnViewWillAppear = YES;
     unpaidInvoicesArray = [[NSMutableArray alloc] initWithCapacity:1];
     paidInvoicesArray = [[NSMutableArray alloc] initWithCapacity:1];
     
-    NSString *userEmail = [[NSUserDefaults standardUserDefaults] objectForKey:@"userEmail"];
-    NSPredicate *userPredicate = [NSPredicate predicateWithFormat:@"email == %@", userEmail];
+    NSPredicate *userPredicate = [NSPredicate predicateWithFormat:@"email == %@", [KeychainWrapper load:@"userEmail"]];
     User *user = [User objectWithPredicate:userPredicate];
     [self loadObjectsFromDataStoreWithUser:user];
+    NSLog(@"viewdidload user: %@", user);
+    
+    if (!user.transactions || !user.transactions.count) {
+        [self loadData];
+    }
     
     pull = [[PullToRefreshView alloc] initWithScrollView:self.tableView];
     pull.delegate = self;
@@ -171,7 +175,7 @@
         // Unpaid Invoices
         if ([unpaidInvoicesArray count] > 0) {
             Transaction *transaction = [unpaidInvoicesArray objectAtIndex:indexPath.row];
-            [cell configureWithTransaction:transaction];
+            [cell configureWithTransaction:transaction isBill:NO];
         } else {
             cell = [tableView dequeueReusableCellWithIdentifier:@"emptyCell"];
             cell.textLabel.text = @"You have no unpaid invoices";
@@ -181,7 +185,7 @@
         // Paid Invoices
         if ([paidInvoicesArray count] > 0) {
             Transaction *transaction = [paidInvoicesArray objectAtIndex:indexPath.row];
-            [cell configureWithTransaction:transaction];
+            [cell configureWithTransaction:transaction isBill:NO];
         } else {
             cell = [tableView dequeueReusableCellWithIdentifier:@"emptyCell"];
             cell.textLabel.text = @"You have no paid invoices";
@@ -256,19 +260,15 @@
 }
 
 - (void)loadObjectsFromDataStoreWithUser:(User *)user {
-    NSString *userEmail = [[NSUserDefaults standardUserDefaults] objectForKey:@"userEmail"];
-    NSFetchRequest* request = [Transaction fetchRequest];
     NSSortDescriptor* descriptor = [NSSortDescriptor sortDescriptorWithKey:@"created_at" ascending:NO];
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"(sender_email == %@ OR recipient_email == %@) AND user == %@", userEmail,userEmail,user];
-    [request setSortDescriptors:[NSArray arrayWithObject:descriptor]];
-    [request setPredicate:predicate];
-    NSArray *transactions = [Transaction objectsWithFetchRequest:request];
-    
+    NSArray *descriptors = [NSArray arrayWithObjects:descriptor, nil];
+    NSArray *transactions = [[user.transactions allObjects] sortedArrayUsingDescriptors:descriptors];
+    NSLog(@"transactions: %@", transactions);
     [paidInvoicesArray removeAllObjects];
     [unpaidInvoicesArray removeAllObjects];
-    for (id transaction in user.transactions) {
+    for (id transaction in transactions) {
         Transaction *t = transaction;
-        if ([t.recipient_email isEqualToString:user.email]) {
+        if ([t.recipient_email isEqualToString:[KeychainWrapper load:@"userEmail"]]) {
             if ([t.complete boolValue]) {
                 [paidInvoicesArray addObject:t];
             } else {
@@ -281,13 +281,10 @@
 #pragma mark RKObjectLoaderDelegate methods
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
     User *user = object;
-    NSLog(@"user from objL: %@", user);
     [[NSUserDefaults standardUserDefaults] setObject:user.email forKey:@"userEmail"];
 	[[NSUserDefaults standardUserDefaults] synchronize];
-    [self loadObjectsFromDataStoreWithUser: user];
+    [self loadObjectsFromDataStoreWithUser:user];
     [self.tableView reloadData];
-    
-
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {

@@ -14,6 +14,8 @@
 @synthesize window = _window;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSString* appID = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
+    NSLog(@"%@", appID);
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
     [[UITabBar appearance] setTintColor:[UIColor colorWithWhite:0.9 alpha:1.0]];
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithWhite:0.9 alpha:1.0]];
@@ -59,7 +61,6 @@
     
     // Map the JSON params to our Core Data Transaction model
     RKManagedObjectMapping* transactionMapping = [RKManagedObjectMapping mappingForClass:[Transaction class]];
-    transactionMapping.primaryKeyAttribute = @"transactionID";
     [transactionMapping mapKeyPath:@"id" toAttribute:@"transactionID"];
     [transactionMapping mapKeyPath:@"amount" toAttribute:@"amount"];
     [transactionMapping mapKeyPath:@"sender_email" toAttribute:@"sender_email"];
@@ -68,6 +69,7 @@
     [transactionMapping mapKeyPath:@"description" toAttribute:@"transactionDescription"];
     [transactionMapping mapKeyPath:@"created_at" toAttribute:@"created_at"];
     [transactionMapping mapKeyPath:@"updated_at" toAttribute:@"updated_at"];
+    transactionMapping.primaryKeyAttribute = @"transactionID";
         
     // Setup relationships
     [userMapping hasMany:@"transactions" withMapping:transactionMapping];
