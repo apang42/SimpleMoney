@@ -25,6 +25,11 @@
 
 - (IBAction)sendMoneyButtonWasPressed {
     [self sendRequest];
+    loadingIndicator = [[MBProgressHUD alloc] initWithView:self.view];
+    loadingIndicator.delegate = self;
+    [self.view.window addSubview:loadingIndicator];
+    loadingIndicator.dimBackground = YES;
+    [loadingIndicator show:YES];
 }
 
 - (IBAction)addContactButtonWasPressed {
@@ -81,6 +86,18 @@
     return YES;
 }
 
+#pragma mark MBProgressHUDDelegate methods
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+    // Remove HUD from screen when the HUD was hidded
+    [hud removeFromSuperview];
+    hud = nil;
+}
+
+- (void)request:(RKRequest *)request didReceiveData:(NSInteger)bytesReceived totalBytesReceived:(NSInteger)totalBytesReceived totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
+    NSLog(@"RKRequest did receive data");
+}
+
 # pragma mark - ABPeoplePickerNavigationController delegate methods
 
 - (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker {
@@ -106,6 +123,10 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
     Transaction *t = object;
     NSLog(@"Transaction loaded: %@",t);
+    loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark"]];
+    loadingIndicator.mode = MBProgressHUDModeCustomView;
+    [loadingIndicator hide:YES afterDelay:1];
+    [self.view endEditing:YES];
 }
 
 - (void)viewDidLoad {

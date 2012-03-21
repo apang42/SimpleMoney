@@ -12,7 +12,11 @@
 #import "KeychainWrapper.h"
 #import "User.h"
 #import "Transaction.h"
-@interface SendMoneyViewController : UIViewController <UITextFieldDelegate, RKObjectLoaderDelegate, ABPeoplePickerNavigationControllerDelegate>
+#import "MBProgressHUD.h"
+
+@interface SendMoneyViewController : UIViewController <UITextFieldDelegate, RKObjectLoaderDelegate, ABPeoplePickerNavigationControllerDelegate, MBProgressHUDDelegate> {
+    MBProgressHUD *loadingIndicator;
+}
 
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *amountTextField;

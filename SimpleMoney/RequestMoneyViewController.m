@@ -25,6 +25,11 @@
 
 - (IBAction)requestMoneyButtonWasPressed {
     [self sendRequest];
+    loadingIndicator = [[MBProgressHUD alloc] initWithView:self.view];
+    loadingIndicator.delegate = self;
+    [self.view.window addSubview:loadingIndicator];
+    loadingIndicator.dimBackground = YES;
+    [loadingIndicator show:YES];
 }
 
 - (IBAction)addContactButtonWasPressed {
@@ -106,6 +111,10 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
     Transaction *t = object;
     NSLog(@"Transaction loaded: %@",t);
+    loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark"]];
+    loadingIndicator.mode = MBProgressHUDModeCustomView;
+    [loadingIndicator hide:YES afterDelay:1];
+    [self.view endEditing:YES];
 }
 
 - (void)viewDidLoad {

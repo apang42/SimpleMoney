@@ -61,7 +61,6 @@
     [self.tableView.window addSubview:loadingIndicator];
     loadingIndicator.dimBackground = YES;
     [loadingIndicator show:YES];
-
 }
 
 - (IBAction)dismissKeyboard {
