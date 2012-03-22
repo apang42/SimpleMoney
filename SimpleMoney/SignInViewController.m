@@ -53,7 +53,8 @@
 
 # pragma mark - RKObjectLoader Delegate methods
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-	NSLog(@"RKObjectLoader failed with error: %@", error);    
+	NSLog(@"RKObjectLoader failed with error: %@", error);
+    // TODO: Display error message
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
@@ -70,6 +71,7 @@
     }
     NSLog(@"about to perform segue");
     [self performSegueWithIdentifier:@"signInSegue" sender:self];
+    // TODO: Display error message
 }
 
 - (void)viewDidLoad {

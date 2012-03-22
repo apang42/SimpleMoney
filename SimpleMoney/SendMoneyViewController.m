@@ -59,7 +59,7 @@
 
 - (void)sendRequest {
     if ([emailTextField.text isEqualToString:[KeychainWrapper load:@"userEmail"]]) {
-        // You shouldn't be able to send money to yourself.
+        // TODO: Display error - Can't send money to yourself.
     }
     RKObjectManager *objectManager = [RKObjectManager sharedManager];
     [objectManager loadObjectsAtResourcePath:@"/transactions" delegate:self block:^(RKObjectLoader* loader) {
@@ -95,10 +95,6 @@
     hud = nil;
 }
 
-- (void)request:(RKRequest *)request didReceiveData:(NSInteger)bytesReceived totalBytesReceived:(NSInteger)totalBytesReceived totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
-    NSLog(@"RKRequest did receive data");
-}
-
 # pragma mark - ABPeoplePickerNavigationController delegate methods
 
 - (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker {
@@ -106,7 +102,6 @@
 }
 
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person {
-    // What should we do once we select a user?
     return YES;
 }
 
@@ -119,6 +114,7 @@
 # pragma mark - RKObjectLoader Delegate methods
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
 	NSLog(@"RKObjectLoader failed with error: %@", error);
+    // TODO: Display error
     loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"error"]];
     loadingIndicator.mode = MBProgressHUDModeCustomView;
     [loadingIndicator hide:YES afterDelay:1];
@@ -127,6 +123,7 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
     Transaction *t = object;
     NSLog(@"Transaction loaded: %@",t);
+    // TODO: Display transaction information in success indicator
     loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark"]];
     loadingIndicator.mode = MBProgressHUDModeCustomView;
     [loadingIndicator hide:YES afterDelay:1];
@@ -134,11 +131,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
     [emailTextField setBorderStyle:UITextBorderStyleRoundedRect];
     [amountTextField setBorderStyle:UITextBorderStyleRoundedRect];
     [descriptionTextField setBorderStyle:UITextBorderStyleRoundedRect];
-    
     [amountTextField setKeyboardType:UIKeyboardTypeDecimalPad];
 }
 

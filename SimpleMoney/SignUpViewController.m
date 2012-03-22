@@ -179,34 +179,17 @@
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
 	NSLog(@"RKObjectLoader failed with error: %@", error);
+    // TODO: Display error message
 }
 
 #pragma mark RKRequest delegate methods
-- (void)requestDidStartLoad:(RKRequest *)request {
-    NSLog(@"RKRequest did start load");
-}
-
-- (void)requestDidCancelLoad:(RKRequest *)request {
-    NSLog(@"RKRequest did cancel load");
-    [loadingIndicator hide:YES];
-}
-
 - (void)requestDidTimeout:(RKRequest *)request {
     NSLog(@"RKRequest did timeout");
     [loadingIndicator hide:YES];
-}
-
-- (void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error {
-    RKLogError(@"Load of RKRequest %@ failed with error: %@", request, error);
-    [loadingIndicator hide:YES];
-}
-
-- (void)request:(RKRequest *)request didLoadResponse:(RKResponse *)response {
-    RKLogCritical(@"Loading of RKRequest %@ completed with status code %d. Response body: %@", request, response.statusCode, [response bodyAsString]);
+    // TODO: Display timeout error message
 }
 
 #pragma mark MBProgressHUDDelegate methods
-
 - (void)hudWasHidden:(MBProgressHUD *)hud {
     // Remove HUD from screen when the HUD was hidded
     [hud removeFromSuperview];
@@ -224,22 +207,8 @@
     [backgroundImage setFrame:self.tableView.frame];
     self.tableView.backgroundView = backgroundImage;
 
+    // Set blank profile image
     [profileButton setImage:[UIImage imageNamed:@"profile"] borderWidth:5.0 shadowDepth:7.0 controlPointXOffset:30.0 controlPointYOffset:75.0 forState:UIControlStateNormal];
-    
-    /*
-     UIImageView *imageView = [[UIImageView alloc] init];
-     [imageView setImageWithURL:[NSURL URLWithString:@"http://s3.amazonaws.com/simpleMoney-dev/user/avatars/medium/1.jpg?1331514073"] placeholderImage:[UIImage imageNamed:@"profile"]
-     success:^(UIImage *image) {
-     NSLog(@"Success!");
-     // Apply the border and shadow to the profile photo button
-     [profileButton setImage:image borderWidth:5.0 shadowDepth:7.0 controlPointXOffset:30.0 controlPointYOffset:75.0 forState:UIControlStateNormal];
-     
-     }
-     failure:^(NSError *error) {
-     NSLog(@"Failure!");
-     }];
-     */
-    
 }
 
 - (void)viewDidUnload {

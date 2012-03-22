@@ -18,6 +18,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    // Fetch fresh user data from the server.
     RKObjectManager* objectManager = [RKObjectManager sharedManager];
     [objectManager loadObjectsAtResourcePath:[NSString stringWithFormat:@"/users/%@", [KeychainWrapper load:@"userID"]] delegate:self block:^(RKObjectLoader* loader) {
         loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[User class]];
@@ -27,20 +29,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.hidesBackButton = YES;
+    
     self.accountName.text = [KeychainWrapper load:@"userEmail"];
     self.accountBalance.text = [NSString stringWithFormat:@"Balance: %@", [[KeychainWrapper load:@"userBalance"] stringValue]];
     NSString *avatarURL = [KeychainWrapper load:@"userAvatarSmall"];
-    if ([avatarURL isEqualToString:@"/images/small/missing.png"]) {
-        
-    } else {
+    
+    if (![avatarURL isEqualToString:@"/images/small/missing.png"]) {
         [self.accountImage setImageWithURL:[NSURL URLWithString:avatarURL] placeholderImage:[UIImage imageNamed:@"profile.png"]
-                                    success:^(UIImage *image) {}
-                                    failure:^(NSError *error) {}];
+                                   success:^(UIImage *image) {}
+                                   failure:^(NSError *error) {}];
     }
+    
     self.accountImage.layer.cornerRadius = 5.0;
     self.accountImage.layer.masksToBounds = YES;
-    
-    
 }
 
 // Sends a DELETE request to /users/sign_out
@@ -51,13 +52,19 @@
         loader.method = RKRequestMethodDELETE;
     }];
     [self performSegueWithIdentifier:@"loggedOutSegue" sender:self];
+    
+    // Delete the user's data from the keychain.
+    [KeychainWrapper delete:@"userID"];
     [KeychainWrapper delete:@"userEmail"];
+    [KeychainWrapper delete:@"userBalance"];
+    [KeychainWrapper delete:@"userAvatarSmall"];
     [KeychainWrapper delete:@"userPassword"];
 }
 
 # pragma mark - RKObjectLoader Delegate methods
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-	NSLog(@"RKObjectLoader failed with error: %@", error);    
+	NSLog(@"RKObjectLoader failed with error: %@", error);
+    // TODO: Display error message via HUD
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
