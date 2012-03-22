@@ -24,9 +24,6 @@
     NSString *userEmail = [KeychainWrapper load:@"userEmail"];
     NSString *userPassword = [KeychainWrapper load:@"userPassword"];
     
-    //[KeychainWrapper delete:@"userEmail"];
-    //[KeychainWrapper delete:@"userPassword"];
-    
     NSLog(@"keychain email: %@", userEmail);
     NSLog(@"keychain password: %@", userPassword);
     

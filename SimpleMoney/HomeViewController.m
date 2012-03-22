@@ -51,6 +51,8 @@
         loader.method = RKRequestMethodDELETE;
     }];
     [self performSegueWithIdentifier:@"loggedOutSegue" sender:self];
+    [KeychainWrapper delete:@"userEmail"];
+    [KeychainWrapper delete:@"userPassword"];
 }
 
 # pragma mark - RKObjectLoader Delegate methods
