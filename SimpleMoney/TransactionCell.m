@@ -10,6 +10,7 @@
 
 @implementation TransactionCell
 @synthesize descriptionLabel;
+@synthesize transactionID;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -33,12 +34,22 @@
         [UIView animateWithDuration:0.2 delay:0.2 options:UIViewAnimationCurveEaseIn animations:^(void){
             self.dateLabel.alpha = 1.0;
             self.emailLabel.alpha = 1.0;
+            if (self.payButton) self.payButton.alpha = 1.0;
         } completion:^(BOOL finished){}];
     } else {
         [UIView animateWithDuration:0.12 delay:0.0 options:UIViewAnimationCurveEaseIn animations:^(void){
             self.dateLabel.alpha = 0.0;
             self.emailLabel.alpha = 0.0;
+            if (self.payButton) self.payButton.alpha = 0.0;
         } completion:^(BOOL finished){}];
+    }
+}
+
+- (IBAction)payButtonWasPressed:(id)sender {
+    if ([self.superview isKindOfClass:[UITableView class]]) {
+        UITableView *tv = (UITableView *)self.superview;
+        BillsViewController *bvc = (BillsViewController *)tv.delegate;
+        [bvc payBillButtonWasPressed:sender withTransactionID:transactionID];
     }
 }
 
@@ -49,6 +60,7 @@
         self.emailLabel.text = transaction.recipient_email;
         self.descriptionLabel.text = transaction.transactionDescription;
         avatarURL = transaction.recipient.avatarURLsmall;
+        if (self.payButton) self.transactionID = transaction.transactionID;
     } else {
         self.nameLabel.text = transaction.sender.name;
         self.emailLabel.text = transaction.sender_email;

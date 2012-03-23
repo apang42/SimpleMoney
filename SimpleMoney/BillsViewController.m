@@ -64,6 +64,18 @@
     return paidHeaderView;
 }
 
+- (void)payBillButtonWasPressed:(id)sender withTransactionID:(NSNumber *)transactionID {
+    NSLog(@"payBillButtonWasPressed withTransactionID: %@", transactionID);
+    RKObjectManager* objectManager = [RKObjectManager sharedManager];
+    [objectManager loadObjectsAtResourcePath:[NSString stringWithFormat:@"/transactions/%@", transactionID] delegate:self block:^(RKObjectLoader* loader) {
+        RKParams *params = [RKParams params];
+        [params setValue:@"true" forParam:@"transaction[complete]"];
+        loader.params = params;
+        loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[Transaction class]];
+        loader.method = RKRequestMethodPUT;
+    }];
+}
+
 # pragma mark - PullToRefreshViewDelegate methods
 
 - (void)pullToRefreshViewShouldRefresh:(PullToRefreshView *)view {
@@ -172,6 +184,7 @@
         if ([paidBillsArray count] > 0) {
             Transaction *transaction = [paidBillsArray objectAtIndex:indexPath.row];
             [cell configureWithTransaction:transaction isBill:YES];
+            cell.payButton = nil;
         } else {
             cell = [tableView dequeueReusableCellWithIdentifier:@"emptyCell"];
             cell.textLabel.text = @"You have no paid bills";
@@ -211,7 +224,7 @@
     NSSortDescriptor* descriptor = [NSSortDescriptor sortDescriptorWithKey:@"created_at" ascending:NO];
     NSArray *descriptors = [NSArray arrayWithObjects:descriptor, nil];
     NSArray *transactions = [[user.transactions allObjects] sortedArrayUsingDescriptors:descriptors];
-    NSLog(@"transactions: %@", transactions);
+    NSLog(@"sortTransactionsFromUser: transactions:%@", transactions);
 
     // Get ready for some fresh data...
     [paidBillsArray removeAllObjects];
@@ -230,13 +243,19 @@
 
 #pragma mark RKObjectLoaderDelegate methods
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
-    User *user = object;
-    // Update KeyChain with most recent data.
-    [KeychainWrapper save:@"userEmail" data:user.email];
-    [KeychainWrapper save:@"userBalance" data:user.balance];
-    [KeychainWrapper save:@"userAvatarSmall" data:user.avatarURLsmall];
-    [self sortTransactionsFromUser:user];
-    [self.tableView reloadData];
+    if ([object isKindOfClass:[User class]]) {
+        User *user = object;
+        // Update KeyChain with most recent data.
+        [KeychainWrapper save:@"userEmail" data:user.email];
+        [KeychainWrapper save:@"userBalance" data:user.balance];
+        [KeychainWrapper save:@"userAvatarSmall" data:user.avatarURLsmall];
+        [self sortTransactionsFromUser:user];
+        [self.tableView reloadData];
+    } else if([object isKindOfClass:[Transaction class]]) {
+        Transaction *transaction = object;
+        NSLog(@"objectLoader:didLoadObject: transaction %@", transaction);
+        [self loadData];
+    }
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {

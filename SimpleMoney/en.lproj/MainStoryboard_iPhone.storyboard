@@ -410,7 +410,7 @@
                     <navigationItem key="navigationItem" id="LvW-7k-FZR"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="264" y="1356"/>
+            <point key="canvasLocation" x="194" y="1553"/>
         </scene>
         <!--Invoices View Controller - Invoices-->
         <scene sceneID="tNI-w5-G27">
@@ -780,6 +780,23 @@
                                             <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <size key="shadowOffset" width="0.0" height="1"/>
                                         </label>
+                                        <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="24g-JZ-SP7">
+                                            <rect key="frame" x="230" y="12" width="57" height="38"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Italic" family="Helvetica Neue" pointSize="18"/>
+                                            <color key="tintColor" white="0.90391195260000001" alpha="1" colorSpace="calibratedWhite"/>
+                                            <size key="titleShadowOffset" width="0.0" height="1"/>
+                                            <state key="normal" title="Pay">
+                                                <color key="titleColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="payButtonWasPressed:" destination="PdC-yG-X6U" eventType="touchUpInside" id="SNt-fS-SW1"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -789,6 +806,7 @@
                                     <outlet property="descriptionLabel" destination="LL2-BR-zuP" id="ad8-EG-IaO"/>
                                     <outlet property="emailLabel" destination="vnR-Es-gmR" id="EFw-Rn-UXM"/>
                                     <outlet property="nameLabel" destination="ycq-nw-yxK" id="Ifo-zm-Auz"/>
+                                    <outlet property="payButton" destination="24g-JZ-SP7" id="pku-jz-k7b"/>
                                     <outlet property="transactionAmountLabel" destination="oAO-vg-x5f" id="Wri-Xk-pdZ"/>
                                     <outlet property="userImageView" destination="EbI-3D-cHV" id="gy3-ep-3oJ"/>
                                 </connections>
@@ -1132,6 +1150,91 @@
         <image name="photobutton.png" width="205" height="37"/>
         <image name="profile.png" width="75" height="75"/>
     </resources>
+    <classes>
+        <class className="AuthViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AuthViewController.h"/>
+        </class>
+        <class className="BillsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BillsViewController.h"/>
+        </class>
+        <class className="HomeViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="signOutButtonWasPressed:"/>
+                <relationship kind="outlet" name="accountBalance" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="accountImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="accountName" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="InitialViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InitialViewController.h"/>
+        </class>
+        <class className="InvoicesViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InvoicesViewController.h"/>
+        </class>
+        <class className="QRViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/QRViewController.h"/>
+        </class>
+        <class className="RequestMoneyViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RequestMoneyViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addContactButtonWasPressed"/>
+                <relationship kind="action" name="dismissKeyboard"/>
+                <relationship kind="action" name="requestMoneyButtonWasPressed"/>
+                <relationship kind="outlet" name="amountTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="descriptionTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="SendMoneyViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SendMoneyViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="addContactButtonWasPressed"/>
+                <relationship kind="action" name="dismissKeyboard"/>
+                <relationship kind="action" name="sendMoneyButtonWasPressed"/>
+                <relationship kind="outlet" name="amountTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="descriptionTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="SignInViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SignInViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelButtonWasPressed"/>
+                <relationship kind="action" name="dismissKeyboard"/>
+                <relationship kind="action" name="signUpButtonWasPressed"/>
+                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="SignUpViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SignUpViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelButtonWasPressed"/>
+                <relationship kind="action" name="dismissKeyboard"/>
+                <relationship kind="action" name="showCameraUI"/>
+                <relationship kind="action" name="showImagePickerUI"/>
+                <relationship kind="action" name="signUpButtonWasPressed"/>
+                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="profileButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="TransactionCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TransactionCell.h"/>
+            <relationships>
+                <relationship kind="action" name="payButtonWasPressed:"/>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="emailLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="payButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="transactionAmountLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

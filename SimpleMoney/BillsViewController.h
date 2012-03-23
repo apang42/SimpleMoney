@@ -26,4 +26,6 @@
 
 @property (weak, nonatomic) NSIndexPath *selectedRowIndex;
 
+- (void)payBillButtonWasPressed:(id)sender withTransactionID:(NSNumber *)transactionID;
+
 @end
