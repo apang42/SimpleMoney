@@ -165,28 +165,39 @@
 #pragma mark RKObjectLoader delegate methods
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
     User *user = object;
+    if (user.userID && ![user.userID isEqualToNumber:[NSNumber numberWithInt:0]]) {
     // Signed up successfully, let's add the user's credentials to the iOS keychain so we can sign them in automatically
-    if ([user.email isEqualToString:self.emailTextField.text]) {
-        NSLog(@"Attempting to save user %@", user.email);
-        
         [KeychainWrapper save:@"userID" data:user.userID];
         [KeychainWrapper save:@"userEmail" data:user.email];
+        [KeychainWrapper save:@"userBalance" data:user.balance];
+        [KeychainWrapper save:@"userAvatarSmall" data:user.avatarURLsmall];
         [KeychainWrapper save:@"userPassword" data:self.passwordTextField.text];
+                
+        loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark"]];
+        loadingIndicator.mode = MBProgressHUDModeCustomView;
+        loadingIndicator.labelText = @"Welcome to SimpleMoney!";
+        [loadingIndicator hide:YES afterDelay:1];
+        
+        [self uploadProfileImageForUser:user];
+        [self performSegueWithIdentifier:@"signUpSegue" sender:self];
     }
-    [self uploadProfileImageForUser:user];
-    [self performSegueWithIdentifier:@"signUpSegue" sender:self];
 }
 
 - (void)objectLoader:(RKObjectLoader*)objectLoader didFailWithError:(NSError*)error {
 	NSLog(@"RKObjectLoader failed with error: %@", error);
-    // TODO: Display error message
+    loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"error"]];
+    loadingIndicator.labelText = @"Invalid username or password.";
+    loadingIndicator.mode = MBProgressHUDModeCustomView;
+    [loadingIndicator hide:YES afterDelay:1];
 }
 
 #pragma mark RKRequest delegate methods
 - (void)requestDidTimeout:(RKRequest *)request {
     NSLog(@"RKRequest did timeout");
-    [loadingIndicator hide:YES];
-    // TODO: Display timeout error message
+    loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"error"]];
+    loadingIndicator.labelText = @"Please check your internet connection.";
+    loadingIndicator.mode = MBProgressHUDModeCustomView;
+    [loadingIndicator hide:YES afterDelay:1];
 }
 
 #pragma mark MBProgressHUDDelegate methods
@@ -194,10 +205,6 @@
     // Remove HUD from screen when the HUD was hidded
     [hud removeFromSuperview];
     hud = nil;
-}
-
-- (void)request:(RKRequest *)request didReceiveData:(NSInteger)bytesReceived totalBytesReceived:(NSInteger)totalBytesReceived totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
-    NSLog(@"RKRequest did receive data");
 }
 
 - (void)viewDidLoad {

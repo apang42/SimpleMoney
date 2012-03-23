@@ -21,8 +21,14 @@
 }
 
 - (IBAction)signUpButtonWasPressed {
-    [self dismissKeyboard];
     [self sendRequest];
+    [self dismissKeyboard];
+    
+    loadingIndicator = [[MBProgressHUD alloc] initWithView:self.tableView.window];
+    loadingIndicator.delegate = self;
+    [self.tableView.window addSubview:loadingIndicator];
+    loadingIndicator.dimBackground = YES;
+    [loadingIndicator show:YES];
 }
 
 - (IBAction)dismissKeyboard {
@@ -54,24 +60,33 @@
 # pragma mark - RKObjectLoader Delegate methods
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
 	NSLog(@"RKObjectLoader failed with error: %@", error);
-    // TODO: Display error message
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
     User *user = object;
+    NSLog(@"object loaded: %@", user);
+    NSLog(@"object loaded: %@", user.userID);
     // Signed in successfully, let's add the user's credentials to the iOS keychain so we can sign them in automatically
-    if ([user.email isEqualToString:self.emailTextField.text]) {
-        NSLog(@"Attempting to save user %@", user.email);
-
+    if (user.userID && ![user.userID isEqualToNumber:[NSNumber numberWithInt:0]]) {
         [KeychainWrapper save:@"userID" data:user.userID];
         [KeychainWrapper save:@"userEmail" data:user.email];
         [KeychainWrapper save:@"userBalance" data:user.balance];
         [KeychainWrapper save:@"userAvatarSmall" data:user.avatarURLsmall];
         [KeychainWrapper save:@"userPassword" data:self.passwordTextField.text];
+        
+        loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark"]];
+        loadingIndicator.mode = MBProgressHUDModeCustomView;
+        loadingIndicator.labelText = @"Signed in!";
+        [loadingIndicator hide:YES afterDelay:1];
+        
+        NSLog(@"about to perform segue");
+        [self performSegueWithIdentifier:@"signInSegue" sender:self];
+    } else {
+        loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"error"]];
+        loadingIndicator.labelText = @"Invalid username or password.";
+        loadingIndicator.mode = MBProgressHUDModeCustomView;
+        [loadingIndicator hide:YES afterDelay:1];
     }
-    NSLog(@"about to perform segue");
-    [self performSegueWithIdentifier:@"signInSegue" sender:self];
-    // TODO: Display error message
 }
 
 - (void)viewDidLoad {

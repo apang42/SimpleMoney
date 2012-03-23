@@ -24,7 +24,6 @@
     SecItemDelete((__bridge CFDictionaryRef)keychainQuery);
     [keychainQuery setObject:[NSKeyedArchiver archivedDataWithRootObject:data] forKey:(__bridge id)kSecValueData];
     SecItemAdd((__bridge CFDictionaryRef)keychainQuery, NULL);
-    NSLog(@"user saved");
 }
 
 + (id)load:(NSString *)service {

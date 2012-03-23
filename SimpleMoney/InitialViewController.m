@@ -5,7 +5,12 @@
 //  Created by Arthur Pang on 3/14/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
-
+/* 
+ Responsible for checking the keychain for the user's email and password.
+ If the keychain contains the user's email and password, the initialViewController 
+ creates a new user session and prepares for the homeSegue, otherwise it prepares 
+ for the authSegue.
+ */
 #import "InitialViewController.h"
 
 @implementation InitialViewController
@@ -46,7 +51,7 @@
 
 # pragma mark - RKObjectLoader Delegate methods
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-	NSLog(@"RKObjectLoader failed with error: %@", error);    
+	NSLog(@"RKObjectLoader failed with error: %@", error);
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {

@@ -10,9 +10,11 @@
 #import <RestKit/RestKit.h>
 #import "KeychainWrapper.h"
 #import "User.h"
+#import "MBProgressHUD.h"
 
-
-@interface SignInViewController : UITableViewController<UITextFieldDelegate, RKObjectLoaderDelegate>
+@interface SignInViewController : UITableViewController<UITextFieldDelegate, RKObjectLoaderDelegate, MBProgressHUDDelegate> {
+    MBProgressHUD *loadingIndicator;
+}
 
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;

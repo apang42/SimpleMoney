@@ -114,7 +114,6 @@
 # pragma mark - RKObjectLoader Delegate methods
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
 	NSLog(@"RKObjectLoader failed with error: %@", error);
-    // TODO: Display error
     loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"error"]];
     loadingIndicator.mode = MBProgressHUDModeCustomView;
     [loadingIndicator hide:YES afterDelay:1];
