@@ -136,6 +136,12 @@
     return [filteredContacts count];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *selectedContact = [filteredContacts objectAtIndex:indexPath.row];
+    NSLog(@"selectedContact: %@", selectedContact);
+    self.emailTextField.text = [selectedContact objectForKey:@"email"];
+}
+
 # pragma mark - UITextFieldDelegate methods
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -150,11 +156,15 @@
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(name CONTAINS[c] %@) || (email CONTAINS[c] %@)",textField.text,textField.text ];
+    // Filter the contacts by name and email
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(name CONTAINS[c] %@) || (email CONTAINS[c] %@)",textField.text,textField.text];
     NSMutableArray *copyOfContacts = [NSMutableArray arrayWithArray:contacts];
     NSArray *filtered  = [copyOfContacts filteredArrayUsingPredicate:predicate];
     filteredContacts = [NSMutableArray arrayWithArray:filtered];
-    if (filteredContacts.count > 0 ) [self.tableView reloadData];
+    if (range.location == 0 ) {
+        filteredContacts = copyOfContacts;
+    }
+    [self.tableView reloadData];
     return YES;
 }
 
