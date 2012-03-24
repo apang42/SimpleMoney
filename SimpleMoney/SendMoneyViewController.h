@@ -17,6 +17,7 @@
 @interface SendMoneyViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, RKObjectLoaderDelegate, ABPeoplePickerNavigationControllerDelegate, MBProgressHUDDelegate> {
     MBProgressHUD *loadingIndicator;
     NSMutableArray *contacts;
+    NSMutableArray *filteredContacts;
 }
 
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;

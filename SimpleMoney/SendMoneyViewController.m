@@ -12,7 +12,7 @@
 - (void)sendRequest;
 - (void)showPeoplePicker;
 - (void)selectPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier;
-- (NSMutableArray*)loadContactsFromAddressBook;
+- (NSMutableArray *)loadContactsFromAddressBook;
 @end
 
 @implementation SendMoneyViewController
@@ -28,6 +28,7 @@
         contacts = [self loadContactsFromAddressBook];
         dispatch_sync(dispatch_get_main_queue(), ^{
             NSLog(@"done fetching contacts, %@", contacts);
+            filteredContacts = contacts;
             [self.tableView reloadData];
         });
     });
@@ -121,21 +122,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     // Check for a reusable cell first, use that if it exists
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"contactCell"];
-    
     // If there is no reusable cell of this type, create a new one
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"billCell"];
     }
-    
-    NSMutableDictionary *contact = [contacts objectAtIndex:indexPath.row];
+    NSMutableDictionary *contact = [filteredContacts objectAtIndex:indexPath.row];
     cell.textLabel.text = [contact objectForKey:@"name"];
     cell.detailTextLabel.text = [contact objectForKey:@"email"];
-    
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [contacts count];
+    return [filteredContacts count];
 }
 
 # pragma mark - UITextFieldDelegate methods
@@ -148,6 +146,15 @@
     } else {
         [self dismissKeyboard];
     }
+    return YES;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(name CONTAINS[c] %@) || (email CONTAINS[c] %@)",textField.text,textField.text ];
+    NSMutableArray *copyOfContacts = [NSMutableArray arrayWithArray:contacts];
+    NSArray *filtered  = [copyOfContacts filteredArrayUsingPredicate:predicate];
+    filteredContacts = [NSMutableArray arrayWithArray:filtered];
+    if (filteredContacts.count > 0 ) [self.tableView reloadData];
     return YES;
 }
 
