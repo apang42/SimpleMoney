@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *amountTextField;
 @property (weak, nonatomic) IBOutlet UITextField *descriptionTextField;
+@property (weak, nonatomic) IBOutlet UIButton *sendMoneyButton;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 - (IBAction)sendMoneyButtonWasPressed;

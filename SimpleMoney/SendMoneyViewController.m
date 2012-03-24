@@ -7,12 +7,15 @@
 //
 
 #import "SendMoneyViewController.h"
+#import <Foundation/Foundation.h>
+#import <Foundation/Foundation.h>
 
 @interface SendMoneyViewController (PrivateMethods)
 - (void)sendRequest;
 - (void)showPeoplePicker;
 - (void)selectPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier;
 - (NSMutableArray *)loadContactsFromAddressBook;
+- (void)hideTableView;
 @end
 
 @implementation SendMoneyViewController
@@ -117,6 +120,42 @@
     }];
 }
 
+- (void)hideTableView {
+    [UIView animateWithDuration:0.20 delay:0.0 options:UIViewAnimationCurveEaseIn animations:^(void){
+        float xPosition = self.tableView.frame.origin.x;
+        float yPosition = self.tableView.frame.origin.y;
+        float width = self.tableView.frame.size.width;
+        self.tableView.frame = CGRectMake(xPosition, yPosition, width, 0.0);
+        
+        self.amountTextField.frame = CGRectMake(self.amountTextField.frame.origin.x, self.amountTextField.frame.origin.y - 132.0, self.amountTextField.frame.size.width, self.amountTextField.frame.size.height);
+        
+        self.descriptionTextField.frame = CGRectMake(self.descriptionTextField.frame.origin.x, self.descriptionTextField.frame.origin.y - 132.0, self.descriptionTextField.frame.size.width, self.descriptionTextField.frame.size.height);
+        
+        self.sendMoneyButton.frame = CGRectMake(self.sendMoneyButton.frame.origin.x, self.sendMoneyButton.frame.origin.y - 132.0, self.sendMoneyButton.frame.size.width, self.sendMoneyButton.frame.size.height);
+    } completion:^(BOOL finished){
+        [self.tableView setHidden:YES];
+    }];
+}
+
+- (void)showTableView {
+    [self.tableView setHidden:NO];
+    [UIView animateWithDuration:0.20 delay:0.0 options:UIViewAnimationCurveEaseOut animations:^(void){
+        float xPosition = self.tableView.frame.origin.x;
+        float yPosition = self.tableView.frame.origin.y;
+        float width = self.tableView.frame.size.width;
+        self.tableView.frame = CGRectMake(xPosition, yPosition, width, 132.0);
+        
+        self.amountTextField.frame = CGRectMake(self.amountTextField.frame.origin.x, self.amountTextField.frame.origin.y + 132.0, self.amountTextField.frame.size.width, self.amountTextField.frame.size.height);
+        
+        self.descriptionTextField.frame = CGRectMake(self.descriptionTextField.frame.origin.x, self.descriptionTextField.frame.origin.y + 132.0, self.descriptionTextField.frame.size.width, self.descriptionTextField.frame.size.height);
+        
+        self.sendMoneyButton.frame = CGRectMake(self.sendMoneyButton.frame.origin.x, self.sendMoneyButton.frame.origin.y + 132.0, self.sendMoneyButton.frame.size.width, self.sendMoneyButton.frame.size.height);
+        
+    } completion:^(BOOL finished){
+        //[self.tableView setHidden:YES];
+    }];
+}
+
 #pragma mark - UITableViewDataSource methods
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -140,6 +179,8 @@
     NSDictionary *selectedContact = [filteredContacts objectAtIndex:indexPath.row];
     NSLog(@"selectedContact: %@", selectedContact);
     self.emailTextField.text = [selectedContact objectForKey:@"email"];
+    [self dismissKeyboard];
+    if (!self.tableView.isHidden)[self hideTableView];
 }
 
 # pragma mark - UITextFieldDelegate methods
@@ -156,17 +197,30 @@
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    // Filter the contacts by name and email
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(name CONTAINS[c] %@) || (email CONTAINS[c] %@)",textField.text,textField.text];
-    NSMutableArray *copyOfContacts = [NSMutableArray arrayWithArray:contacts];
-    NSArray *filtered  = [copyOfContacts filteredArrayUsingPredicate:predicate];
-    filteredContacts = [NSMutableArray arrayWithArray:filtered];
-    if (range.location == 0 ) {
-        filteredContacts = copyOfContacts;
+    if (textField == self.emailTextField) {
+        // Filter the contacts by name and email
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(name CONTAINS[c] %@) || (email CONTAINS[c] %@)",textField.text,textField.text];
+        NSMutableArray *copyOfContacts = [NSMutableArray arrayWithArray:contacts];
+        NSArray *filtered  = [copyOfContacts filteredArrayUsingPredicate:predicate];
+        filteredContacts = [NSMutableArray arrayWithArray:filtered];
+        if (range.location == 0 ) {
+            filteredContacts = copyOfContacts;
+        }
+        [self.tableView reloadData];
     }
-    [self.tableView reloadData];
     return YES;
 }
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if (textField == self.emailTextField){
+        if (self.tableView.isHidden)[self showTableView];
+    }
+    else {
+        if (!self.tableView.isHidden)[self hideTableView];
+    }
+}
+
+
 
 #pragma mark MBProgressHUDDelegate methods
 
