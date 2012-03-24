@@ -12,12 +12,25 @@
 - (void)sendRequest;
 - (void)showPeoplePicker;
 - (void)selectPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier;
+- (NSMutableArray*)loadContactsFromAddressBook;
 @end
 
 @implementation SendMoneyViewController
 @synthesize emailTextField;
 @synthesize amountTextField;
 @synthesize descriptionTextField;
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    if (![super initWithCoder:decoder]) return nil;
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0u);
+    dispatch_async(queue, ^{
+        contacts = [self loadContactsFromAddressBook];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            NSLog(@"done fetching contacts, %@", contacts);
+        });
+    });
+    return self;
+}
 
 - (IBAction)dismissKeyboard {
     [self.view endEditing:YES];
@@ -55,6 +68,38 @@
     } else {
      email = @"no email address";
     }
+}
+
+- (NSMutableArray *)loadContactsFromAddressBook {
+    NSMutableArray *results = [[NSMutableArray alloc] init];
+    ABAddressBookRef addressBook = ABAddressBookCreate();
+    CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
+    CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
+    
+    for(int i = 0; i < nPeople; i++) {
+        
+        ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
+        NSString *firstName = (__bridge NSString*)ABRecordCopyValue(ref, kABPersonFirstNameProperty);
+        NSString *lastName = (__bridge NSString*)ABRecordCopyValue(ref, kABPersonLastNameProperty);
+        
+        NSString *name;
+        NSString *phoneNumber;
+        
+        if (lastName) {
+            name = [firstName stringByAppendingFormat: @" %@", lastName];
+        } else {
+            name = firstName;
+        }
+        ABMultiValueRef phoneNumbers = ABRecordCopyValue(ref, kABPersonPhoneProperty);
+        int count = ABMultiValueGetCount(phoneNumbers);
+        if (count > 0 && name) {
+            phoneNumber = (__bridge NSString*)ABMultiValueCopyValueAtIndex(phoneNumbers, 0);
+            [results addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:name,@"name",phoneNumber,@"phone",nil]];
+        }
+        NSSortDescriptor *sortByName = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+        [results sortUsingDescriptors:[NSArray arrayWithObject:sortByName]];
+    }
+    return results;
 }
 
 - (void)sendRequest {

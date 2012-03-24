@@ -370,7 +370,6 @@
 		3C12D3CE150C45F9000915A5 /* SimpleMoney */ = {
 			isa = PBXGroup;
 			children = (
-				3CA292BE151953BC00467578 /* SimpleMoney.entitlements */,
 				3CF2B0EF151428D000B067B0 /* Authentication */,
 				3C12D3DA150C45F9000915A5 /* MainStoryboard_iPhone.storyboard */,
 				3C12D3D7150C45F9000915A5 /* AppDelegate.h */,
@@ -402,6 +401,7 @@
 		3C12D3CF150C45F9000915A5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3CA292BE151953BC00467578 /* SimpleMoney.entitlements */,
 				3C12D3D0150C45F9000915A5 /* SimpleMoney-Info.plist */,
 				3C12D3D1150C45F9000915A5 /* InfoPlist.strings */,
 				3C12D3D4150C45F9000915A5 /* main.mm */,

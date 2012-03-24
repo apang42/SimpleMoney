@@ -8,8 +8,8 @@
 
 #import "AppDelegate.h"
 
-#define kSERVICE_URL @"http://severe-leaf-6733.herokuapp.com/"
-//#define kSERVICE_URL @"http://192.168.0.106:3000"
+//#define kSERVICE_URL @"http://severe-leaf-6733.herokuapp.com/"
+#define kSERVICE_URL @"http://192.168.0.104:3000"
 
 @implementation AppDelegate
 @synthesize window = _window;
@@ -76,8 +76,6 @@
     [transactionMapping hasOne:@"sender" withMapping:userMapping];
 
     // Setup date format so our timestamps get converted into NSDate objects.
-    // TODO: Test date formatter
-    // TODO: Change user and transaction date properties from NSString to NSDate.
     [RKObjectMapping addDefaultDateFormatterForString:@"E MMM d HH:mm:ss Z y" inTimeZone:nil];
     
     // Register our mappings with the provider.
