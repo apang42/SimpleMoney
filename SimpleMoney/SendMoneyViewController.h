@@ -14,7 +14,7 @@
 #import "Transaction.h"
 #import "MBProgressHUD.h"
 
-@interface SendMoneyViewController : UIViewController <UITextFieldDelegate, RKObjectLoaderDelegate, ABPeoplePickerNavigationControllerDelegate, MBProgressHUDDelegate> {
+@interface SendMoneyViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, RKObjectLoaderDelegate, ABPeoplePickerNavigationControllerDelegate, MBProgressHUDDelegate> {
     MBProgressHUD *loadingIndicator;
     NSMutableArray *contacts;
 }
@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *amountTextField;
 @property (weak, nonatomic) IBOutlet UITextField *descriptionTextField;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 - (IBAction)sendMoneyButtonWasPressed;
 - (IBAction)addContactButtonWasPressed;

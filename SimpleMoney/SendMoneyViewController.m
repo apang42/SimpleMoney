@@ -19,6 +19,7 @@
 @synthesize emailTextField;
 @synthesize amountTextField;
 @synthesize descriptionTextField;
+@synthesize tableView = _tableView;
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if (![super initWithCoder:decoder]) return nil;
@@ -27,6 +28,7 @@
         contacts = [self loadContactsFromAddressBook];
         dispatch_sync(dispatch_get_main_queue(), ^{
             NSLog(@"done fetching contacts, %@", contacts);
+            [self.tableView reloadData];
         });
     });
     return self;
@@ -54,7 +56,6 @@
     ABPeoplePickerNavigationController *picker =
     [[ABPeoplePickerNavigationController alloc] init];
     picker.peoplePickerDelegate = self;
-    
     [self presentModalViewController:picker animated:YES];
 }
 
@@ -74,27 +75,23 @@
     NSMutableArray *results = [[NSMutableArray alloc] init];
     ABAddressBookRef addressBook = ABAddressBookCreate();
     CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
-    CFIndex nPeople = ABAddressBookGetPersonCount(addressBook);
-    
-    for(int i = 0; i < nPeople; i++) {
-        
+    CFIndex n = ABAddressBookGetPersonCount(addressBook);
+    for(int i = 0; i < n; i++) {
         ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
         NSString *firstName = (__bridge NSString*)ABRecordCopyValue(ref, kABPersonFirstNameProperty);
         NSString *lastName = (__bridge NSString*)ABRecordCopyValue(ref, kABPersonLastNameProperty);
-        
         NSString *name;
-        NSString *phoneNumber;
-        
+        NSString *email;
         if (lastName) {
             name = [firstName stringByAppendingFormat: @" %@", lastName];
         } else {
             name = firstName;
         }
-        ABMultiValueRef phoneNumbers = ABRecordCopyValue(ref, kABPersonPhoneProperty);
-        int count = ABMultiValueGetCount(phoneNumbers);
+        ABMultiValueRef emailAddresses = ABRecordCopyValue(ref, kABPersonEmailProperty);
+        int count = ABMultiValueGetCount(emailAddresses);
         if (count > 0 && name) {
-            phoneNumber = (__bridge NSString*)ABMultiValueCopyValueAtIndex(phoneNumbers, 0);
-            [results addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:name,@"name",phoneNumber,@"phone",nil]];
+            email = (__bridge NSString*)ABMultiValueCopyValueAtIndex(emailAddresses, 0);
+            [results addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:name,@"name",email,@"email",nil]];
         }
         NSSortDescriptor *sortByName = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
         [results sortUsingDescriptors:[NSArray arrayWithObject:sortByName]];
@@ -117,6 +114,28 @@
         loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[User class]];
         loader.method = RKRequestMethodPOST;
     }];
+}
+
+#pragma mark - UITableViewDataSource methods
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Check for a reusable cell first, use that if it exists
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"contactCell"];
+    
+    // If there is no reusable cell of this type, create a new one
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"billCell"];
+    }
+    
+    NSMutableDictionary *contact = [contacts objectAtIndex:indexPath.row];
+    cell.textLabel.text = [contact objectForKey:@"name"];
+    cell.detailTextLabel.text = [contact objectForKey:@"email"];
+    
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [contacts count];
 }
 
 # pragma mark - UITextFieldDelegate methods
