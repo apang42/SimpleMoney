@@ -399,10 +399,7 @@
 				3CF2B0F41514294D00B067B0 /* BillsViewController.m */,
 				3CF2B0F01514293800B067B0 /* InvoicesViewController.h */,
 				3CF2B0F11514293800B067B0 /* InvoicesViewController.m */,
-				3C75D62C15159B51004269B1 /* TransactionCell.h */,
-				3C75D62D15159B51004269B1 /* TransactionCell.m */,
-				3C14FB24151E9A3E00F9F421 /* TransactionTextField.h */,
-				3C14FB25151E9A3E00F9F421 /* TransactionTextField.m */,
+				3C30FDA6151FD323007A8F9E /* Custom UI */,
 				3CF24A6F150C9ED00048A70B /* Models */,
 				3C12D40E150C64C6000915A5 /* Assets */,
 				3C235A99150C6C760036B08B /* Utilities */,
@@ -477,6 +474,17 @@
 				3CF24A98150D8C350048A70B /* CurledImageView */,
 			);
 			name = Utilities;
+			sourceTree = "<group>";
+		};
+		3C30FDA6151FD323007A8F9E /* Custom UI */ = {
+			isa = PBXGroup;
+			children = (
+				3C75D62C15159B51004269B1 /* TransactionCell.h */,
+				3C75D62D15159B51004269B1 /* TransactionCell.m */,
+				3C14FB24151E9A3E00F9F421 /* TransactionTextField.h */,
+				3C14FB25151E9A3E00F9F421 /* TransactionTextField.m */,
+			);
+			name = "Custom UI";
 			sourceTree = "<group>";
 		};
 		3C4043B01519492300DDD62B /* Products */ = {

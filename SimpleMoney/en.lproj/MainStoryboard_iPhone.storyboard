@@ -222,7 +222,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
-                                            <segue destination="HGq-CJ-087" kind="push" id="KJY-sY-OrY"/>
+                                            <segue destination="ajv-zf-8a2" kind="push" id="bfy-8u-Mnq"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="transactionsCell" textLabel="Xs6-gV-58M" style="IBUITableViewCellStyleDefault" id="H0G-oN-jdr">
@@ -1149,89 +1149,178 @@
             </objects>
             <point key="canvasLocation" x="-756" y="932"/>
         </scene>
-        <!--Request Money View Controller - Request Money-->
-        <scene sceneID="0hs-Jx-EwQ">
+        <!--Request Money View Controller - Send Money-->
+        <scene sceneID="drb-lv-8xR">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bS9-pC-cB7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController title="Request Money" id="HGq-CJ-087" customClass="RequestMoneyViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="P0W-2N-9f6" customClass="UIControl">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="roW-s9-xKT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController title="Send Money" id="ajv-zf-8a2" customClass="RequestMoneyViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FTF-3D-NxW" customClass="UIControl">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="To: Email address" minimumFontSize="17" id="PQ2-Jh-F7N">
-                                <rect key="frame" x="20" y="20" width="280" height="40"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="sendmoney-bg.png" id="jvz-mA-JwE">
+                                <rect key="frame" x="0.0" y="194" width="320" height="222"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" id="KP7-xW-gV4">
+                                <rect key="frame" x="0.0" y="-45" width="320" height="230"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email address" minimumFontSize="17" background="tcell.png" clearButtonMode="whileEditing" id="0xf-lJ-sqx" customClass="TransactionTextField">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="done"/>
                                 <connections>
-                                    <outlet property="delegate" destination="HGq-CJ-087" id="kbg-pz-b0S"/>
+                                    <outlet property="delegate" destination="ajv-zf-8a2" id="okG-uX-2OE"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Amount" minimumFontSize="17" clearButtonMode="whileEditing" id="zfx-ph-aDj">
-                                <rect key="frame" x="20" y="68" width="280" height="40"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="$0.00" minimumFontSize="17" background="tcell.png" id="eaR-Wt-NPB" customClass="TransactionTextField">
+                                <rect key="frame" x="0.0" y="51" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 <connections>
-                                    <outlet property="delegate" destination="HGq-CJ-087" id="RJZ-Wj-JvN"/>
+                                    <outlet property="delegate" destination="ajv-zf-8a2" id="RCa-XU-PzE"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Description" minimumFontSize="17" clearButtonMode="whileEditing" id="cp0-YX-A1I">
-                                <rect key="frame" x="20" y="116" width="280" height="40"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Description" minimumFontSize="17" background="tcell.png" clearButtonMode="whileEditing" id="gnk-F5-PS5" customClass="TransactionTextField">
+                                <rect key="frame" x="0.0" y="102" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <outlet property="delegate" destination="HGq-CJ-087" id="8rT-sZ-RYU"/>
+                                    <outlet property="delegate" destination="ajv-zf-8a2" id="iPt-pw-zx4"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" id="9oz-JC-400">
-                                <rect key="frame" x="262" y="26" width="29" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="addContactButtonWasPressed" destination="HGq-CJ-087" eventType="touchUpInside" id="SMb-eA-NAH"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wHS-Lq-9zt">
-                                <rect key="frame" x="20" y="164" width="280" height="37"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cJS-Qj-tyw">
+                                <rect key="frame" x="0.0" y="152" width="320" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title="Request Money">
-                                    <color key="titleColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Request Money" backgroundImage="paper-button.png">
+                                    <color key="titleColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="requestMoneyButtonWasPressed" destination="HGq-CJ-087" eventType="touchUpInside" id="fUY-Yl-cGR"/>
+                                    <action selector="requestMoneyButtonWasPressed" destination="ajv-zf-8a2" eventType="touchUpInside" id="GWz-LO-1My"/>
                                 </connections>
                             </button>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="gap-H8-1Dy">
+                                <rect key="frame" x="0.0" y="50" width="320" height="0.0"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.93048585770000003" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="contactCell" textLabel="AMj-z5-a0l" detailTextLabel="yeS-WP-WZm" style="IBUITableViewCellStyleSubtitle" id="Xnf-vY-rV7">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AMj-z5-a0l">
+                                                    <rect key="frame" x="10" y="1" width="51" height="23"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yeS-WP-WZm">
+                                                    <rect key="frame" x="10" y="24" width="35" height="19"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
+                                                    <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="U2b-oJ-NFG" detailTextLabel="mPe-El-nJ8" style="IBUITableViewCellStyleSubtitle" id="tC1-xg-ZOE">
+                                        <rect key="frame" x="0.0" y="66" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="U2b-oJ-NFG">
+                                                    <rect key="frame" x="10" y="2" width="50" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mPe-El-nJ8">
+                                                    <rect key="frame" x="10" y="24" width="34" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="nIc-jT-3Wg" detailTextLabel="pNe-az-g2x" style="IBUITableViewCellStyleSubtitle" id="JBV-0M-tIU">
+                                        <rect key="frame" x="0.0" y="110" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nIc-jT-3Wg">
+                                                    <rect key="frame" x="10" y="2" width="50" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pNe-az-g2x">
+                                                    <rect key="frame" x="10" y="24" width="34" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="ajv-zf-8a2" id="7zG-Nr-j8i"/>
+                                    <outlet property="delegate" destination="ajv-zf-8a2" id="IcJ-hs-vEU"/>
+                                </connections>
+                            </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
-                            <action selector="dismissKeyboard" destination="HGq-CJ-087" eventType="valueChanged" id="kum-Cr-uOH"/>
+                            <action selector="dismissKeyboard" destination="ajv-zf-8a2" eventType="valueChanged" id="rwc-ph-KEn"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="Request Money" id="7H5-pO-CXR"/>
+                    <navigationItem key="navigationItem" title="Request Money" id="sDG-GZ-Pk3">
+                        <barButtonItem key="rightBarButtonItem" title="Clear" id="cwL-gN-dPC">
+                            <connections>
+                                <action selector="newTransactionButtonWasPressed:" destination="ajv-zf-8a2" id="ynp-NT-3qX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="amountTextField" destination="zfx-ph-aDj" id="rxC-3D-wNb"/>
-                        <outlet property="descriptionTextField" destination="cp0-YX-A1I" id="sWM-9u-3kS"/>
-                        <outlet property="emailTextField" destination="PQ2-Jh-F7N" id="ZOJ-Sp-A9P"/>
-                        <outlet property="view" destination="P0W-2N-9f6" id="VDX-eB-Iug"/>
+                        <outlet property="amountTextField" destination="eaR-Wt-NPB" id="V46-tX-Wie"/>
+                        <outlet property="descriptionTextField" destination="gnk-F5-PS5" id="sPa-B3-41H"/>
+                        <outlet property="emailTextField" destination="0xf-lJ-sqx" id="vLh-Gp-3hV"/>
+                        <outlet property="requestMoneyButton" destination="cJS-Qj-tyw" id="MOY-I8-FZZ"/>
+                        <outlet property="tableView" destination="gap-H8-1Dy" id="COO-gS-jGt"/>
+                        <outlet property="view" destination="FTF-3D-NxW" id="hIc-fx-Cnz"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="176" y="166"/>
+            <point key="canvasLocation" x="176" y="174"/>
         </scene>
     </scenes>
     <resources>
@@ -1270,12 +1359,14 @@
         <class className="RequestMoneyViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RequestMoneyViewController.h"/>
             <relationships>
-                <relationship kind="action" name="addContactButtonWasPressed"/>
                 <relationship kind="action" name="dismissKeyboard"/>
+                <relationship kind="action" name="newTransactionButtonWasPressed:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="action" name="requestMoneyButtonWasPressed"/>
                 <relationship kind="outlet" name="amountTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="descriptionTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="requestMoneyButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="SendMoneyViewController" superclassName="UIViewController">
@@ -1339,6 +1430,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Nnk-Li-ng1"/>
-        <segue reference="f3k-Uz-Unf"/>
+        <segue reference="yBi-Pc-x96"/>
     </inferredMetricsTieBreakers>
 </document>

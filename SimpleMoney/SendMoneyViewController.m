@@ -7,8 +7,7 @@
 //
 
 #import "SendMoneyViewController.h"
-#import <Foundation/Foundation.h>
-#import <Foundation/Foundation.h>
+
 #define kTABLEVIEWHEIGHT 150.0
 @interface SendMoneyViewController (PrivateMethods)
 - (void)sendRequest;
@@ -16,22 +15,23 @@
 - (void)selectPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier;
 - (NSMutableArray *)loadContactsFromAddressBook;
 - (void)hideTableView;
+- (void)showTableView;
 @end
 
 @implementation SendMoneyViewController
 @synthesize emailTextField;
 @synthesize amountTextField;
 @synthesize descriptionTextField;
-//@synthesize newTransactionButton;
 @synthesize tableView = _tableView;
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if (![super initWithCoder:decoder]) return nil;
-    
+    // Load the user's contacts from their address book on another thread to improve performance
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0u);
     dispatch_async(queue, ^{
         contacts = [self loadContactsFromAddressBook];
         dispatch_sync(dispatch_get_main_queue(), ^{
+            // When the contacts are loaded, set the filteredContacts instance variable and reload the tableView
             NSLog(@"done fetching contacts, %@", contacts);
             filteredContacts = contacts;
             [self.tableView reloadData];
@@ -53,25 +53,6 @@
     
     [self dismissKeyboard];
     [self sendRequest];
-}
-
-- (void)showPeoplePicker {
-    ABPeoplePickerNavigationController *picker =
-    [[ABPeoplePickerNavigationController alloc] init];
-    picker.peoplePickerDelegate = self;
-    [self presentModalViewController:picker animated:YES];
-}
-
-- (void)selectPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier {
-    NSString *email = nil;
-    ABMultiValueRef emailAddresses = ABRecordCopyValue(person, property);
-    if (ABMultiValueGetCount(emailAddresses) > 0 && property ==  kABPersonEmailProperty) {
-        email = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(emailAddresses, identifier);
-        NSLog(@"email : %@", email);
-        emailTextField.text = email;
-    } else {
-     email = @"no email address";
-    }
 }
 
 - (NSMutableArray *)loadContactsFromAddressBook {
@@ -103,7 +84,7 @@
 }
 
 - (void)sendRequest {
-
+    // Validate email with a regular expression
     NSString *emailRegEx =
     @"(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}"
     @"~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\"
@@ -114,6 +95,8 @@
     @"-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
     NSPredicate *regExPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
     BOOL isValidEmail = [regExPredicate evaluateWithObject:emailTextField.text];
+    
+    // Make sure the user doesn't send money to themselves, they have a valid email address, and the amount they're trying to send is greater than 0
     if (([emailTextField.text isEqualToString:[KeychainWrapper load:@"userEmail"]]) || !isValidEmail || (!_amount || _amount <= 0)) {
         loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"error"]];
         loadingIndicator.mode = MBProgressHUDModeCustomView;
@@ -124,8 +107,10 @@
         } else {
             loadingIndicator.labelText = @"Invalid amount.";
         }
+        // Display the error message and hide it after 1 second
         [loadingIndicator hide:YES afterDelay:1.0];
     } else {
+        // POST a new Transaction on the server
         RKObjectManager *objectManager = [RKObjectManager sharedManager];
         [objectManager loadObjectsAtResourcePath:@"/transactions" delegate:self block:^(RKObjectLoader* loader) {
             RKParams *params = [RKParams params];
@@ -159,7 +144,6 @@
 
 - (void)showTableView {
     [self.tableView setHidden:NO];
-
     [UIView animateWithDuration:0.20 delay:0.0 options:UIViewAnimationCurveEaseOut animations:^(void){
         float xPosition = self.tableView.frame.origin.x;
         float yPosition = self.tableView.frame.origin.y;
@@ -275,7 +259,6 @@
 
 - (void)hudWasHidden:(MBProgressHUD *)hud {
     // Remove HUD from screen when the HUD was hidded
-    NSLog(@"hud: %@", hud);
     [hud removeFromSuperview];
     hud = nil;
 }
@@ -295,22 +278,6 @@
         //Don't forget to re-enable the button at the completion block handler
         sender.enabled = YES;
     }];
-}
-
-# pragma mark - ABPeoplePickerNavigationController delegate methods
-
-- (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker {
-    [self dismissModalViewControllerAnimated:YES];
-}
-
-- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person {
-    return YES;
-}
-
-- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier {
-    [self selectPerson:person property:property identifier:identifier];
-    [self dismissModalViewControllerAnimated:YES];
-    return NO;
 }
 
 # pragma mark - RKObjectLoader Delegate methods
@@ -337,7 +304,6 @@
     [super viewDidLoad];
     self.tableView.layer.cornerRadius = 5.0;
     self.tableView.layer.masksToBounds = YES;
-//    [amountTextField setKeyboardType:UIKeyboardTypeDecimalPad];
 }
 
 - (void)viewDidUnload {

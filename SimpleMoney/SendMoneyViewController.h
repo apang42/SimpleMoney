@@ -10,12 +10,13 @@
 #import <RestKit/RestKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import <AddressBookUI/AddressBookUI.h>
+#import <Foundation/Foundation.h>
 #import "KeychainWrapper.h"
 #import "User.h"
 #import "Transaction.h"
 #import "MBProgressHUD.h"
 
-@interface SendMoneyViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, RKObjectLoaderDelegate, ABPeoplePickerNavigationControllerDelegate, MBProgressHUDDelegate> {
+@interface SendMoneyViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, RKObjectLoaderDelegate, MBProgressHUDDelegate> {
     MBProgressHUD *loadingIndicator;
     NSMutableArray *contacts;
     NSMutableArray *filteredContacts;
@@ -26,7 +27,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *amountTextField;
 @property (weak, nonatomic) IBOutlet UITextField *descriptionTextField;
 @property (weak, nonatomic) IBOutlet UIButton *sendMoneyButton;
-
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 - (IBAction)newTransactionButtonWasPressed:(UIBarButtonItem *)sender;
