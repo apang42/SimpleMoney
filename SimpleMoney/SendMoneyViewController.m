@@ -22,10 +22,12 @@
 @synthesize emailTextField;
 @synthesize amountTextField;
 @synthesize descriptionTextField;
+//@synthesize newTransactionButton;
 @synthesize tableView = _tableView;
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if (![super initWithCoder:decoder]) return nil;
+    
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0u);
     dispatch_async(queue, ^{
         contacts = [self loadContactsFromAddressBook];
@@ -43,17 +45,14 @@
 }
 
 - (IBAction)sendMoneyButtonWasPressed {
-    [self dismissKeyboard];
-    [self sendRequest];
-    loadingIndicator = [[MBProgressHUD alloc] initWithView:self.view];
+    loadingIndicator = [[MBProgressHUD alloc] initWithView:self.view.window];
     loadingIndicator.delegate = self;
-    [self.view addSubview:loadingIndicator];
+    [self.view.window addSubview:loadingIndicator];
     loadingIndicator.dimBackground = YES;
     [loadingIndicator show:YES];
-}
-
-- (IBAction)addContactButtonWasPressed {
-    [self showPeoplePicker];
+    
+    [self dismissKeyboard];
+    [self sendRequest];
 }
 
 - (void)showPeoplePicker {
@@ -104,34 +103,55 @@
 }
 
 - (void)sendRequest {
-    if ([emailTextField.text isEqualToString:[KeychainWrapper load:@"userEmail"]]) {
-        // TODO: Display error - Can't send money to yourself.
+
+    NSString *emailRegEx =
+    @"(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}"
+    @"~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\"
+    @"x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-"
+    @"z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5"
+    @"]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-"
+    @"9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21"
+    @"-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
+    NSPredicate *regExPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
+    BOOL isValidEmail = [regExPredicate evaluateWithObject:emailTextField.text];
+    if (([emailTextField.text isEqualToString:[KeychainWrapper load:@"userEmail"]]) || !isValidEmail || (!_amount || _amount <= 0)) {
+        loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"error"]];
+        loadingIndicator.mode = MBProgressHUDModeCustomView;
+        if ([emailTextField.text isEqualToString:[KeychainWrapper load:@"userEmail"]]) {
+            loadingIndicator.labelText = @"Can't send money to yourself.";
+        } else if (!isValidEmail) {
+            loadingIndicator.labelText = @"Invalid email address.";
+        } else {
+            loadingIndicator.labelText = @"Invalid amount.";
+        }
+        [loadingIndicator hide:YES afterDelay:1.0];
+    } else {
+        RKObjectManager *objectManager = [RKObjectManager sharedManager];
+        [objectManager loadObjectsAtResourcePath:@"/transactions" delegate:self block:^(RKObjectLoader* loader) {
+            RKParams *params = [RKParams params];
+            [params setValue:emailTextField.text forParam:@"transaction[recipient_email]"];
+            [params setValue:[_amount stringValue] forParam:@"transaction[amount]"];
+            [params setValue:descriptionTextField.text forParam:@"transaction[description]"];
+            [params setValue:@"true" forParam:@"transaction[complete]"];
+            loader.params = params;
+            loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[User class]];
+            loader.method = RKRequestMethodPOST;
+        }];
     }
-    RKObjectManager *objectManager = [RKObjectManager sharedManager];
-    [objectManager loadObjectsAtResourcePath:@"/transactions" delegate:self block:^(RKObjectLoader* loader) {
-        RKParams *params = [RKParams params];
-        [params setValue:emailTextField.text forParam:@"transaction[recipient_email]"];
-        [params setValue:amountTextField.text forParam:@"transaction[amount]"];
-        [params setValue:descriptionTextField.text forParam:@"transaction[description]"];
-        [params setValue:@"true" forParam:@"transaction[complete]"];
-        loader.params = params;
-        loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[User class]];
-        loader.method = RKRequestMethodPOST;
-    }];
 }
 
 - (void)hideTableView {
-    [UIView animateWithDuration:0.20 delay:0.0 options:UIViewAnimationCurveEaseIn animations:^(void){
+    [UIView animateWithDuration:0.10 delay:0.0 options:UIViewAnimationCurveEaseIn animations:^(void){
         float xPosition = self.tableView.frame.origin.x;
         float yPosition = self.tableView.frame.origin.y;
         float width = self.tableView.frame.size.width;
         self.tableView.frame = CGRectMake(xPosition, yPosition, width, 0.0);
+        self.tableView.alpha = 0.0;
         
-        self.amountTextField.frame = CGRectMake(self.amountTextField.frame.origin.x, self.amountTextField.frame.origin.y - kTABLEVIEWHEIGHT, self.amountTextField.frame.size.width, self.amountTextField.frame.size.height);
-        
-        self.descriptionTextField.frame = CGRectMake(self.descriptionTextField.frame.origin.x, self.descriptionTextField.frame.origin.y - kTABLEVIEWHEIGHT, self.descriptionTextField.frame.size.width, self.descriptionTextField.frame.size.height);
-        
-        self.sendMoneyButton.frame = CGRectMake(self.sendMoneyButton.frame.origin.x, self.sendMoneyButton.frame.origin.y - kTABLEVIEWHEIGHT, self.sendMoneyButton.frame.size.width, self.sendMoneyButton.frame.size.height);
+        self.amountTextField.alpha = 1.0;
+        self.descriptionTextField.alpha = 1.0;
+        self.sendMoneyButton.alpha = 1.0;
+                
     } completion:^(BOOL finished){
         [self.tableView setHidden:YES];
     }];
@@ -139,17 +159,17 @@
 
 - (void)showTableView {
     [self.tableView setHidden:NO];
+
     [UIView animateWithDuration:0.20 delay:0.0 options:UIViewAnimationCurveEaseOut animations:^(void){
         float xPosition = self.tableView.frame.origin.x;
         float yPosition = self.tableView.frame.origin.y;
         float width = self.tableView.frame.size.width;
         self.tableView.frame = CGRectMake(xPosition, yPosition, width, kTABLEVIEWHEIGHT);
-        
-        self.amountTextField.frame = CGRectMake(self.amountTextField.frame.origin.x, self.amountTextField.frame.origin.y + kTABLEVIEWHEIGHT, self.amountTextField.frame.size.width, self.amountTextField.frame.size.height);
-        
-        self.descriptionTextField.frame = CGRectMake(self.descriptionTextField.frame.origin.x, self.descriptionTextField.frame.origin.y + kTABLEVIEWHEIGHT, self.descriptionTextField.frame.size.width, self.descriptionTextField.frame.size.height);
-        
-        self.sendMoneyButton.frame = CGRectMake(self.sendMoneyButton.frame.origin.x, self.sendMoneyButton.frame.origin.y + kTABLEVIEWHEIGHT, self.sendMoneyButton.frame.size.width, self.sendMoneyButton.frame.size.height);
+        self.tableView.alpha = 1.0;
+
+        self.amountTextField.alpha = 0.0;
+        self.descriptionTextField.alpha = 0.0;
+        self.sendMoneyButton.alpha = 0.0;
         
     } completion:^(BOOL finished){
     }];
@@ -206,6 +226,32 @@
             filteredContacts = copyOfContacts;
         }
         [self.tableView reloadData];
+    } else if (textField == self.amountTextField) {
+        // Clear all characters that are not numbers
+        // (like currency symbols or dividers)
+        NSString *cleanCentString = [[textField.text componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]] componentsJoinedByString:@""];
+        // Parse final integer value
+        NSInteger centAmount = cleanCentString.integerValue;
+        // Check the user input
+        if (string.length > 0) {
+            // Digit added
+            centAmount = centAmount * 10 + string.integerValue;
+        }
+        else {
+            // Digit deleted
+            centAmount = centAmount / 10;
+        }
+        // Update call amount value
+        _amount = [[NSNumber alloc] initWithFloat:(float)centAmount / 100.0f];
+        // Write amount with currency symbols to the textfield
+        NSNumberFormatter *_currencyFormatter = [[NSNumberFormatter alloc] init];
+        [_currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+        [_currencyFormatter setCurrencyCode:@"USD"];
+        [_currencyFormatter setNegativeFormat:@"-¤#,##0.00"];
+        textField.text = [_currencyFormatter stringFromNumber:_amount];
+        // Since we already wrote our changes to the textfield
+        // we don't want to change the textfield again
+        return NO;
     }
     return YES;
 }
@@ -229,8 +275,26 @@
 
 - (void)hudWasHidden:(MBProgressHUD *)hud {
     // Remove HUD from screen when the HUD was hidded
+    NSLog(@"hud: %@", hud);
     [hud removeFromSuperview];
     hud = nil;
+}
+
+- (IBAction) newTransactionButtonWasPressed:(UIBarButtonItem *)sender {
+    sender.enabled = NO;
+    //Create a new UIView and set the background color to be a UIColor with pattern image of a screen capture
+    UIView *imgView = [[UIView alloc] init];
+    [self.view addSubview:imgView];
+    _amount = 0;
+    self.emailTextField.text = @"";
+    self.amountTextField.text = @"";
+    self.descriptionTextField.text = @"";
+    [UIView transitionWithView:self.view duration:1 options:UIViewAnimationOptionTransitionCurlUp animations:^{}
+    completion:^(BOOL finished){
+        [imgView removeFromSuperview];
+        //Don't forget to re-enable the button at the completion block handler
+        sender.enabled = YES;
+    }];
 }
 
 # pragma mark - ABPeoplePickerNavigationController delegate methods
@@ -250,10 +314,12 @@
 }
 
 # pragma mark - RKObjectLoader Delegate methods
+
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
 	NSLog(@"RKObjectLoader failed with error: %@", error);
     loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"error"]];
     loadingIndicator.mode = MBProgressHUDModeCustomView;
+    loadingIndicator.labelText = @"Network error";
     [loadingIndicator hide:YES afterDelay:1];
 }
 
@@ -263,6 +329,7 @@
     // TODO: Display transaction information in success indicator
     loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark"]];
     loadingIndicator.mode = MBProgressHUDModeCustomView;
+    loadingIndicator.labelText = @"Payment sent!";
     [loadingIndicator hide:YES afterDelay:1];
 }
 
@@ -270,10 +337,7 @@
     [super viewDidLoad];
     self.tableView.layer.cornerRadius = 5.0;
     self.tableView.layer.masksToBounds = YES;
-    //[emailTextField setBorderStyle:UITextBorderStyleRoundedRect];
-//    [amountTextField setBorderStyle:UITextBorderStyleRoundedRect];
-//    [descriptionTextField setBorderStyle:UITextBorderStyleRoundedRect];
-    [amountTextField setKeyboardType:UIKeyboardTypeDecimalPad];
+//    [amountTextField setKeyboardType:UIKeyboardTypeDecimalPad];
 }
 
 - (void)viewDidUnload {

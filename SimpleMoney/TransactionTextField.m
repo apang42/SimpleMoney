@@ -21,7 +21,7 @@
 }
 
 - (CGRect)indentedRectForBounds:(CGRect)bounds {
-    rect = CGRectMake(bounds.origin.x + kIDENT, bounds.origin.y, bounds.size.width - kIDENT, bounds.size.height);
+    rect = CGRectMake(bounds.origin.x + kIDENT, bounds.origin.y, bounds.size.width - 2.0*kIDENT, bounds.size.height);
     return rect;
 }
 

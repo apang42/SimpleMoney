@@ -19,16 +19,18 @@
     MBProgressHUD *loadingIndicator;
     NSMutableArray *contacts;
     NSMutableArray *filteredContacts;
+    NSNumber *_amount;
 }
 
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *amountTextField;
 @property (weak, nonatomic) IBOutlet UITextField *descriptionTextField;
 @property (weak, nonatomic) IBOutlet UIButton *sendMoneyButton;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+- (IBAction)newTransactionButtonWasPressed:(UIBarButtonItem *)sender;
 - (IBAction)sendMoneyButtonWasPressed;
-- (IBAction)addContactButtonWasPressed;
 - (IBAction)dismissKeyboard;
 
 @end

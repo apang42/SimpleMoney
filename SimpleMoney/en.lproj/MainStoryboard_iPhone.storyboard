@@ -302,26 +302,35 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="sendmoney-bg.png" id="5HT-83-hbN">
+                                <rect key="frame" x="0.0" y="194" width="320" height="222"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" id="UEd-rg-p1c">
+                                <rect key="frame" x="0.0" y="-44.75" width="320" height="230"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="To: Email address" minimumFontSize="17" background="tcell.png" clearButtonMode="whileEditing" id="qZY-jL-vLa" customClass="TransactionTextField">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="done"/>
                                 <connections>
                                     <outlet property="delegate" destination="lhy-hk-41k" id="WL6-9d-IgA"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="$0.00" minimumFontSize="17" background="tcell.png" clearButtonMode="whileEditing" id="KAv-YK-Yky" customClass="TransactionTextField">
-                                <rect key="frame" x="0.0" y="49" width="320" height="50"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="$0.00" minimumFontSize="17" background="tcell.png" id="KAv-YK-Yky" customClass="TransactionTextField">
+                                <rect key="frame" x="0.0" y="51" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 <connections>
                                     <outlet property="delegate" destination="lhy-hk-41k" id="fxx-je-WFd"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Description" minimumFontSize="17" background="tcell.png" clearButtonMode="whileEditing" id="reh-kF-8eX" customClass="TransactionTextField">
-                                <rect key="frame" x="0.0" y="98" width="320" height="50"/>
+                                <rect key="frame" x="0.0" y="102" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -330,12 +339,12 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="p5L-IB-7X6">
-                                <rect key="frame" x="0.0" y="149.5" width="320" height="50"/>
+                                <rect key="frame" x="0.0" y="152" width="320" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
                                 <size key="titleShadowOffset" width="0.0" height="1"/>
-                                <state key="normal" title="Send Money">
-                                    <color key="titleColor" red="0.098039217293262482" green="0.098039217293262482" blue="0.098039217293262482" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Send Money" backgroundImage="paper-button.png">
+                                    <color key="titleColor" red="0.29803922772407532" green="0.29803922772407532" blue="0.29803922772407532" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <state key="highlighted">
@@ -348,7 +357,7 @@
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="5EJ-QZ-JVC">
                                 <rect key="frame" x="0.0" y="50" width="320" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.93048585766423364" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="contactCell" textLabel="bvy-4A-3Hw" detailTextLabel="BAk-yh-tlF" style="IBUITableViewCellStyleSubtitle" id="q8g-hM-JTe">
                                         <rect key="frame" x="0.0" y="22" width="320" height="44"/>
@@ -369,7 +378,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -433,12 +442,18 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.098039217293262482" green="0.098039217293262482" blue="0.098039217293262482" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <action selector="dismissKeyboard" destination="lhy-hk-41k" eventType="valueChanged" id="VJA-it-5SH"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="Send Money" id="cud-en-3Rh"/>
+                    <navigationItem key="navigationItem" title="Send Money" id="cud-en-3Rh">
+                        <barButtonItem key="rightBarButtonItem" title="Clear" id="Vfz-xI-ypC">
+                            <connections>
+                                <action selector="newTransactionButtonWasPressed:" destination="lhy-hk-41k" id="Ap8-w6-yTy"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="amountTextField" destination="KAv-YK-Yky" id="Qdq-Qg-ATt"/>
                         <outlet property="descriptionTextField" destination="reh-kF-8eX" id="0mi-fC-nLt"/>
@@ -1221,8 +1236,10 @@
     </scenes>
     <resources>
         <image name="landing-bg.png" width="320" height="460"/>
+        <image name="paper-button.png" width="640" height="94"/>
         <image name="photobutton.png" width="205" height="37"/>
         <image name="profile.png" width="75" height="75"/>
+        <image name="sendmoney-bg.png" width="640" height="444"/>
         <image name="tcell.png" width="320" height="50"/>
     </resources>
     <classes>
@@ -1264,8 +1281,8 @@
         <class className="SendMoneyViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SendMoneyViewController.h"/>
             <relationships>
-                <relationship kind="action" name="addContactButtonWasPressed"/>
                 <relationship kind="action" name="dismissKeyboard"/>
+                <relationship kind="action" name="newTransactionButtonWasPressed:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="action" name="sendMoneyButtonWasPressed"/>
                 <relationship kind="outlet" name="amountTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="descriptionTextField" candidateClass="UITextField"/>

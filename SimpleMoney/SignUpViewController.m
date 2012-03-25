@@ -53,14 +53,14 @@
 }
 
 - (IBAction)signUpButtonWasPressed {
-    [self sendRequest];
-    [self dismissKeyboard];
-    
     loadingIndicator = [[MBProgressHUD alloc] initWithView:self.tableView.window];
     loadingIndicator.delegate = self;
     [self.tableView.window addSubview:loadingIndicator];
     loadingIndicator.dimBackground = YES;
     [loadingIndicator show:YES];
+    
+    [self sendRequest];
+    [self dismissKeyboard];
 }
 
 - (IBAction)dismissKeyboard {
