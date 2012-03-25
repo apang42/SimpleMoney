@@ -26,6 +26,9 @@
 		3C12D40B150C4CF5000915A5 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C12D40A150C4CF5000915A5 /* SignInViewController.m */; };
 		3C12D40D150C64BF000915A5 /* landing-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C12D40C150C64BF000915A5 /* landing-bg@2x.png */; };
 		3C12D411150C6837000915A5 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C12D410150C6837000915A5 /* SignUpViewController.m */; };
+		3C14FB26151E9A3E00F9F421 /* TransactionTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C14FB25151E9A3E00F9F421 /* TransactionTextField.m */; };
+		3C14FB29151EA33D00F9F421 /* tcell@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C14FB27151EA33D00F9F421 /* tcell@2x.png */; };
+		3C14FB2A151EA33D00F9F421 /* tcell.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C14FB28151EA33D00F9F421 /* tcell.png */; };
 		3C235A9F150C6C920036B08B /* CurledViewBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9C150C6C920036B08B /* CurledViewBase.m */; };
 		3C235AA0150C6C920036B08B /* UIImageView+Curled.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C235A9E150C6C920036B08B /* UIImageView+Curled.m */; };
 		3C235AA4150C712D0036B08B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C235AA3150C712D0036B08B /* QuartzCore.framework */; };
@@ -187,6 +190,10 @@
 		3C12D40C150C64BF000915A5 /* landing-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "landing-bg@2x.png"; sourceTree = "<group>"; };
 		3C12D40F150C6837000915A5 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		3C12D410150C6837000915A5 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		3C14FB24151E9A3E00F9F421 /* TransactionTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionTextField.h; sourceTree = "<group>"; };
+		3C14FB25151E9A3E00F9F421 /* TransactionTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionTextField.m; sourceTree = "<group>"; };
+		3C14FB27151EA33D00F9F421 /* tcell@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tcell@2x.png"; sourceTree = "<group>"; };
+		3C14FB28151EA33D00F9F421 /* tcell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tcell.png; sourceTree = "<group>"; };
 		3C235A9B150C6C920036B08B /* CurledViewBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurledViewBase.h; sourceTree = "<group>"; };
 		3C235A9C150C6C920036B08B /* CurledViewBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurledViewBase.m; sourceTree = "<group>"; };
 		3C235A9D150C6C920036B08B /* UIImageView+Curled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Curled.h"; sourceTree = "<group>"; };
@@ -390,6 +397,8 @@
 				3CF2B0F11514293800B067B0 /* InvoicesViewController.m */,
 				3C75D62C15159B51004269B1 /* TransactionCell.h */,
 				3C75D62D15159B51004269B1 /* TransactionCell.m */,
+				3C14FB24151E9A3E00F9F421 /* TransactionTextField.h */,
+				3C14FB25151E9A3E00F9F421 /* TransactionTextField.m */,
 				3CF24A6F150C9ED00048A70B /* Models */,
 				3C12D40E150C64C6000915A5 /* Assets */,
 				3C235A99150C6C760036B08B /* Utilities */,
@@ -432,6 +441,8 @@
 		3C12D40E150C64C6000915A5 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				3C14FB27151EA33D00F9F421 /* tcell@2x.png */,
+				3C14FB28151EA33D00F9F421 /* tcell.png */,
 				3C0C132F151A4ED800D034B8 /* error@2x.png */,
 				3C0C1330151A4ED800D034B8 /* error.png */,
 				3CF2B0FA15142F3300B067B0 /* arrow.png */,
@@ -773,6 +784,8 @@
 				3CF2B0FD15142F3300B067B0 /* arrow@2x.png in Resources */,
 				3C0C1331151A4ED800D034B8 /* error@2x.png in Resources */,
 				3C0C1332151A4ED800D034B8 /* error.png in Resources */,
+				3C14FB29151EA33D00F9F421 /* tcell@2x.png in Resources */,
+				3C14FB2A151EA33D00F9F421 /* tcell.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -830,6 +843,7 @@
 				3C29A6231518195B003AFA75 /* SendMoneyViewController.m in Sources */,
 				3CC0B734151836F10059A5F5 /* RequestMoneyViewController.m in Sources */,
 				3C4043C015194B7D00DDD62B /* QRViewController.mm in Sources */,
+				3C14FB26151E9A3E00F9F421 /* TransactionTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

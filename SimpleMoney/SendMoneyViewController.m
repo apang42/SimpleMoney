@@ -9,7 +9,7 @@
 #import "SendMoneyViewController.h"
 #import <Foundation/Foundation.h>
 #import <Foundation/Foundation.h>
-
+#define kTABLEVIEWHEIGHT 150.0
 @interface SendMoneyViewController (PrivateMethods)
 - (void)sendRequest;
 - (void)showPeoplePicker;
@@ -127,11 +127,11 @@
         float width = self.tableView.frame.size.width;
         self.tableView.frame = CGRectMake(xPosition, yPosition, width, 0.0);
         
-        self.amountTextField.frame = CGRectMake(self.amountTextField.frame.origin.x, self.amountTextField.frame.origin.y - 132.0, self.amountTextField.frame.size.width, self.amountTextField.frame.size.height);
+        self.amountTextField.frame = CGRectMake(self.amountTextField.frame.origin.x, self.amountTextField.frame.origin.y - kTABLEVIEWHEIGHT, self.amountTextField.frame.size.width, self.amountTextField.frame.size.height);
         
-        self.descriptionTextField.frame = CGRectMake(self.descriptionTextField.frame.origin.x, self.descriptionTextField.frame.origin.y - 132.0, self.descriptionTextField.frame.size.width, self.descriptionTextField.frame.size.height);
+        self.descriptionTextField.frame = CGRectMake(self.descriptionTextField.frame.origin.x, self.descriptionTextField.frame.origin.y - kTABLEVIEWHEIGHT, self.descriptionTextField.frame.size.width, self.descriptionTextField.frame.size.height);
         
-        self.sendMoneyButton.frame = CGRectMake(self.sendMoneyButton.frame.origin.x, self.sendMoneyButton.frame.origin.y - 132.0, self.sendMoneyButton.frame.size.width, self.sendMoneyButton.frame.size.height);
+        self.sendMoneyButton.frame = CGRectMake(self.sendMoneyButton.frame.origin.x, self.sendMoneyButton.frame.origin.y - kTABLEVIEWHEIGHT, self.sendMoneyButton.frame.size.width, self.sendMoneyButton.frame.size.height);
     } completion:^(BOOL finished){
         [self.tableView setHidden:YES];
     }];
@@ -143,16 +143,15 @@
         float xPosition = self.tableView.frame.origin.x;
         float yPosition = self.tableView.frame.origin.y;
         float width = self.tableView.frame.size.width;
-        self.tableView.frame = CGRectMake(xPosition, yPosition, width, 132.0);
+        self.tableView.frame = CGRectMake(xPosition, yPosition, width, kTABLEVIEWHEIGHT);
         
-        self.amountTextField.frame = CGRectMake(self.amountTextField.frame.origin.x, self.amountTextField.frame.origin.y + 132.0, self.amountTextField.frame.size.width, self.amountTextField.frame.size.height);
+        self.amountTextField.frame = CGRectMake(self.amountTextField.frame.origin.x, self.amountTextField.frame.origin.y + kTABLEVIEWHEIGHT, self.amountTextField.frame.size.width, self.amountTextField.frame.size.height);
         
-        self.descriptionTextField.frame = CGRectMake(self.descriptionTextField.frame.origin.x, self.descriptionTextField.frame.origin.y + 132.0, self.descriptionTextField.frame.size.width, self.descriptionTextField.frame.size.height);
+        self.descriptionTextField.frame = CGRectMake(self.descriptionTextField.frame.origin.x, self.descriptionTextField.frame.origin.y + kTABLEVIEWHEIGHT, self.descriptionTextField.frame.size.width, self.descriptionTextField.frame.size.height);
         
-        self.sendMoneyButton.frame = CGRectMake(self.sendMoneyButton.frame.origin.x, self.sendMoneyButton.frame.origin.y + 132.0, self.sendMoneyButton.frame.size.width, self.sendMoneyButton.frame.size.height);
+        self.sendMoneyButton.frame = CGRectMake(self.sendMoneyButton.frame.origin.x, self.sendMoneyButton.frame.origin.y + kTABLEVIEWHEIGHT, self.sendMoneyButton.frame.size.width, self.sendMoneyButton.frame.size.height);
         
     } completion:^(BOOL finished){
-        //[self.tableView setHidden:YES];
     }];
 }
 
@@ -220,7 +219,11 @@
     }
 }
 
-
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+    filteredContacts = contacts;
+    [self.tableView reloadData];
+    return YES;
+}
 
 #pragma mark MBProgressHUDDelegate methods
 
@@ -265,9 +268,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [emailTextField setBorderStyle:UITextBorderStyleRoundedRect];
-    [amountTextField setBorderStyle:UITextBorderStyleRoundedRect];
-    [descriptionTextField setBorderStyle:UITextBorderStyleRoundedRect];
+    self.tableView.layer.cornerRadius = 5.0;
+    self.tableView.layer.masksToBounds = YES;
+    //[emailTextField setBorderStyle:UITextBorderStyleRoundedRect];
+//    [amountTextField setBorderStyle:UITextBorderStyleRoundedRect];
+//    [descriptionTextField setBorderStyle:UITextBorderStyleRoundedRect];
     [amountTextField setKeyboardType:UIKeyboardTypeDecimalPad];
 }
 

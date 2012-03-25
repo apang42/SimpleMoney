@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <RestKit/RestKit.h>
+#import <QuartzCore/QuartzCore.h>
 #import <AddressBookUI/AddressBookUI.h>
 #import "KeychainWrapper.h"
 #import "User.h"
