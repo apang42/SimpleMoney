@@ -201,8 +201,8 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if (textField == self.emailTextField) {
-        // Filter the contacts by name and email
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(name CONTAINS[c] %@) || (email CONTAINS[c] %@)",textField.text,textField.text];
+        NSString *currentString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(name CONTAINS[c] %@) || (email CONTAINS[c] %@)",currentString,currentString];
         NSMutableArray *copyOfContacts = [NSMutableArray arrayWithArray:contacts];
         NSArray *filtered  = [copyOfContacts filteredArrayUsingPredicate:predicate];
         filteredContacts = [NSMutableArray arrayWithArray:filtered];
