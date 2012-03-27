@@ -206,7 +206,7 @@
         NSMutableArray *copyOfContacts = [NSMutableArray arrayWithArray:contacts];
         NSArray *filtered  = [copyOfContacts filteredArrayUsingPredicate:predicate];
         filteredContacts = [NSMutableArray arrayWithArray:filtered];
-        if (range.location == 0 ) {
+        if (currentString.length == 0) {
             filteredContacts = copyOfContacts;
         }
         [self.tableView reloadData];
