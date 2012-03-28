@@ -15,7 +15,9 @@
 #import "UIImageView+WebCache.h"
 #import "UIImageView+Curled.h"
 
-@interface HomeViewController : UITableViewController <RKObjectLoaderDelegate>
+#import "ZBarSDK.h"
+
+@interface HomeViewController : UITableViewController <UITableViewDelegate, RKObjectLoaderDelegate, ZBarReaderDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *accountName;
 @property (weak, nonatomic) IBOutlet UILabel *accountBalance;
