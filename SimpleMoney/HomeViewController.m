@@ -7,7 +7,6 @@
 //
 
 #import "HomeViewController.h"
-#import <RestKit/JSONKit.h>
 
 @interface HomeViewController (PrivateMethods)
 - (void)signOut;
