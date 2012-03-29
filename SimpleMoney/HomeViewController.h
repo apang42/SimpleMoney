@@ -17,7 +17,7 @@
 
 #import "ZBarSDK.h"
 
-@interface HomeViewController : UITableViewController <UITableViewDelegate, RKObjectLoaderDelegate, ZBarReaderDelegate> {
+@interface HomeViewController : UITableViewController <UITableViewDelegate, UIImagePickerControllerDelegate, RKObjectLoaderDelegate, ZBarReaderDelegate> {
     NSNumberFormatter *currencyFormatter;
 }
 

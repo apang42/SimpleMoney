@@ -119,7 +119,7 @@
             [params setValue:descriptionTextField.text forParam:@"transaction[description]"];
             [params setValue:@"false" forParam:@"transaction[complete]"];
             loader.params = params;
-            loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[User class]];
+            loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[Transaction class]];
             loader.method = RKRequestMethodPOST;
         }];
     }

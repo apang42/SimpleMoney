@@ -7,6 +7,7 @@
 //
 
 #import "HomeViewController.h"
+#import <RestKit/JSONKit.h>
 
 @interface HomeViewController (PrivateMethods)
 - (void)signOut;
@@ -24,7 +25,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     // Fetch fresh user data from the server.
     RKObjectManager* objectManager = [RKObjectManager sharedManager];
     [objectManager loadObjectsAtResourcePath:[NSString stringWithFormat:@"/users/%@", [KeychainWrapper load:@"userID"]] delegate:self block:^(RKObjectLoader* loader) {
@@ -38,7 +38,6 @@
     self.accountImage.layer.cornerRadius = 5.0;
     self.accountImage.layer.masksToBounds = YES;
     
-
     currencyFormatter = [[NSNumberFormatter alloc] init];
     [currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
     [currencyFormatter setCurrencyCode:@"USD"];
@@ -97,27 +96,39 @@
                            to: 0];
         
         // present and release the controller
-        [self presentModalViewController: reader
-                                animated: YES];
+        [self presentModalViewController:reader animated: YES];
     }
 }
 
-- (void)imagePickerController:(UIImagePickerController *)reader didFinishPickingMediaWithInfo: (NSDictionary *)info {
-    // ADD: get the decode results
+- (void)imagePickerController:(UIImagePickerController *)reader didFinishPickingMediaWithInfo:(NSDictionary *)info {
     id<NSFastEnumeration> results = [info objectForKey: ZBarReaderControllerResults];
     ZBarSymbol *symbol = nil;
+    // Grab the first result
     for(symbol in results)
-        // EXAMPLE: just grab the first barcode
         break;
+
+    // Encode the QRCode with JSON
+    // ex: {"merchant_email":"walmart@walmart.com"}
     
-//    // EXAMPLE: do something useful with the barcode data
-//    resultText.text = symbol.data;
-//    
-//    // EXAMPLE: do something useful with the barcode image
-//    resultImage.image =
-//    [info objectForKey: UIImagePickerControllerOriginalImage];
+    // Convert the decoded string to a NSData object, then convert the data to a dictionary
+    NSData *symbolData = [symbol.data dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *jsonParsingError = nil;
+    NSDictionary *qrCodeData = [NSJSONSerialization JSONObjectWithData:symbolData options:0 error:&jsonParsingError];
+    NSLog(@"qrCodeData: %@", qrCodeData);
+    NSLog(@"error: %@",jsonParsingError);
     
-    // ADD: dismiss the controller (NB dismiss from the *reader*!)
+    // If there isn't a parsing error, POST a new incomplete transaction
+    if (!jsonParsingError) {
+        RKObjectManager *objectManager = [RKObjectManager sharedManager];
+        [objectManager loadObjectsAtResourcePath:@"/transactions" delegate:self block:^(RKObjectLoader* loader) {
+            RKParams *params = [RKParams params];
+            [params setValue:[qrCodeData objectForKey:@"merchant_email"] forParam:@"transaction[recipient_email]"];
+            [params setValue:@"false" forParam:@"transaction[complete]"];
+            loader.params = params;
+            loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[Transaction class]];
+            loader.method = RKRequestMethodPOST;
+        }];
+    }
     [reader dismissModalViewControllerAnimated: YES];
 }
 
@@ -129,11 +140,19 @@
 }
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
-    User *user = object;
-    self.accountName.text = user.email;
-    NSNumber *userBalance = [KeychainWrapper load:@"userBalance"];
-    NSNumber *formattedBalance = [[NSNumber alloc] initWithFloat:[userBalance floatValue] / 100.0f];
-    self.accountBalance.text = [currencyFormatter stringFromNumber:formattedBalance];
+    // Check the object type
+    if ([object isKindOfClass:[User class]]) {
+        User *user = object;
+        self.accountName.text = user.email;
+        NSNumber *userBalance = [KeychainWrapper load:@"userBalance"];
+        NSNumber *formattedBalance = [[NSNumber alloc] initWithFloat:[userBalance floatValue] / 100.0f];
+        self.accountBalance.text = [currencyFormatter stringFromNumber:formattedBalance];
+    } else if ([object isKindOfClass:[Transaction class]]) {
+        // This occurs after scanning a QRCode encoded with JSON
+        Transaction *t = object;
+        NSLog(@"posted a new transaction: %@", t);
+    }
+
 }
 
 - (void)viewDidUnload {
