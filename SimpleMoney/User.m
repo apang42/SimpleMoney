@@ -2,7 +2,7 @@
 //  User.m
 //  SimpleMoney
 //
-//  Created by Arthur Pang on 3/17/12.
+//  Created by Arthur Pang on 3/28/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  Transaction.h
 //  SimpleMoney
 //
-//  Created by Arthur Pang on 3/17/12.
+//  Created by Arthur Pang on 3/28/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -13,7 +13,7 @@
 
 @interface Transaction : NSManagedObject
 
-@property (nonatomic, retain) NSDecimalNumber * amount;
+@property (nonatomic, retain) NSNumber * amount;
 @property (nonatomic, retain) NSNumber * complete;
 @property (nonatomic, retain) NSDate * created_at;
 @property (nonatomic, retain) NSString * recipient_email;
@@ -21,8 +21,8 @@
 @property (nonatomic, retain) NSString * transactionDescription;
 @property (nonatomic, retain) NSNumber * transactionID;
 @property (nonatomic, retain) NSDate * updated_at;
-@property (nonatomic, retain) User *user;
 @property (nonatomic, retain) User *recipient;
 @property (nonatomic, retain) User *sender;
+@property (nonatomic, retain) User *user;
 
 @end

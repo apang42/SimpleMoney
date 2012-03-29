@@ -17,7 +17,9 @@
 
 #import "ZBarSDK.h"
 
-@interface HomeViewController : UITableViewController <UITableViewDelegate, RKObjectLoaderDelegate, ZBarReaderDelegate>
+@interface HomeViewController : UITableViewController <UITableViewDelegate, RKObjectLoaderDelegate, ZBarReaderDelegate> {
+    NSNumberFormatter *currencyFormatter;
+}
 
 @property (weak, nonatomic) IBOutlet UILabel *accountName;
 @property (weak, nonatomic) IBOutlet UILabel *accountBalance;

@@ -226,13 +226,14 @@
             centAmount = centAmount / 10;
         }
         // Update call amount value
-        _amount = [[NSNumber alloc] initWithFloat:(float)centAmount / 100.0f];
+        NSNumber *amountToDisplay = [[NSNumber alloc] initWithFloat:(float)centAmount / 100.0f];
         // Write amount with currency symbols to the textfield
         NSNumberFormatter *_currencyFormatter = [[NSNumberFormatter alloc] init];
         [_currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
         [_currencyFormatter setCurrencyCode:@"USD"];
         [_currencyFormatter setNegativeFormat:@"-¤#,##0.00"];
-        textField.text = [_currencyFormatter stringFromNumber:_amount];
+        textField.text = [_currencyFormatter stringFromNumber:amountToDisplay];
+        _amount = [[NSNumber alloc] initWithFloat:(float)centAmount];
         // Since we already wrote our changes to the textfield
         // we don't want to change the textfield again
         return NO;

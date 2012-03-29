@@ -67,7 +67,13 @@
         self.descriptionLabel.text = transaction.transactionDescription;
         avatarURL = transaction.sender.avatarURLsmall;
     }
-    self.transactionAmountLabel.text = [NSString stringWithFormat:@"Amount: $%@",transaction.amount];
+    NSNumberFormatter *currencyFormatter = [[NSNumberFormatter alloc] init];
+    [currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [currencyFormatter setCurrencyCode:@"USD"];
+    [currencyFormatter setNegativeFormat:@"-¤#,##0.00"];
+    NSNumber *amount = transaction.amount;
+    NSNumber *formattedAmount = [[NSNumber alloc] initWithFloat:[amount floatValue] / 100.0f];
+    self.transactionAmountLabel.text = [NSString stringWithFormat:@"Amount: %@",[currencyFormatter stringFromNumber:formattedAmount]];
     self.dateLabel.text = [NSDateFormatter localizedStringFromDate:transaction.created_at dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
     if ([avatarURL isEqualToString:@"/images/small/missing.png"]) {
 

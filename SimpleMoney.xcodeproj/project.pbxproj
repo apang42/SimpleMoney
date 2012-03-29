@@ -45,17 +45,17 @@
 		3C5F9C84151138C300201B20 /* InitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5F9C83151138C300201B20 /* InitialViewController.m */; };
 		3C5F9C881511401F00201B20 /* KeychainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5F9C871511401F00201B20 /* KeychainWrapper.m */; };
 		3C75D62E15159B51004269B1 /* TransactionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C75D62D15159B51004269B1 /* TransactionCell.m */; };
-		3C75D6311515B23E004269B1 /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C75D6301515B23E004269B1 /* Transaction.m */; };
 		3C7CB19D150D99DB0056E1FD /* UIImage+ScaledImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C7CB19C150D99DB0056E1FD /* UIImage+ScaledImage.m */; };
 		3C7CB1AB150DCC1F0056E1FD /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C7CB1AA150DCC1F0056E1FD /* MBProgressHUD.m */; };
 		3C7CB1B0150DCE330056E1FD /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C7CB1AA150DCC1F0056E1FD /* MBProgressHUD.m */; };
 		3C7CB1B4150DD4890056E1FD /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C7CB1B3150DD4890056E1FD /* checkmark.png */; };
 		3C7CB1B6150DD6500056E1FD /* checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C7CB1B5150DD6500056E1FD /* checkmark@2x.png */; };
 		3C8714C2151475CF00722C6C /* SimpleMoney.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3C8714C0151475CF00722C6C /* SimpleMoney.xcdatamodeld */; };
-		3C8714CB1514774200722C6C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8714CA1514774200722C6C /* User.m */; };
 		3C88E1801513EBDE002D5C7C /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C88E17E1513EBDD002D5C7C /* AddressBook.framework */; };
 		3C88E1811513EBDE002D5C7C /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C88E17F1513EBDD002D5C7C /* AddressBookUI.framework */; };
 		3CA292C01519545400467578 /* SimpleMoney.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 3CA292BE151953BC00467578 /* SimpleMoney.entitlements */; };
+		3CB0C1691523E7A600356F60 /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CB0C1681523E7A600356F60 /* Transaction.m */; };
+		3CB0C16C1523E7DF00356F60 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CB0C16B1523E7DF00356F60 /* User.m */; };
 		3CC0B734151836F10059A5F5 /* RequestMoneyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC0B733151836F10059A5F5 /* RequestMoneyViewController.m */; };
 		3CCAC86B151940D700696963 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CCAC86A151940D700696963 /* AVFoundation.framework */; };
 		3CCAC86D151940E300696963 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CCAC86C151940E300696963 /* CoreMedia.framework */; };
@@ -221,8 +221,6 @@
 		3C5F9C871511401F00201B20 /* KeychainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainWrapper.m; sourceTree = "<group>"; };
 		3C75D62C15159B51004269B1 /* TransactionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionCell.h; sourceTree = "<group>"; };
 		3C75D62D15159B51004269B1 /* TransactionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionCell.m; sourceTree = "<group>"; };
-		3C75D62F1515B23E004269B1 /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transaction.h; sourceTree = "<group>"; };
-		3C75D6301515B23E004269B1 /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transaction.m; sourceTree = "<group>"; };
 		3C7CB19B150D99DB0056E1FD /* UIImage+ScaledImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ScaledImage.h"; sourceTree = "<group>"; };
 		3C7CB19C150D99DB0056E1FD /* UIImage+ScaledImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ScaledImage.m"; sourceTree = "<group>"; };
 		3C7CB1A9150DCC1F0056E1FD /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
@@ -230,12 +228,14 @@
 		3C7CB1B3150DD4890056E1FD /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
 		3C7CB1B5150DD6500056E1FD /* checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark@2x.png"; sourceTree = "<group>"; };
 		3C8714C1151475CF00722C6C /* SimpleMoney.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SimpleMoney.xcdatamodel; sourceTree = "<group>"; };
-		3C8714C91514774200722C6C /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		3C8714CA1514774200722C6C /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		3C88E17E1513EBDD002D5C7C /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		3C88E17F1513EBDD002D5C7C /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		3C9EC44315147278004A5563 /* CWLSynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CWLSynthesizeSingleton.h; sourceTree = "<group>"; };
 		3CA292BE151953BC00467578 /* SimpleMoney.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = SimpleMoney.entitlements; sourceTree = "<group>"; };
+		3CB0C1671523E7A600356F60 /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transaction.h; sourceTree = "<group>"; };
+		3CB0C1681523E7A600356F60 /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transaction.m; sourceTree = "<group>"; };
+		3CB0C16A1523E7DF00356F60 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		3CB0C16B1523E7DF00356F60 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		3CC0B732151836F10059A5F5 /* RequestMoneyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestMoneyViewController.h; sourceTree = "<group>"; };
 		3CC0B733151836F10059A5F5 /* RequestMoneyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestMoneyViewController.m; sourceTree = "<group>"; };
 		3CCAC86A151940D700696963 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -572,11 +572,11 @@
 		3CF24A6F150C9ED00048A70B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3C75D62F1515B23E004269B1 /* Transaction.h */,
-				3C75D6301515B23E004269B1 /* Transaction.m */,
+				3CB0C1671523E7A600356F60 /* Transaction.h */,
+				3CB0C1681523E7A600356F60 /* Transaction.m */,
 				3C8714C0151475CF00722C6C /* SimpleMoney.xcdatamodeld */,
-				3C8714C91514774200722C6C /* User.h */,
-				3C8714CA1514774200722C6C /* User.m */,
+				3CB0C16A1523E7DF00356F60 /* User.h */,
+				3CB0C16B1523E7DF00356F60 /* User.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -809,12 +809,12 @@
 				3CF2B0F21514293800B067B0 /* InvoicesViewController.m in Sources */,
 				3CF2B0F51514294D00B067B0 /* BillsViewController.m in Sources */,
 				3C8714C2151475CF00722C6C /* SimpleMoney.xcdatamodeld in Sources */,
-				3C8714CB1514774200722C6C /* User.m in Sources */,
 				3C75D62E15159B51004269B1 /* TransactionCell.m in Sources */,
-				3C75D6311515B23E004269B1 /* Transaction.m in Sources */,
 				3C29A6231518195B003AFA75 /* SendMoneyViewController.m in Sources */,
 				3CC0B734151836F10059A5F5 /* RequestMoneyViewController.m in Sources */,
 				3C14FB26151E9A3E00F9F421 /* TransactionTextField.m in Sources */,
+				3CB0C1691523E7A600356F60 /* Transaction.m in Sources */,
+				3CB0C16C1523E7DF00356F60 /* User.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

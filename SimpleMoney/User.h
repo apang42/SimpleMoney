@@ -2,7 +2,7 @@
 //  User.h
 //  SimpleMoney
 //
-//  Created by Arthur Pang on 3/17/12.
+//  Created by Arthur Pang on 3/28/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -15,13 +15,12 @@
 
 @property (nonatomic, retain) NSString * avatarURL;
 @property (nonatomic, retain) NSString * avatarURLsmall;
-@property (nonatomic, retain) NSDecimalNumber * balance;
+@property (nonatomic, retain) NSNumber * balance;
 @property (nonatomic, retain) NSString * email;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * password;
 @property (nonatomic, retain) NSNumber * userID;
 @property (nonatomic, retain) NSSet *transactions;
-
 @end
 
 @interface User (CoreDataGeneratedAccessors)

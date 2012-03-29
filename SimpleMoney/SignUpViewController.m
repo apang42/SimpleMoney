@@ -165,7 +165,7 @@
 #pragma mark RKObjectLoader delegate methods
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
     User *user = object;
-    if (user.userID && ![user.userID isEqualToNumber:[NSNumber numberWithInt:0]]) {
+    if (user.userID && !([user.userID isEqualToNumber:[NSNumber numberWithInt:0]])) {
     // Signed up successfully, let's add the user's credentials to the iOS keychain so we can sign them in automatically
         [KeychainWrapper save:@"userID" data:user.userID];
         [KeychainWrapper save:@"userEmail" data:user.email];

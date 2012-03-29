@@ -57,9 +57,11 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
     NSLog(@"loaded: %@",object);
     User *user = object;
-    [KeychainWrapper save:@"userID" data:user.userID];
-    [KeychainWrapper save:@"userEmail" data:user.email];
-    [KeychainWrapper save:@"userBalance" data:user.balance];
+    if (user.userID && !([user.userID isEqualToNumber:[NSNumber numberWithInt:0]])) {
+        [KeychainWrapper save:@"userID" data:user.userID];
+        [KeychainWrapper save:@"userEmail" data:user.email];
+        [KeychainWrapper save:@"userBalance" data:user.balance];
+    }
 }
 
 - (void)viewDidUnload {

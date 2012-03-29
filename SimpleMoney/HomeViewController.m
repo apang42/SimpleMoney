@@ -38,8 +38,17 @@
     self.accountImage.layer.cornerRadius = 5.0;
     self.accountImage.layer.masksToBounds = YES;
     
+
+    currencyFormatter = [[NSNumberFormatter alloc] init];
+    [currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [currencyFormatter setCurrencyCode:@"USD"];
+    [currencyFormatter setNegativeFormat:@"-¤#,##0.00"];
+    
+    NSNumber *userBalance = [KeychainWrapper load:@"userBalance"];
+    NSNumber *formattedBalance = [[NSNumber alloc] initWithFloat:[userBalance floatValue] / 100.0f];
+    self.accountBalance.text = [currencyFormatter stringFromNumber:formattedBalance];
+    
     self.accountName.text = [KeychainWrapper load:@"userEmail"];
-    self.accountBalance.text = [NSString stringWithFormat:@"Balance: %@", [[KeychainWrapper load:@"userBalance"] stringValue]];
     NSString *avatarURL = [KeychainWrapper load:@"userAvatarSmall"];
     
     if (![avatarURL isEqualToString:@"/images/small/missing.png"]) {
@@ -93,9 +102,7 @@
     }
 }
 
-- (void) imagePickerController: (UIImagePickerController*) reader
- didFinishPickingMediaWithInfo: (NSDictionary*) info
-{
+- (void)imagePickerController:(UIImagePickerController *)reader didFinishPickingMediaWithInfo: (NSDictionary *)info {
     // ADD: get the decode results
     id<NSFastEnumeration> results = [info objectForKey: ZBarReaderControllerResults];
     ZBarSymbol *symbol = nil;
@@ -124,7 +131,9 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
     User *user = object;
     self.accountName.text = user.email;
-    self.accountBalance.text = [NSString stringWithFormat:@"Balance: %@", [user.balance stringValue]];
+    NSNumber *userBalance = [KeychainWrapper load:@"userBalance"];
+    NSNumber *formattedBalance = [[NSNumber alloc] initWithFloat:[userBalance floatValue] / 100.0f];
+    self.accountBalance.text = [currencyFormatter stringFromNumber:formattedBalance];
 }
 
 - (void)viewDidUnload {
