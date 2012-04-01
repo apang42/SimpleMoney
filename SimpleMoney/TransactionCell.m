@@ -11,6 +11,13 @@
 @implementation TransactionCell
 @synthesize descriptionLabel;
 @synthesize transactionID;
+@synthesize emailLabel = _emailLabel;
+@synthesize userImageView = _userImageView;
+@synthesize transactionAmountLabel = _transactionAmountLabel;
+@synthesize payButton = _payButton;
+@synthesize nameLabel = _nameLabel;
+@synthesize dateLabel = _dateLabel;
+
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

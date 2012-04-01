@@ -23,6 +23,7 @@
 @synthesize amountTextField;
 @synthesize descriptionTextField;
 @synthesize tableView = _tableView;
+@synthesize sendMoneyButton = _sendMoneyButton;
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if (![super initWithCoder:decoder]) return nil;

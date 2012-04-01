@@ -23,6 +23,7 @@
 @synthesize amountTextField;
 @synthesize descriptionTextField;
 @synthesize tableView = _tableView;
+@synthesize requestMoneyButton = _requestMoneyButton;
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if (![super initWithCoder:decoder]) return nil;
@@ -166,7 +167,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"contactCell"];
     // If there is no reusable cell of this type, create a new one
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"billCell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"contactCell"];
     }
     NSMutableDictionary *contact = [filteredContacts objectAtIndex:indexPath.row];
     cell.textLabel.text = [contact objectForKey:@"name"];

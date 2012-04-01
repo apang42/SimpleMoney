@@ -15,6 +15,7 @@
 @implementation HomeViewController
 @synthesize accountName;
 @synthesize accountBalance;
+@synthesize accountImage;
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if (![super initWithCoder:decoder]) return nil;
