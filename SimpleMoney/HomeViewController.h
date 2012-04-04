@@ -14,6 +14,7 @@
 #import "UIImage+ScaledImage.h"
 #import "UIImageView+WebCache.h"
 #import "UIImageView+Curled.h"
+#import <AddressBookUI/AddressBookUI.h>
 
 #import "ZBarSDK.h"
 
@@ -24,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *accountName;
 @property (weak, nonatomic) IBOutlet UILabel *accountBalance;
 @property (weak, nonatomic) IBOutlet UIImageView *accountImage;
+@property (strong, nonatomic) NSMutableArray *ABContacts;
 
 - (IBAction)signOutButtonWasPressed:(id)sender;
 

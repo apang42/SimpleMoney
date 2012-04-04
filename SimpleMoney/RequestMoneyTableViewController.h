@@ -1,8 +1,8 @@
 //
-//  RequestMoneyViewController.h
+//  RequestMoneyTableViewController.h
 //  SimpleMoney
 //
-//  Created by Arthur Pang on 3/19/12.
+//  Created by Joshua Conner on 4/2/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -15,22 +15,19 @@
 #import "User.h"
 #import "Transaction.h"
 #import "MBProgressHUD.h"
+#import "ABContactCell.h"
 
-@interface RequestMoneyViewController : UIViewController <UITextFieldDelegate, RKObjectLoaderDelegate, MBProgressHUDDelegate> {
+@interface RequestMoneyTableViewController : UITableViewController<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, RKObjectLoaderDelegate, MBProgressHUDDelegate, ABContactCellDelegate> {
     MBProgressHUD *loadingIndicator;
-    NSMutableArray *contacts;
-    NSMutableArray *filteredContacts;
-    NSNumber *_amount;
 }
 
+@property (weak, nonatomic) IBOutlet UITableViewCell *emailTextFieldCell;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *amountTextField;
 @property (weak, nonatomic) IBOutlet UITextField *descriptionTextField;
-@property (weak, nonatomic) IBOutlet UIButton *requestMoneyButton;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray *contacts;
 
-- (IBAction)newTransactionButtonWasPressed:(UIBarButtonItem *)sender;
 - (IBAction)requestMoneyButtonWasPressed;
-- (IBAction)dismissKeyboard;
+- (IBAction)clearEmailCellButtonPressed;
 
 @end

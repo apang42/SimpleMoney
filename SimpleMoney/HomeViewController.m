@@ -16,11 +16,44 @@
 @synthesize accountName;
 @synthesize accountBalance;
 @synthesize accountImage;
+@synthesize ABContacts = _ABContacts;
 
 - (id)initWithCoder:(NSCoder *)decoder {
     if (![super initWithCoder:decoder]) return nil;
 
     return self;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0u);
+    dispatch_async(queue, ^{
+        self.ABContacts = [[NSMutableArray alloc] init];
+        ABAddressBookRef addressBook = ABAddressBookCreate();
+        CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBook);
+        CFIndex n = ABAddressBookGetPersonCount(addressBook);
+        for(int i = 0; i < n; i++) {
+            ABRecordRef ref = CFArrayGetValueAtIndex(allPeople, i);
+            NSString *name = (__bridge NSString*)ABRecordCopyValue(ref, kABPersonFirstNameProperty);
+            NSString *lastName = (__bridge NSString*)ABRecordCopyValue(ref, kABPersonLastNameProperty);
+            NSArray *emails;
+            
+            if (lastName) {
+                name = [name stringByAppendingFormat: @" %@", lastName];
+            } 
+            
+            ABMultiValueRef emailAddresses = ABRecordCopyValue(ref, kABPersonEmailProperty);
+            int count = ABMultiValueGetCount(emailAddresses);
+            
+            if (name && count > 0) {
+                emails = (__bridge NSArray*)ABMultiValueCopyArrayOfAllValues(emailAddresses);
+                
+                [self.ABContacts addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:name,@"name",emails,@"emails", nil]];
+            }
+            NSSortDescriptor *sortByName = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+            [self.ABContacts sortUsingDescriptors:[NSArray arrayWithObject:sortByName]];
+        }
+    });
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -153,6 +186,12 @@
         NSLog(@"posted a new transaction: %@", t);
     }
 
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if (self.ABContacts && [segue.destinationViewController respondsToSelector:@selector(setContacts:)]) {
+        [segue.destinationViewController performSelector:@selector(setContacts:) withObject:self.ABContacts];
+    }
 }
 
 - (void)viewDidUnload {
