@@ -25,9 +25,12 @@
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *amountTextField;
 @property (weak, nonatomic) IBOutlet UITextField *descriptionTextField;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *sendButton;
 @property (strong, nonatomic) NSMutableArray *contacts;
+@property (strong, nonatomic) NSString *resourcePath;
 
 - (IBAction)requestMoneyButtonWasPressed;
 - (IBAction)clearEmailCellButtonPressed;
+- (void) setSendButtonTitle:(NSString *)text;
 
 @end

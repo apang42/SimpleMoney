@@ -16,6 +16,7 @@
     BOOL emailFieldIsSet;
     BOOL contactsAreShowing;
     NSNumberFormatter *numberFormatter;
+    NSString *sendButtonTitle;
 }
 
 @property (weak, nonatomic) IBOutlet UIImageView *emailCellImage;
@@ -46,16 +47,22 @@
 @synthesize descriptionTextField;
 @synthesize contactsTableView = _contactsTableView;
 @synthesize contacts = _contacts;
+@synthesize sendButton;
 @synthesize filteredContacts = _filteredContacts;
 @synthesize amount = _amount;
 @synthesize staticTableView;
 @synthesize lastSelectedIndexPath = _lastSelectedIndexPath;
+@synthesize resourcePath = _resourcePath;
 
 #pragma mark - Getters and Setters
 - (NSMutableArray *)filteredContacts {
     if (!_filteredContacts) _filteredContacts = self.contacts;
     
     return _filteredContacts;
+}
+
+- (void) setSendButtonTitle:(NSString *)text {
+    sendButtonTitle = text;
 }
 
 #pragma mark - Validating and sending the request
@@ -100,7 +107,7 @@
 
         if ([senderEmail isEqualToString:[KeychainWrapper load:@"userEmail"]]) {
             loadingIndicator.labelText = @"Not allowed.";
-            loadingIndicator.detailsLabelText = @"You can't request money from yourself.";
+            loadingIndicator.detailsLabelText = @"You can't request money from or send money to yourself.";
         } else if (!isValidEmail) {
             loadingIndicator.labelText = @"Invalid email address.";
         } else {
@@ -111,7 +118,7 @@
     } else {
         // POST a new Transaction on the server
         RKObjectManager *objectManager = [RKObjectManager sharedManager];
-        [objectManager loadObjectsAtResourcePath:@"/invoices" delegate:self block:^(RKObjectLoader* loader) {
+        [objectManager loadObjectsAtResourcePath:self.resourcePath delegate:self block:^(RKObjectLoader* loader) {
             RKParams *params = [RKParams params];
             [params setValue:senderEmail forParam:@"transaction[sender_email]"];
             [params setValue:amountTextField.text forParam:@"transaction[amount]"];
@@ -212,6 +219,8 @@
     [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
     [numberFormatter setMinimumFractionDigits:0];
     [numberFormatter setMaximumFractionDigits:2];
+    self.sendButton.title = sendButtonTitle;
+    self.navigationItem.title = sendButtonTitle;
 
 
     // Uncomment the following line to preserve selection between presentations.
@@ -229,6 +238,7 @@
     [self setEmailCellClearButton:nil];
     [self setStaticTableView:nil];
     [self setEmailTextFieldCell:nil];
+    [self setSendButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
