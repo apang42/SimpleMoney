@@ -12,7 +12,8 @@
 @protocol ABContactCellDelegate <NSObject>
 @required
 - (void)replaceEmailFieldWithName:(NSString *)name 
-                         andEmail:(NSString *)email;
+                         andEmail:(NSString *)email 
+                     andImage:(UIImage *)image;
 @end
 
 @interface ABContactCell : UITableViewCell

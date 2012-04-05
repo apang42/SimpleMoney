@@ -78,9 +78,11 @@
 #pragma mark - Cell config
 - (void)configureWithDictionary:(NSDictionary *)dictionary {
     self.name.text = [dictionary objectForKey:@"name"];
-
     NSArray *emails = [dictionary objectForKey:@"emails"];
-    int offset = 30;
+    NSData *imageData;
+
+    
+    float offset = 35.0;
     
     //if only one email address, show it
     if ([emails count] == 1) {
@@ -94,16 +96,23 @@
              forControlEvents:UIControlEventTouchUpInside];
             [button setTitle:email forState:UIControlStateNormal];
             button.alpha = 0.0;
-            button.frame = CGRectMake(45.0, offset, 220.0, 30.0);
+            button.frame = CGRectMake(55.0, offset, 205.0, 35.0);
             button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0];
             button.titleEdgeInsets = UIEdgeInsetsMake(3.0, 3.0, 3.0, 3.0);
-            button.titleLabel.textColor = [UIColor darkTextColor];
+            [button setTitleColor:[UIColor darkTextColor] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor darkTextColor] forState:UIControlStateSelected];
             
             [self.name.superview addSubview:button];
             [self.emailButtons addObject:button];
             
-            offset += 35;
+            offset += 45.0;
         }
+    }
+    
+    if ((imageData = [dictionary objectForKey:@"imageData"])) {
+        self.picture.image = [UIImage imageWithData:imageData];
+    } else {
+        self.picture.image = [UIImage imageNamed:@"profile.png"];
     }
 }
 
@@ -111,6 +120,7 @@
 
     if (self.delegateTVC && [self.delegateTVC respondsToSelector:@selector(replaceEmailFieldWithName:andEmail:)]) {
         [self.delegateTVC performSelector:@selector(replaceEmailFieldWithName:andEmail:) withObject:self.name.text withObject:sender.titleLabel.text];
+        [self setSelected:NO animated:NO];
     }
 }
 

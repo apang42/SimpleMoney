@@ -32,7 +32,7 @@
 - (void)sendRequest;
 - (void)hideTableView;
 - (void)showTableView;
-- (void)replaceEmailFieldWithName:(NSString *)name andEmail:(NSString *)email;
+- (void)replaceEmailFieldWithName:(NSString *)name andEmail:(NSString *)email andImage:(UIImage *)image;
 @end
 
 @implementation RequestMoneyTableViewController
@@ -91,7 +91,6 @@
         senderEmail = self.emailTextField.text;
     }
     isValidEmail = [self stringIsValidEmail:senderEmail];
-    NSLog(@"senderEmail: %@, isValid: %d", senderEmail, isValidEmail);
 
     
     // Make sure the user doesn't request money from themselves, they have a valid email address, and the amount they're trying to send is greater than 0
@@ -100,7 +99,7 @@
         loadingIndicator.mode = MBProgressHUDModeCustomView;
 
         if ([senderEmail isEqualToString:[KeychainWrapper load:@"userEmail"]]) {
-            loadingIndicator.labelText = @"Hey there...";
+            loadingIndicator.labelText = @"Not allowed.";
             loadingIndicator.detailsLabelText = @"You can't request money from yourself.";
         } else if (!isValidEmail) {
             loadingIndicator.labelText = @"Invalid email address.";
@@ -108,7 +107,7 @@
             loadingIndicator.labelText = @"Invalid amount.";
         }
         // Display the error message and hide it after 1 second
-        [loadingIndicator hide:YES afterDelay:1.0];
+        [loadingIndicator hide:YES afterDelay:2.5];
     } else {
         // POST a new Transaction on the server
         RKObjectManager *objectManager = [RKObjectManager sharedManager];
@@ -139,8 +138,24 @@
 }
 
 - (IBAction)clearEmailCellButtonPressed {
-    [self hideEmailCellImageAndLabels];
-    [self.emailTextField becomeFirstResponder];
+    self.emailTextField.text = @"";
+    emailFieldIsSet = NO;
+    self.filteredContacts = self.contacts;
+    [self.staticTableView reloadData];
+    [self.contactsTableView reloadData];
+    
+    [UIView animateWithDuration:0.10 delay:0.0 options:UIViewAnimationCurveEaseIn animations:^(void){
+        self.emailCellEmailLabel.alpha = 0;
+        self.emailCellImage.alpha = 0;
+        self.emailCellNameLabel.alpha = 0;
+        self.emailCellClearButton.alpha = 0;
+        self.emailTextField.alpha = 1;
+    } completion:^(BOOL finished){
+        [self.emailTextField becomeFirstResponder];
+        self.emailCellEmailLabel.text = @"";
+        [self.emailTextField becomeFirstResponder];
+    }];
+    
 }
 
 - (IBAction)dismissKeyboard {
@@ -220,7 +235,6 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [self hideEmailCellImageAndLabels];
     [self.emailTextField becomeFirstResponder];
 }
 
@@ -231,25 +245,11 @@
 
 
 #pragma mark - Show/hide helper methods
-- (void) hideEmailCellImageAndLabels {
-    self.emailTextField.text = @"";
-    emailFieldIsSet = NO;
-    
-    [UIView animateWithDuration:0.10 delay:0.0 options:UIViewAnimationCurveEaseIn animations:^(void){
-        self.emailCellEmailLabel.alpha = 0;
-        self.emailCellImage.alpha = 0;
-        self.emailCellNameLabel.alpha = 0;
-        self.emailCellClearButton.alpha = 0;
-        self.emailTextField.alpha = 1;
-    } completion:^(BOOL finished){
-        [self.emailTextField becomeFirstResponder];
-    }];
-}
-
 - (void) showEmailCellWithImage:(UIImage *)image 
                            name:(NSString *)name 
                           email:(NSString *)email {
     emailFieldIsSet = YES;
+    
     
     if (image) {
         self.emailCellImage.image = image;
@@ -267,6 +267,7 @@
         self.emailTextField.alpha = 0;
     } completion:^(BOOL finished){
     }];
+    
     
     [self.staticTableView reloadData];
 }
@@ -293,16 +294,16 @@
 
 - (void)showTableView {
     contactsAreShowing = YES;
-    [self.staticTableView reloadData];
+    //[self.staticTableView reloadData];
     [self.contactsTableView setHidden:NO];
 
     //scroll the table view back to the top; otherwise it remembers the previous position scrolled to.
     [self.contactsTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
     
-    [UIView animateWithDuration:0.20 delay:0.1 options:UIViewAnimationCurveEaseOut animations:^(void){
+    [UIView animateWithDuration:0.10 delay:0.2 options:UIViewAnimationCurveEaseOut animations:^(void){
         float xPosition = self.staticTableView.frame.origin.x;
         float yPosition = self.staticTableView.frame.origin.y + kTABLEVIEWOFFSET;
-        NSLog(@"yPosition = %f", yPosition);
+
         float width = self.staticTableView.frame.size.width;
         self.contactsTableView.frame = CGRectMake(xPosition, yPosition, width, kTABLEVIEWHEIGHT);
         self.contactsTableView.alpha = 1.0;
@@ -316,12 +317,14 @@
 
 #pragma mark - this is also the ABContactCell Delegate method
 - (void)replaceEmailFieldWithName:(NSString *)name 
-                         andEmail:(NSString *)email {
-    [self showEmailCellWithImage:nil name:name email:email];
+                         andEmail:(NSString *)email 
+                         andImage:(UIImage *)image {
+    [self showEmailCellWithImage:image name:name email:email];
 
     if (!self.staticTableView.isHidden)[self hideTableView];
     
     [self.amountTextField becomeFirstResponder];
+    self.lastSelectedIndexPath = [NSIndexPath indexPathWithIndex:-1];
 }
 
 # pragma mark - UITextFieldDelegate methods
@@ -440,35 +443,47 @@
         return [self.filteredContacts count];
     } else {
         //otherwise it's the static table view
-        return 3;
+        if (emailFieldIsSet) return 3;
+        else return 1;
     }
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {    
+    //contacts table view
     if (tableView == self.contactsTableView) {
-        NSString *name = [[self.filteredContacts objectAtIndex:indexPath.row] objectForKey:@"name"];
-        NSArray *emails = [[self.filteredContacts objectAtIndex:indexPath.row] objectForKey:@"emails"]; 
+        NSDictionary *contact = [self.filteredContacts objectAtIndex:indexPath.row];
+        NSString *name = [contact objectForKey:@"name"];
+        NSArray *emails = [contact objectForKey:@"emails"];
+        UIImage *image = [UIImage imageWithData:[contact objectForKey:@"imageData"]];
         
+        //if the cell is big, selecting it again makes it small
         if ([indexPath isEqual:self.lastSelectedIndexPath]) {
             self.lastSelectedIndexPath = [NSIndexPath indexPathWithIndex:-1];
             [[self.contactsTableView cellForRowAtIndexPath:indexPath] setSelected:NO];
-        } else {
-            if ([emails count] > 1) {
-                [self.contactsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-            }
-            self.lastSelectedIndexPath = indexPath;
-        }
-        
-        if ([emails count] > 1) {
-            //if multiple emails, animate tableviewcell height change
             [self.contactsTableView beginUpdates];
             [self.contactsTableView endUpdates];
-            
+
+        //if the cell has multiple emails, expand and scroll table view so cell is at top of visible table view
+        } else if ([emails count] > 1) {
+            self.lastSelectedIndexPath = indexPath;
+        
+            [self.contactsTableView beginUpdates];
+            [self.contactsTableView endUpdates];
+            [self.contactsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        
+        //if the cell only has one email we replace the email field with the contact selected
         } else {
-            [self replaceEmailFieldWithName:name andEmail:[emails lastObject]];
+            emailFieldIsSet = YES;
+            [self replaceEmailFieldWithName:(NSString *)name andEmail:[emails lastObject] andImage:image];
+        }
+        
+    //static table view
+    } else {
+        if (emailFieldIsSet && indexPath.row == 0) {
+            [self clearEmailCellButtonPressed];
         }
     }
-    //if (!self.tableView.isHidden)[self hideTableView];
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -478,17 +493,23 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == self.staticTableView && emailFieldIsSet && indexPath.row == 0) {
-        return 60;
+    if (tableView == self.staticTableView) {
+
+        if (emailFieldIsSet && indexPath.row == 0) {
+            return 60;
+        } else {
+            return 44;
+        }
+            
     } else if (tableView == self.contactsTableView) {
         int emailCount = [[[self.filteredContacts objectAtIndex:indexPath.row] objectForKey:@"emails"] count];
         
         if ([indexPath isEqual:self.lastSelectedIndexPath] && emailCount > 1) {
-            return 30 + (35*emailCount);
+            return 35 + (45*emailCount);
         } 
     }
     
-    return 44;
+    return 56;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath {

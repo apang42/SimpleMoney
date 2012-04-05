@@ -36,18 +36,29 @@
             NSString *name = (__bridge NSString*)ABRecordCopyValue(ref, kABPersonFirstNameProperty);
             NSString *lastName = (__bridge NSString*)ABRecordCopyValue(ref, kABPersonLastNameProperty);
             NSArray *emails;
+            NSData *imageData;
             
             if (lastName) {
                 name = [name stringByAppendingFormat: @" %@", lastName];
             } 
             
             ABMultiValueRef emailAddresses = ABRecordCopyValue(ref, kABPersonEmailProperty);
+            
             int count = ABMultiValueGetCount(emailAddresses);
             
             if (name && count > 0) {
                 emails = (__bridge NSArray*)ABMultiValueCopyArrayOfAllValues(emailAddresses);
                 
-                [self.ABContacts addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:name,@"name",emails,@"emails", nil]];
+                if (ABPersonHasImageData(ref)) {
+                    NSLog(@"Has image data!");
+                   imageData = (__bridge_transfer NSData*)ABPersonCopyImageDataWithFormat(ref, kABPersonImageFormatThumbnail);
+
+                    
+                    [self.ABContacts addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:name, @"name", emails, @"emails", imageData, @"imageData", nil]];
+                    
+                } else {
+                    [self.ABContacts addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:name,@"name",emails,@"emails", nil]];
+                }
             }
             NSSortDescriptor *sortByName = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
             [self.ABContacts sortUsingDescriptors:[NSArray arrayWithObject:sortByName]];
