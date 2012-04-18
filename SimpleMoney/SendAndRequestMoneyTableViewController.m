@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "RequestMoneyTableViewController.h"
+#import "SendAndRequestMoneyTableViewController.h"
 
 #define DEFAULT_IMAGE @"profile.png"
 #define kTABLEVIEWHEIGHT 140.0
@@ -246,6 +246,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [self.emailTextField becomeFirstResponder];
+    self.lastSelectedIndexPath = [NSIndexPath indexPathWithIndex:NSIntegerMax];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -468,7 +469,7 @@
         
         //if the cell is big, selecting it again makes it small
         if ([indexPath isEqual:self.lastSelectedIndexPath]) {
-            self.lastSelectedIndexPath = [NSIndexPath indexPathWithIndex:-1];
+            self.lastSelectedIndexPath = [NSIndexPath indexPathWithIndex:NSIntegerMax];
             [[self.contactsTableView cellForRowAtIndexPath:indexPath] setSelected:NO];
             [self.contactsTableView beginUpdates];
             [self.contactsTableView endUpdates];

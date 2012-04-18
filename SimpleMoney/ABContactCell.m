@@ -117,11 +117,16 @@
 }
 
 - (IBAction)buttonPressed:(UIButton *)sender {
-
-    if (self.delegateTVC && [self.delegateTVC respondsToSelector:@selector(replaceEmailFieldWithName:andEmail:)]) {
-        [self.delegateTVC performSelector:@selector(replaceEmailFieldWithName:andEmail:) withObject:self.name.text withObject:sender.titleLabel.text];
+    NSLog(@"button pressed: %@", sender);
+    if (self.delegateTVC && [self.delegateTVC respondsToSelector:@selector(replaceEmailFieldWithName:andEmail:andImage:)]) {
+        [self.delegateTVC replaceEmailFieldWithName:self.name.text andEmail:sender.titleLabel.text andImage:self.picture.image];
         [self setSelected:NO animated:NO];
     }
+}
+
+- (void) prepareForReuse {
+    [super prepareForReuse];
+    [self.emailButtons removeAllObjects];    
 }
 
 @end
