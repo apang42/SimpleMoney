@@ -23,7 +23,7 @@
                                                                    [UIColor colorWithHue:0 saturation:0 brightness:0.6 alpha:1], UITextAttributeTextColor,
                                                                    [UIColor whiteColor],UITextAttributeTextShadowColor,
                                                                    [NSValue valueWithUIOffset:UIOffsetMake(0, 1)],UITextAttributeTextShadowOffset,
-                                                                   [UIFont fontWithName:@"HelveticaNeue-Bold" size:0.0],UITextAttributeFont,
+                                                                   [UIFont fontWithName:@"HelveticaNeue-Light" size:22.0],UITextAttributeFont,
                                                                    nil]];
     
     [[UIBarButtonItem appearance]setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:

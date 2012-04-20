@@ -12,7 +12,7 @@
 #define kTABLEVIEWHEIGHT 140.0
 #define kTABLEVIEWOFFSET 60.0
 
-@interface RequestMoneyTableViewController () {
+@interface SendAndRequestMoneyTableViewController () {
     BOOL emailFieldIsSet;
     BOOL contactsAreShowing;
     NSNumberFormatter *numberFormatter;
@@ -36,7 +36,7 @@
 - (void)replaceEmailFieldWithName:(NSString *)name andEmail:(NSString *)email andImage:(UIImage *)image;
 @end
 
-@implementation RequestMoneyTableViewController
+@implementation SendAndRequestMoneyTableViewController
 @synthesize emailTextFieldCell;
 @synthesize emailTextField;
 @synthesize emailCellImage;
@@ -470,8 +470,8 @@
         //if the cell is big, selecting it again makes it small
         if ([indexPath isEqual:self.lastSelectedIndexPath]) {
             self.lastSelectedIndexPath = [NSIndexPath indexPathWithIndex:NSIntegerMax];
-            [[self.contactsTableView cellForRowAtIndexPath:indexPath] setSelected:NO];
             [self.contactsTableView beginUpdates];
+            [[self.contactsTableView cellForRowAtIndexPath:indexPath] setSelected:NO];
             [self.contactsTableView endUpdates];
 
         //if the cell has multiple emails, expand and scroll table view so cell is at top of visible table view
@@ -479,8 +479,8 @@
             self.lastSelectedIndexPath = indexPath;
         
             [self.contactsTableView beginUpdates];
-            [self.contactsTableView endUpdates];
             [self.contactsTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            [self.contactsTableView endUpdates];
         
         //if the cell only has one email we replace the email field with the contact selected
         } else {

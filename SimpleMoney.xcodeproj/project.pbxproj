@@ -93,6 +93,17 @@
 		8694F4CF152AA3C800E35A06 /* SendAndRequestMoneyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8694F4CE152AA3C800E35A06 /* SendAndRequestMoneyTableViewController.m */; };
 		8694F4D2152AA4EB00E35A06 /* ABContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8694F4D1152AA4EB00E35A06 /* ABContactCell.m */; };
 		8694F4D6152AAC3700E35A06 /* closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 8694F4D5152AAC3700E35A06 /* closed.png */; };
+		86E209771540F13C00E52DB3 /* QRCodeReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86E209761540F13C00E52DB3 /* QRCodeReaderViewController.m */; };
+		86E209AD1541337700E52DB3 /* iphonewireframe.png in Resources */ = {isa = PBXBuildFile; fileRef = 86E209A91541337700E52DB3 /* iphonewireframe.png */; };
+		86E209AE1541337700E52DB3 /* iphonewireframe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86E209AA1541337700E52DB3 /* iphonewireframe@2x.png */; };
+		86E209AF1541337700E52DB3 /* pay-here.png in Resources */ = {isa = PBXBuildFile; fileRef = 86E209AB1541337700E52DB3 /* pay-here.png */; };
+		86E209B01541337700E52DB3 /* pay-here@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86E209AC1541337700E52DB3 /* pay-here@2x.png */; };
+		86F5D75015401516005F6C0F /* Screen Shot 2012-04-05 at 2.58.36 AM.png in Resources */ = {isa = PBXBuildFile; fileRef = 86F5D74F15401516005F6C0F /* Screen Shot 2012-04-05 at 2.58.36 AM.png */; };
+		86F5D7531540153D005F6C0F /* PINBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 86F5D7511540153D005F6C0F /* PINBox.png */; };
+		86F5D7541540153D005F6C0F /* PINBox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86F5D7521540153D005F6C0F /* PINBox@2x.png */; };
+		86F5D75A15401D7C005F6C0F /* PaymentAuthorizedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F5D75915401D7B005F6C0F /* PaymentAuthorizedViewController.m */; };
+		86F5D75E15403120005F6C0F /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F5D75C15403112005F6C0F /* UIButton+WebCache.m */; };
+		86F5D75F15403164005F6C0F /* GCStoryboardPINViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86F5D75615401B20005F6C0F /* GCStoryboardPINViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -283,6 +294,21 @@
 		8694F4D0152AA4EB00E35A06 /* ABContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABContactCell.h; sourceTree = "<group>"; };
 		8694F4D1152AA4EB00E35A06 /* ABContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABContactCell.m; sourceTree = "<group>"; };
 		8694F4D5152AAC3700E35A06 /* closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = closed.png; sourceTree = "<group>"; };
+		86E209751540F13C00E52DB3 /* QRCodeReaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeReaderViewController.h; sourceTree = "<group>"; };
+		86E209761540F13C00E52DB3 /* QRCodeReaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeReaderViewController.m; sourceTree = "<group>"; };
+		86E209A91541337700E52DB3 /* iphonewireframe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iphonewireframe.png; sourceTree = "<group>"; };
+		86E209AA1541337700E52DB3 /* iphonewireframe@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iphonewireframe@2x.png"; sourceTree = "<group>"; };
+		86E209AB1541337700E52DB3 /* pay-here.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay-here.png"; sourceTree = "<group>"; };
+		86E209AC1541337700E52DB3 /* pay-here@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pay-here@2x.png"; sourceTree = "<group>"; };
+		86F5D74F15401516005F6C0F /* Screen Shot 2012-04-05 at 2.58.36 AM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Screen Shot 2012-04-05 at 2.58.36 AM.png"; sourceTree = "<group>"; };
+		86F5D7511540153D005F6C0F /* PINBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PINBox.png; sourceTree = "<group>"; };
+		86F5D7521540153D005F6C0F /* PINBox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PINBox@2x.png"; sourceTree = "<group>"; };
+		86F5D75515401B20005F6C0F /* GCStoryboardPINViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCStoryboardPINViewController.h; sourceTree = "<group>"; };
+		86F5D75615401B20005F6C0F /* GCStoryboardPINViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCStoryboardPINViewController.m; sourceTree = "<group>"; };
+		86F5D75815401D7B005F6C0F /* PaymentAuthorizedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentAuthorizedViewController.h; sourceTree = "<group>"; };
+		86F5D75915401D7B005F6C0F /* PaymentAuthorizedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentAuthorizedViewController.m; sourceTree = "<group>"; };
+		86F5D75B15403112005F6C0F /* UIButton+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+WebCache.h"; sourceTree = "<group>"; };
+		86F5D75C15403112005F6C0F /* UIButton+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WebCache.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -393,6 +419,10 @@
 				3CF2B0F41514294D00B067B0 /* BillsViewController.m */,
 				3CF2B0F01514293800B067B0 /* InvoicesViewController.h */,
 				3CF2B0F11514293800B067B0 /* InvoicesViewController.m */,
+				86F5D75815401D7B005F6C0F /* PaymentAuthorizedViewController.h */,
+				86F5D75915401D7B005F6C0F /* PaymentAuthorizedViewController.m */,
+				86E209751540F13C00E52DB3 /* QRCodeReaderViewController.h */,
+				86E209761540F13C00E52DB3 /* QRCodeReaderViewController.m */,
 				3C30FDA6151FD323007A8F9E /* Custom UI */,
 				3CF24A6F150C9ED00048A70B /* Models */,
 				3C12D40E150C64C6000915A5 /* Assets */,
@@ -436,6 +466,13 @@
 		3C12D40E150C64C6000915A5 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				86E209A91541337700E52DB3 /* iphonewireframe.png */,
+				86E209AA1541337700E52DB3 /* iphonewireframe@2x.png */,
+				86E209AB1541337700E52DB3 /* pay-here.png */,
+				86E209AC1541337700E52DB3 /* pay-here@2x.png */,
+				86F5D7511540153D005F6C0F /* PINBox.png */,
+				86F5D7521540153D005F6C0F /* PINBox@2x.png */,
+				86F5D74F15401516005F6C0F /* Screen Shot 2012-04-05 at 2.58.36 AM.png */,
 				3C2D6EB6151EE2D300086CAF /* sendmoney-bg.png */,
 				3C2D6EB4151EDE7000086CAF /* paper-button.png */,
 				864D1CB2152ADA000032CAB7 /* x.png */,
@@ -466,6 +503,8 @@
 		3C235A99150C6C760036B08B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				86F5D75B15403112005F6C0F /* UIButton+WebCache.h */,
+				86F5D75C15403112005F6C0F /* UIButton+WebCache.m */,
 				3C9EC44315147278004A5563 /* CWLSynthesizeSingleton.h */,
 				3CF2B0F61514299E00B067B0 /* PullToRefreshView.h */,
 				3CF2B0F71514299E00B067B0 /* PullToRefreshView.m */,
@@ -481,6 +520,8 @@
 			isa = PBXGroup;
 			children = (
 				8694F4BD1528D9D000E35A06 /* UIPlaceHolderTextView.h */,
+				86F5D75515401B20005F6C0F /* GCStoryboardPINViewController.h */,
+				86F5D75615401B20005F6C0F /* GCStoryboardPINViewController.m */,
 				8694F4BE1528D9D000E35A06 /* UIPlaceHolderTextView.m */,
 				3C75D62C15159B51004269B1 /* TransactionCell.h */,
 				3C75D62D15159B51004269B1 /* TransactionCell.m */,
@@ -791,6 +832,13 @@
 				8694F4C515290B6900E35A06 /* top.png in Resources */,
 				8694F4D6152AAC3700E35A06 /* closed.png in Resources */,
 				864D1CB3152ADA000032CAB7 /* x.png in Resources */,
+				86F5D75015401516005F6C0F /* Screen Shot 2012-04-05 at 2.58.36 AM.png in Resources */,
+				86F5D7531540153D005F6C0F /* PINBox.png in Resources */,
+				86F5D7541540153D005F6C0F /* PINBox@2x.png in Resources */,
+				86E209AD1541337700E52DB3 /* iphonewireframe.png in Resources */,
+				86E209AE1541337700E52DB3 /* iphonewireframe@2x.png in Resources */,
+				86E209AF1541337700E52DB3 /* pay-here.png in Resources */,
+				86E209B01541337700E52DB3 /* pay-here@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -849,6 +897,10 @@
 				8694F4BF1528D9D000E35A06 /* UIPlaceHolderTextView.m in Sources */,
 				8694F4CF152AA3C800E35A06 /* SendAndRequestMoneyTableViewController.m in Sources */,
 				8694F4D2152AA4EB00E35A06 /* ABContactCell.m in Sources */,
+				86F5D75A15401D7C005F6C0F /* PaymentAuthorizedViewController.m in Sources */,
+				86F5D75E15403120005F6C0F /* UIButton+WebCache.m in Sources */,
+				86F5D75F15403164005F6C0F /* GCStoryboardPINViewController.m in Sources */,
+				86E209771540F13C00E52DB3 /* QRCodeReaderViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

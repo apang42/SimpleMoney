@@ -62,7 +62,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="HmP-RK-qG6" kind="modal" modalTransitionStyle="crossDissolve" id="9bx-5a-6T1"/>
+                                    <segue destination="HmP-RK-qG6" kind="modal" identifier="" modalTransitionStyle="crossDissolve" id="9bx-5a-6T1"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" id="dhx-gU-2A8">
@@ -175,6 +175,9 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <connections>
+                                            <segue destination="5Zn-Hn-kxw" kind="push" id="vEs-gb-NFC"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="sendMoneyCell" textLabel="OtG-oW-dbq" style="IBUITableViewCellStyleDefault" id="VGj-r0-c1Z">
                                         <rect key="frame" x="0.0" y="157" width="320" height="62"/>
@@ -615,6 +618,54 @@
             </objects>
             <point key="canvasLocation" x="-484" y="94"/>
         </scene>
+        <!--Code Reader View Controller-->
+        <scene sceneID="t3K-w7-O2G">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G9j-je-8Bh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="5Zn-Hn-kxw" customClass="QRCodeReaderViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FgJ-4Y-ig6">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleToFill" id="oBS-Js-anp" customClass="ZBarReaderView">
+                                <rect key="frame" x="-5" y="-4" width="327" height="283"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="D64-8r-shg">
+                                <rect key="frame" x="0.0" y="275" width="320" height="141"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pay-here.png" id="vHd-My-9Jm">
+                                        <rect key="frame" x="5" y="0.0" width="250" height="104"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="iphonewireframe.png" id="scj-Lx-eAX">
+                                        <rect key="frame" x="248" y="14" width="67" height="121"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <view alpha="0.0" contentMode="scaleToFill" id="SwH-bH-R6K">
+                                        <rect key="frame" x="32" y="54" width="48" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.0" green="0.80392158030000005" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                    </view>
+                    <navigationItem key="navigationItem" id="HjH-uI-IRb"/>
+                    <connections>
+                        <outlet property="greenSquare" destination="SwH-bH-R6K" id="7nX-wJ-3ys"/>
+                        <outlet property="iphoneImage" destination="scj-Lx-eAX" id="TLb-d1-CR1"/>
+                        <outlet property="readerView" destination="oBS-Js-anp" id="kK7-W6-D5f"/>
+                        <segue destination="NUm-vK-CgS" kind="modal" identifier="enterPinSegue" id="PDp-G6-Qzo"/>
+                        <segue destination="O34-Xu-uOE" kind="push" identifier="paidSegue" id="VzN-6z-k4k"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="295"/>
+        </scene>
         <!--Bills View Controller - Bills-->
         <scene sceneID="lTU-wj-Bqm">
             <objects>
@@ -961,11 +1012,11 @@
             </objects>
             <point key="canvasLocation" x="-756" y="932"/>
         </scene>
-        <!--Request Money Table View Controller - Request Money-->
+        <!--Send And Request Money Table View Controller - Request Money-->
         <scene sceneID="sWe-LY-0Oh">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FWi-Yz-0xF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="TrX-yl-6Cf" customClass="RequestMoneyTableViewController" sceneMemberID="viewController">
+                <tableViewController id="TrX-yl-6Cf" customClass="SendAndRequestMoneyTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="eJ2-pG-MRV">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1180,24 +1231,421 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="553" y="-5"/>
+            <point key="canvasLocation" x="1113" y="-55"/>
+        </scene>
+        <!--StoryboardPIN View Controller-->
+        <scene sceneID="Yjj-XQ-DeG">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NqI-uk-aEP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="NUm-vK-CgS" customClass="GCStoryboardPINViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IiY-Uv-Tzj">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="vuc-ze-tTe">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="2rx-37-XFM">
+                                        <rect key="frame" x="95" y="325" width="97" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="PINBox.png" id="Y5Y-U2-KTj">
+                                        <rect key="frame" x="26" y="127" width="61" height="53"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </imageView>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="PINBox.png" id="a01-AM-hQW">
+                                        <rect key="frame" x="95" y="127" width="61" height="53"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </imageView>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="PINBox.png" id="eiw-1c-LMH">
+                                        <rect key="frame" x="164" y="127" width="61" height="53"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </imageView>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="PINBox.png" id="uZF-RG-dZa">
+                                        <rect key="frame" x="233" y="127" width="61" height="53"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="MoY-mC-1iT">
+                                        <rect key="frame" x="36" y="129" width="40" height="42"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="30"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="1" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="rPv-WX-Iij">
+                                        <rect key="frame" x="105" y="129" width="40" height="42"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="30"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="2" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="3MI-uq-afr">
+                                        <rect key="frame" x="174" y="129" width="40" height="42"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="30"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="3" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="uj0-yo-ceg">
+                                        <rect key="frame" x="243" y="129" width="40" height="42"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="30"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Enter your PIN to authorize a payment to:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="10" id="KMG-h3-cqz">
+                                        <rect key="frame" x="15" y="44" width="291" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="calibratedRGB"/>
+                                        <size key="shadowOffset" width="0.0" height="0.0"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Incorrect PIN" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="zAk-yo-PcN">
+                                        <rect key="frame" x="20" y="181" width="280" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="16"/>
+                                        <color key="textColor" red="0.50196081400000003" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="calibratedRGB"/>
+                                        <size key="shadowOffset" width="0.0" height="1"/>
+                                    </label>
+                                    <navigationBar contentMode="scaleToFill" id="RbS-wM-O92">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <items>
+                                            <navigationItem title="Confirm Payment" id="hm2-Xf-msH">
+                                                <barButtonItem key="leftBarButtonItem" title="Cancel" id="Amt-is-EWl">
+                                                    <connections>
+                                                        <action selector="cancelButtonPressed:" destination="NUm-vK-CgS" eventType="touchUpInside" id="1uF-Kq-Xd8"/>
+                                                    </connections>
+                                                </barButtonItem>
+                                            </navigationItem>
+                                        </items>
+                                    </navigationBar>
+                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="I8F-Qq-4aM">
+                                        <rect key="frame" x="9" y="78" width="302" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="22"/>
+                                        <state key="normal" title="Business Name">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                                <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="NiV-Fj-9MB"/>
+                    <connections>
+                        <outlet property="errorLabel" destination="zAk-yo-PcN" id="Dsf-rz-Jbx"/>
+                        <outlet property="fieldFourLabel" destination="uj0-yo-ceg" id="8gv-NB-IKN"/>
+                        <outlet property="fieldOneLabel" destination="MoY-mC-1iT" id="TuH-Lw-XCC"/>
+                        <outlet property="fieldThreeLabel" destination="3MI-uq-afr" id="5vl-kj-zK4"/>
+                        <outlet property="fieldTwoLabel" destination="rPv-WX-Iij" id="W7H-FF-IuQ"/>
+                        <outlet property="inputField" destination="2rx-37-XFM" id="Trd-Dg-Nfx"/>
+                        <outlet property="merchantNameButton" destination="I8F-Qq-4aM" id="fgY-g2-I4M"/>
+                        <outlet property="messageLabel" destination="KMG-h3-cqz" id="7Qu-eb-y6H"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="9" y="-276"/>
+        </scene>
+        <!--Payment Authorized View Controller - Payment Authorized-->
+        <scene sceneID="61j-sQ-Oor">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9BV-45-sjb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="O34-Xu-uOE" customClass="PaymentAuthorizedViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mKC-Bt-cuv">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="You just authorized a payment to:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="QZH-Zb-Opl">
+                                <rect key="frame" x="32" y="14" width="257" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="You will receive an email receipt when this payment is completed." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="6KK-3i-PA9">
+                                <rect key="frame" x="24" y="129" width="276" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" id="3Nk-A9-hrR">
+                                <rect key="frame" x="0.0" y="200" width="320" height="216"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" id="BLz-I1-yTa">
+                                        <rect key="frame" x="5" y="51" width="310" height="122"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="QuM-rs-7cS">
+                                                <rect key="frame" x="248" y="8" width="60" height="60"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Business Address  City, ST (X.Y mi away)" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumFontSize="10" id="4qs-nL-qRt">
+                                                <rect key="frame" x="4" y="31" width="240" height="37"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="14"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Business Name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="7yj-Ib-jUZ">
+                                                <rect key="frame" x="4" y="8" width="240" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="A short description that will entice people to visit the business!" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Ufp-xp-lpo">
+                                                <rect key="frame" x="4" y="71" width="304" height="42"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SimpleMoney users who shop at [Business Name] also enjoy:" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="K1l-wr-tKt">
+                                        <rect key="frame" x="7" y="0.0" width="306" height="46"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-LightItalic" family="Helvetica Neue" pointSize="16"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VE0-Ro-tc4">
+                                        <rect key="frame" x="153" y="173" width="160" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                        <state key="normal" title="View map &amp; directions">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="viewMapButtonPressed" destination="O34-Xu-uOE" eventType="touchUpInside" id="xBc-XZ-SZO"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="39J-iu-p6a">
+                                        <rect key="frame" x="7" y="174" width="137" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                                        <state key="normal" title="Call (123) 456-7890">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="callPhoneButtonPressed" destination="O34-Xu-uOE" eventType="touchUpInside" id="HCp-qP-Uvv"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="vvS-7I-jad">
+                                <rect key="frame" x="24" y="47" width="276" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="LHj-Qy-Ky3">
+                                        <rect key="frame" x="12" y="10" width="60" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Business Name Here" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="g29-az-kbv">
+                                        <rect key="frame" x="80" y="11" width="188" height="57"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Payment Authorized" id="G67-9P-eai"/>
+                    <connections>
+                        <outlet property="AuthorizedBusinessImageView" destination="LHj-Qy-Ky3" id="n5L-q5-FMk"/>
+                        <outlet property="AuthorizedBusinessTitleLabel" destination="g29-az-kbv" id="Qyu-Zs-zde"/>
+                        <outlet property="AuthorizedBusinessView" destination="vvS-7I-jad" id="Ebb-D6-fFi"/>
+                        <outlet property="RecommendedBusinessAddressLabel" destination="4qs-nL-qRt" id="OeG-90-UVU"/>
+                        <outlet property="RecommendedBusinessDescriptionLabel" destination="Ufp-xp-lpo" id="glq-iP-AMB"/>
+                        <outlet property="RecommendedBusinessTitleLabel" destination="7yj-Ib-jUZ" id="OYd-v8-lKk"/>
+                        <outlet property="RecommendedBusinessView" destination="BLz-I1-yTa" id="Odh-2U-anR"/>
+                        <outlet property="RecommenderHintLabel" destination="K1l-wr-tKt" id="LLT-F4-yaW"/>
+                        <outlet property="callPhoneButton" destination="39J-iu-p6a" id="b8d-Q0-AuC"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="479" y="-165"/>
         </scene>
     </scenes>
     <resources>
+        <image name="PINBox.png" width="61" height="53"/>
         <image name="closed.png" width="100" height="100"/>
+        <image name="iphonewireframe.png" width="67" height="119"/>
         <image name="landing-bg.png" width="320" height="460"/>
+        <image name="pay-here.png" width="250" height="105"/>
         <image name="photobutton.png" width="205" height="37"/>
         <image name="profile.png" width="75" height="75"/>
         <image name="x.png" width="100" height="100"/>
     </resources>
+    <classes>
+        <class className="ABContactCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ABContactCell.h"/>
+            <relationships>
+                <relationship kind="action" name="buttonPressed:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="arrow" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="name" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="picture" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="subtitle" candidateClass="UILabel"/>
+                <relationship kind="outletCollection" name="emailButtons" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="AuthViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AuthViewController.h"/>
+        </class>
+        <class className="BillsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BillsViewController.h"/>
+        </class>
+        <class className="GCStoryboardPINViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/GCStoryboardPINViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="fieldFourLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="fieldOneLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="fieldThreeLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="fieldTwoLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="inputField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="merchantNameButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="messageLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="HomeViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="signOutButtonWasPressed:"/>
+                <relationship kind="outlet" name="accountBalance" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="accountImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="accountName" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="InitialViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InitialViewController.h"/>
+        </class>
+        <class className="InvoicesViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InvoicesViewController.h"/>
+        </class>
+        <class className="PaymentAuthorizedViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PaymentAuthorizedViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="callPhoneButtonPressed"/>
+                <relationship kind="action" name="viewMapButtonPressed"/>
+                <relationship kind="outlet" name="AuthorizedBusinessImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="AuthorizedBusinessTitleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="AuthorizedBusinessView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="RecommendedBusinessAddressLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="RecommendedBusinessDescriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="RecommendedBusinessTitleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="RecommendedBusinessView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="RecommenderHintLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="callPhoneButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="QRCodeReaderViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/QRCodeReaderViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="greenSquare" candidateClass="UIView"/>
+                <relationship kind="outlet" name="iphoneImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="readerView" candidateClass="ZBarReaderView"/>
+            </relationships>
+        </class>
+        <class className="SendAndRequestMoneyTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SendAndRequestMoneyTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="clearEmailCellButtonPressed"/>
+                <relationship kind="action" name="requestMoneyButtonWasPressed"/>
+                <relationship kind="outlet" name="amountTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="contactsTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="descriptionTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="emailCellClearButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="emailCellEmailLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="emailCellImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="emailCellNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="emailTextFieldCell" candidateClass="UITableViewCell"/>
+                <relationship kind="outlet" name="sendButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="staticTableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="SignInViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SignInViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelButtonWasPressed"/>
+                <relationship kind="action" name="dismissKeyboard"/>
+                <relationship kind="action" name="signUpButtonWasPressed"/>
+                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="SignUpViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SignUpViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancelButtonWasPressed"/>
+                <relationship kind="action" name="dismissKeyboard"/>
+                <relationship kind="action" name="showCameraUI"/>
+                <relationship kind="action" name="showImagePickerUI"/>
+                <relationship kind="action" name="signUpButtonWasPressed"/>
+                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="profileButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="TransactionCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TransactionCell.h"/>
+            <relationships>
+                <relationship kind="action" name="payButtonWasPressed:"/>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="emailLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="payButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="transactionAmountLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="userImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="ZBarReaderView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ZBarReaderView.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="f3k-Uz-Unf"/>
         <segue reference="Nnk-Li-ng1"/>
         <segue reference="mRp-ez-0KO"/>
+        <segue reference="yBi-Pc-x96"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -7,9 +7,15 @@
 //
 
 #import "HomeViewController.h"
+#import "SendAndRequestMoneyTableViewController.h"
+#import "GCStoryboardPINViewController.h"
+#import "PaymentAuthorizedViewController.h"
 
-@interface HomeViewController (PrivateMethods)
-- (void)signOut;
+
+@interface HomeViewController() {
+    MBProgressHUD *HUD;
+}
+@property (nonatomic, strong) NSDictionary *qrMerchant;
 - (void)asyncLoadContacts;
 @end
 
@@ -18,13 +24,9 @@
 @synthesize accountBalance;
 @synthesize accountImage;
 @synthesize ABContacts = _ABContacts;
+@synthesize qrMerchant = _qrMerchant;
 
-- (id)initWithCoder:(NSCoder *)decoder {
-    if (![super initWithCoder:decoder]) return nil;
-
-    return self;
-}
-
+#pragma mark - View lifecycle
 - (void)viewDidAppear:(BOOL)animated {
     [self asyncLoadContacts];
 }
@@ -63,6 +65,42 @@
     }
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    UIViewController *dvc = segue.destinationViewController;
+    
+    //if we are going to send or request money views, we pass in the async-loaded contacts and set the page title and URL to post to
+    if ([dvc isKindOfClass:[SendAndRequestMoneyTableViewController class]]) {
+        SendAndRequestMoneyTableViewController *controller = (SendAndRequestMoneyTableViewController *)dvc;
+        
+        if (self.ABContacts) {
+            controller.contacts = self.ABContacts;
+        }
+        
+        NSString *resourcePath;
+        NSString *sendButtonTitle;
+        if ([segue.identifier isEqualToString:@"requestMoney"]) {
+            resourcePath = @"/invoices";
+            sendButtonTitle = @"Request Money";
+        } else if ([segue.identifier isEqualToString:@"sendMoney"]) {
+            resourcePath = @"/transactions";
+            sendButtonTitle = @"Send Money";
+        }
+        controller.resourcePath =  resourcePath;
+        [controller setSendButtonTitle:sendButtonTitle];
+        
+        //if we've authorized a transaction, we seed the view with the merchant name, image, and recommendation
+    } else if ([dvc isKindOfClass:[PaymentAuthorizedViewController class]]) {
+        PaymentAuthorizedViewController *controller = (PaymentAuthorizedViewController *)dvc;
+        
+        NSLog(@"Payment authorized");
+    }
+}
+
+
+
+/**
+ * Asynchronously loads contacts to pass to the send or request money views if we segue to them.
+ */
 - (void)asyncLoadContacts {
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0u);
     dispatch_async(queue, ^{
@@ -89,7 +127,6 @@
                 emails = (__bridge NSArray*)ABMultiValueCopyArrayOfAllValues(emailAddresses);
                 
                 if (ABPersonHasImageData(ref)) {
-                    NSLog(@"Has image data!");
                     imageData = (__bridge_transfer NSData*)ABPersonCopyImageDataWithFormat(ref, kABPersonImageFormatThumbnail);
                     
                     
@@ -105,6 +142,7 @@
     });
 }
 
+#pragma mark - Sending RestKit requests
 // Sends a DELETE request to /users/sign_out
 - (IBAction)signOutButtonWasPressed:(id)sender {
     RKObjectManager *objectManager = [RKObjectManager sharedManager];
@@ -123,64 +161,6 @@
 }
 
 
-
-# pragma mark - UITableViewDelegate methods
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // If QuickPay was selected...
-    if ((indexPath.section == 1) && (indexPath.row == 0)) {
-        // Push ZBar controller
-        // ADD: present a barcode reader that scans from the camera feed
-        ZBarReaderViewController *reader = [ZBarReaderViewController new];
-        reader.readerDelegate = self;
-        reader.supportedOrientationsMask = ZBarOrientationMaskAll;
-        
-        ZBarImageScanner *scanner = reader.scanner;
-        // TODO: (optional) additional reader configuration here
-        
-        // EXAMPLE: disable rarely used I2/5 to improve performance
-        [scanner setSymbology: ZBAR_I25
-                       config: ZBAR_CFG_ENABLE
-                           to: 0];
-        
-        // present and release the controller
-        [self presentModalViewController:reader animated: YES];
-    }
-}
-
-- (void)imagePickerController:(UIImagePickerController *)reader didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    id<NSFastEnumeration> results = [info objectForKey: ZBarReaderControllerResults];
-    ZBarSymbol *symbol = nil;
-    // Grab the first result
-    for(symbol in results)
-        break;
-
-    // Encode the QRCode with JSON
-    // ex: {"merchant_email":"walmart@walmart.com"}
-    
-    // Convert the decoded string to a NSData object, then convert the data to a dictionary
-    NSData *symbolData = [symbol.data dataUsingEncoding:NSUTF8StringEncoding];
-    NSError *jsonParsingError = nil;
-    NSDictionary *qrCodeData = [NSJSONSerialization JSONObjectWithData:symbolData options:0 error:&jsonParsingError];
-    NSLog(@"qrCodeData: %@", qrCodeData);
-    NSLog(@"error: %@",jsonParsingError);
-    
-    // If there isn't a parsing error, POST a new incomplete transaction
-    if (!jsonParsingError) {
-        RKObjectManager *objectManager = [RKObjectManager sharedManager];
-        [objectManager loadObjectsAtResourcePath:@"/transactions" delegate:self block:^(RKObjectLoader* loader) {
-            RKParams *params = [RKParams params];
-            [params setValue:[qrCodeData objectForKey:@"merchant_email"] forParam:@"transaction[recipient_email]"];
-            [params setValue:@"false" forParam:@"transaction[complete]"];
-            loader.params = params;
-            loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[Transaction class]];
-            loader.method = RKRequestMethodPOST;
-        }];
-    }
-    [reader dismissModalViewControllerAnimated: YES];
-}
-
-
 # pragma mark - RKObjectLoaderDelegate methods
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
 	NSLog(@"RKObjectLoader failed with error: %@", error);
@@ -195,41 +175,37 @@
         NSNumber *userBalance = [KeychainWrapper load:@"userBalance"];
         NSNumber *formattedBalance = [[NSNumber alloc] initWithFloat:[userBalance floatValue] / 100.0f];
         self.accountBalance.text = [currencyFormatter stringFromNumber:formattedBalance];
-    } else if ([object isKindOfClass:[Transaction class]]) {
-        // This occurs after scanning a QRCode encoded with JSON
-        Transaction *t = object;
-        NSLog(@"posted a new transaction: %@", t);
+    } else {
+        //TODO: error checking?
     }
 
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if (self.ABContacts && [segue.destinationViewController respondsToSelector:@selector(setContacts:)]) {
-        [segue.destinationViewController performSelector:@selector(setContacts:) withObject:self.ABContacts];
-    }
-    
-    NSString *resourcePath;
-    NSString *sendButtonTitle;
-    if ([segue.identifier isEqualToString:@"requestMoney"]) {
-        resourcePath = @"/invoices";
-        sendButtonTitle = @"Request Money";
-    } else if ([segue.identifier isEqualToString:@"sendMoney"]) {
-        resourcePath = @"/transactions";
-        sendButtonTitle = @"Send Money";
-    }
-    if ([segue.destinationViewController respondsToSelector:@selector(setResourcePath:)] 
-        && [segue.destinationViewController respondsToSelector:@selector(setSendButtonTitle:)]) {
-        [segue.destinationViewController performSelector:@selector(setResourcePath:) withObject:resourcePath];
-        [segue.destinationViewController performSelector:@selector(setSendButtonTitle:) withObject:sendButtonTitle];
-    }
+
+#pragma mark - MBProgressHUDDelegate methods
+
+- (void)HUDWasHidden:(MBProgressHUD *)hud {
+    // Remove HUD from screen when the HUD was hidded
+    [hud removeFromSuperview];
+    hud = nil;
 }
 
-- (void)viewDidUnload {
-    [super viewDidUnload];
+//not a delegate method, but this seems like a good place to put it
+- (void)configureAndShowHUDWithLabelText:(NSString *)text {
+    HUD = [[MBProgressHUD alloc] initWithView:self.view.window];
+    HUD.delegate = self;
+    [self.view.window addSubview:HUD];
+    HUD.labelText = text;
+    HUD.dimBackground = YES;
+    [HUD show:YES];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+- (void)hideHUDAfterShowingCompletionText:(NSString *)text withImageNamed:(NSString *)imageName afterDelay:(float)delay {
+    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
+    HUD.mode = MBProgressHUDModeCustomView;
+    HUD.labelText = text;
+    [HUD hide:YES afterDelay:delay];
 }
+
 
 @end

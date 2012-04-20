@@ -15,10 +15,12 @@
 #import "UIImageView+WebCache.h"
 #import "UIImageView+Curled.h"
 #import <AddressBookUI/AddressBookUI.h>
+#import "GCStoryboardPINViewController.h"
+#import "MBProgressHUD.h"
 
 #import "ZBarSDK.h"
 
-@interface HomeViewController : UITableViewController <UITableViewDelegate, UIImagePickerControllerDelegate, RKObjectLoaderDelegate, ZBarReaderDelegate> {
+@interface HomeViewController : UITableViewController <UITableViewDelegate, UIImagePickerControllerDelegate, RKObjectLoaderDelegate, ZBarReaderDelegate,  GCStoryboardPINViewControllerDelegate, MBProgressHUDDelegate> {
     NSNumberFormatter *currencyFormatter;
 }
 

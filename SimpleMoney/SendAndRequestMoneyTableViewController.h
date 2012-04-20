@@ -17,7 +17,7 @@
 #import "MBProgressHUD.h"
 #import "ABContactCell.h"
 
-@interface RequestMoneyTableViewController : UITableViewController<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, RKObjectLoaderDelegate, MBProgressHUDDelegate, ABContactCellDelegate> {
+@interface SendAndRequestMoneyTableViewController : UITableViewController<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, RKObjectLoaderDelegate, MBProgressHUDDelegate, ABContactCellDelegate> {
     MBProgressHUD *loadingIndicator;
 }
 
