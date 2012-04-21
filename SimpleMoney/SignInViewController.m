@@ -7,14 +7,16 @@
 //
 
 #import "SignInViewController.h"
+#import "HomeViewController.h"
 
-@interface SignInViewController(PrivateMethods)
+@interface SignInViewController()
 - (void)sendRequest;
 @end
 
 @implementation SignInViewController
 @synthesize emailTextField;
 @synthesize passwordTextField;
+
 
 - (IBAction)cancelButtonWasPressed {
     [self dismissModalViewControllerAnimated:true];
@@ -36,6 +38,7 @@
 }
 
 - (void)sendRequest {
+    NSLog(@"Sending request. Email: %@, PAssword: %@", self.emailTextField.text, self.passwordTextField.text);
     RKObjectManager *objectManager = [RKObjectManager sharedManager];
     [objectManager loadObjectsAtResourcePath:@"/users/sign_in" delegate:self block:^(RKObjectLoader* loader) {
         RKParams *params = [RKParams params];
@@ -45,6 +48,16 @@
         loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[User class]];
         loader.method = RKRequestMethodPOST;
     }];
+}
+
+
+- (void) showHomeView {
+    if ([[[[self.tabBarController.viewControllers objectAtIndex:0] viewControllers] objectAtIndex:0] isKindOfClass:[HomeViewController class]]) {
+        HomeViewController *hvc = (HomeViewController *)[[[self.tabBarController.viewControllers objectAtIndex:0] viewControllers] objectAtIndex:0];
+        [hvc setupAccountBalanceCell];
+    }
+    [self.tabBarController setSelectedIndex:0];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 # pragma mark - UITextField delegate methods
@@ -78,9 +91,11 @@
         loadingIndicator.mode = MBProgressHUDModeCustomView;
         loadingIndicator.labelText = @"Signed in!";
         [loadingIndicator hide:YES afterDelay:1];
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.0*NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+           [self showHomeView];
+        });
         
-        NSLog(@"about to perform segue");
-        [self performSegueWithIdentifier:@"signInSegue" sender:self];
     } else {
         loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"error"]];
         loadingIndicator.labelText = @"Invalid username or password.";
@@ -89,6 +104,7 @@
     }
 }
 
+#pragma mark - View Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -102,8 +118,9 @@
     // Release any retained subviews of the main view.
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+- (void)viewWillAppear:(BOOL)animated {
+    [self.emailTextField becomeFirstResponder];
 }
+
 
 @end

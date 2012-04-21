@@ -30,5 +30,5 @@
 @property (strong, nonatomic) NSMutableArray *ABContacts;
 
 - (IBAction)signOutButtonWasPressed:(id)sender;
-
+- (void) setupAccountBalanceCell;
 @end

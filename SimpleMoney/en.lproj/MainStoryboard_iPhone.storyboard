@@ -1,41 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="yiq-hu-J52">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="4t2-g0-mrs">
     <dependencies>
         <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--Navigation Controller - Main-->
         <scene sceneID="Clk-Su-Li8">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O6G-q6-r2k" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController definesPresentationContext="YES" navigationBarHidden="YES" id="yiq-hu-J52" sceneMemberID="viewController">
-                    <nil key="simulatedTopBarMetrics"/>
+                <navigationController definesPresentationContext="YES" id="yiq-hu-J52" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Main" id="hRd-yv-WmU"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="blackOpaque" id="JDs-hU-15J">
                         <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="iKj-vE-yVq" kind="relationship" relationship="rootViewController" id="20V-Oe-WN4"/>
+                        <segue destination="Kxk-vF-mMD" kind="relationship" relationship="rootViewController" id="IYL-hj-Xzl"/>
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="-1877" y="100"/>
+            <point key="canvasLocation" x="-171" y="805"/>
         </scene>
         <!--Initial View Controller-->
         <scene sceneID="uPi-vZ-XG4">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="abf-W9-XdZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="iKj-vE-yVq" customClass="InitialViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="homeSegue" id="iKj-vE-yVq" customClass="InitialViewController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Z64-if-OPA"/>
-                    <connections>
-                        <segue destination="xgE-ZP-IL1" kind="push" identifier="authSegue" id="f3k-Uz-Unf"/>
-                        <segue destination="s3q-eE-ejW" kind="modal" identifier="homeSegue" id="Nnk-Li-ng1"/>
-                    </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-1438" y="100"/>
+            <point key="canvasLocation" x="-1239" y="-413"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="WVa-TB-MtQ">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g14-4c-ybQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tabBarController definesPresentationContext="YES" id="vSb-xb-jeC" sceneMemberID="viewController">
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="8PP-NV-xTu">
+                        <rect key="frame" x="129" y="330" width="163" height="49"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                </tabBarController>
+            </objects>
+            <point key="canvasLocation" x="-1912" y="166"/>
         </scene>
         <!--Auth View Controller - Auth-->
         <scene sceneID="FRN-PQ-AvH">
@@ -62,7 +74,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="HmP-RK-qG6" kind="modal" identifier="" modalTransitionStyle="crossDissolve" id="9bx-5a-6T1"/>
+                                    <segue destination="HmP-RK-qG6" kind="push" identifier="" id="9bx-5a-6T1"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" id="dhx-gU-2A8">
@@ -78,11 +90,11 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Ert-YT-4St" kind="modal" modalTransitionStyle="crossDissolve" id="nsV-e7-yku"/>
+                                    <segue destination="Ert-YT-4St" kind="push" id="nsV-e7-yku"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SimpleMoney" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="nM8-o1-elc">
-                                <rect key="frame" x="47" y="85" width="226" height="46"/>
+                                <rect key="frame" x="41" y="114" width="226" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="32"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -91,7 +103,7 @@
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Send and receive payments for free." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="hNk-XZ-LoV">
-                                <rect key="frame" x="34" y="139" width="252" height="21"/>
+                                <rect key="frame" x="34" y="168" width="252" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -102,9 +114,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="gdC-iF-NEj"/>
                     <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-952" y="94"/>
+            <point key="canvasLocation" x="273" y="192"/>
         </scene>
         <!--Home View Controller - Home-->
         <scene sceneID="C8Y-iR-zoP">
@@ -118,7 +131,7 @@
                         <sections>
                             <tableViewSection id="N1t-y8-P7L">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="accountCell" id="M3B-kA-CJh">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="accountCell" id="M3B-kA-CJh">
                                         <rect key="frame" x="0.0" y="10" width="320" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -156,7 +169,7 @@
                             </tableViewSection>
                             <tableViewSection id="XgV-Yr-6yN">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="quickPayCell" textLabel="a1i-yd-Hte" style="IBUITableViewCellStyleDefault" id="fkf-mG-2Jh">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="quickPayCell" textLabel="a1i-yd-Hte" style="IBUITableViewCellStyleDefault" id="fkf-mG-2Jh">
                                         <rect key="frame" x="0.0" y="94" width="320" height="63"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -179,7 +192,7 @@
                                             <segue destination="5Zn-Hn-kxw" kind="push" id="vEs-gb-NFC"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="sendMoneyCell" textLabel="OtG-oW-dbq" style="IBUITableViewCellStyleDefault" id="VGj-r0-c1Z">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="sendMoneyCell" textLabel="OtG-oW-dbq" style="IBUITableViewCellStyleDefault" id="VGj-r0-c1Z">
                                         <rect key="frame" x="0.0" y="157" width="320" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -202,7 +215,7 @@
                                             <segue destination="TrX-yl-6Cf" kind="push" identifier="sendMoney" id="mRp-ez-0KO"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="requestMoneyCell" textLabel="Ddj-Yq-aGT" style="IBUITableViewCellStyleDefault" id="Nkb-7P-tXp">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="requestMoneyCell" textLabel="Ddj-Yq-aGT" style="IBUITableViewCellStyleDefault" id="Nkb-7P-tXp">
                                         <rect key="frame" x="0.0" y="219" width="320" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -225,7 +238,7 @@
                                             <segue destination="TrX-yl-6Cf" kind="push" identifier="requestMoney" id="pAB-Ju-jZv"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="transactionsCell" textLabel="Xs6-gV-58M" style="IBUITableViewCellStyleDefault" id="H0G-oN-jdr">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="transactionsCell" textLabel="Xs6-gV-58M" style="IBUITableViewCellStyleDefault" id="H0G-oN-jdr">
                                         <rect key="frame" x="0.0" y="281" width="320" height="62"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -248,7 +261,7 @@
                                             <segue destination="wLj-uN-DGD" kind="push" id="Ywx-eU-i7E"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="couponsCell" textLabel="olc-WL-JbA" style="IBUITableViewCellStyleDefault" id="cCL-fg-DSc">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="couponsCell" textLabel="olc-WL-JbA" style="IBUITableViewCellStyleDefault" id="cCL-fg-DSc">
                                         <rect key="frame" x="0.0" y="343" width="320" height="63"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -279,22 +292,22 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Simple Money" id="U5p-1a-pCh">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="KDg-4e-8xE"/>
                         <barButtonItem key="rightBarButtonItem" title="Sign Out" id="fxj-0L-BWY">
                             <connections>
                                 <action selector="signOutButtonWasPressed:" destination="Kxk-vF-mMD" id="M7j-23-AUg"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="accountBalance" destination="v0j-94-uRg" id="mKf-sL-gUK"/>
                         <outlet property="accountImage" destination="Jco-J1-uJm" id="5Wi-j4-0Cj"/>
                         <outlet property="accountName" destination="DPd-uc-6HC" id="yh7-9d-bMw"/>
-                        <segue destination="xgE-ZP-IL1" kind="modal" identifier="loggedOutSegue" id="yBi-Pc-x96"/>
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="-164" y="852"/>
+            <point key="canvasLocation" x="522" y="852"/>
         </scene>
         <!--Tab Bar Controller - Transaction History-->
         <scene sceneID="N5y-bu-wb6">
@@ -314,7 +327,7 @@
                     </connections>
                 </tabBarController>
             </objects>
-            <point key="canvasLocation" x="510" y="894"/>
+            <point key="canvasLocation" x="1196" y="894"/>
         </scene>
         <!--Invoices View Controller - Invoices-->
         <scene sceneID="tNI-w5-G27">
@@ -425,7 +438,7 @@
                     <tabBarItem key="tabBarItem" title="Invoices" id="Qy7-4c-cef"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1028" y="1246"/>
+            <point key="canvasLocation" x="1714" y="1246"/>
         </scene>
         <!--View Controller - Map-->
         <scene sceneID="yeT-8i-UMA">
@@ -576,8 +589,11 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email address" minimumFontSize="18" id="sQE-xk-8xw">
                                                     <rect key="frame" x="20" y="0.0" width="260" height="54"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="HmP-RK-qG6" id="kkT-mO-S0x"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -593,8 +609,11 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="18" id="6Hz-Vp-dyA">
                                                     <rect key="frame" x="20" y="0.0" width="260" height="54"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="HmP-RK-qG6" id="IPo-TL-HZv"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -609,14 +628,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="m1Z-eR-Pth"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="emailTextField" destination="sQE-xk-8xw" id="vfb-Lu-g4f"/>
                         <outlet property="passwordTextField" destination="6Hz-Vp-dyA" id="wA9-LJ-ldE"/>
-                        <segue destination="s3q-eE-ejW" kind="modal" identifier="signInSegue" id="Zyg-8x-fPn"/>
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="-484" y="94"/>
+            <point key="canvasLocation" x="728" y="94"/>
         </scene>
         <!--Code Reader View Controller-->
         <scene sceneID="t3K-w7-O2G">
@@ -664,7 +683,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="0.0" y="295"/>
+            <point key="canvasLocation" x="1212" y="295"/>
         </scene>
         <!--Bills View Controller - Bills-->
         <scene sceneID="lTU-wj-Bqm">
@@ -794,7 +813,7 @@
                     <tabBarItem key="tabBarItem" title="Bills" id="TBa-9h-UR4"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1028" y="617"/>
+            <point key="canvasLocation" x="2240" y="617"/>
         </scene>
         <!--Sign Up View Controller - Sign Up-->
         <scene sceneID="noX-xB-81L">
@@ -923,7 +942,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Full Name" minimumFontSize="18" id="2ad-jn-pGd">
                                                     <rect key="frame" x="20" y="0.0" width="260" height="54"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="Ert-YT-4St" id="oc7-6G-3sa"/>
@@ -943,7 +962,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email Address" minimumFontSize="18" id="oWN-zR-2OQ">
                                                     <rect key="frame" x="20" y="0.0" width="260" height="54"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="Ert-YT-4St" id="vvJ-0c-AOq"/>
@@ -963,7 +982,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="18" id="mQG-ua-ste">
                                                     <rect key="frame" x="20" y="0.0" width="260" height="54"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="Ert-YT-4St" id="Zaz-Vn-7uH"/>
@@ -982,35 +1001,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Gvy-Zh-nZ0"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="emailTextField" destination="oWN-zR-2OQ" id="R3E-HE-vmy"/>
                         <outlet property="nameTextField" destination="2ad-jn-pGd" id="VzG-t9-oaf"/>
                         <outlet property="passwordTextField" destination="mQG-ua-ste" id="Zoz-mQ-ZOd"/>
                         <outlet property="profileButton" destination="Z5t-K5-Axc" id="bb4-4c-yzL"/>
-                        <segue destination="s3q-eE-ejW" kind="modal" identifier="signUpSegue" id="j22-WB-1hE"/>
                     </connections>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="-484" y="-477"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="c3c-pD-mUD">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Lhh-VP-kaX" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController id="s3q-eE-ejW" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
-                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="blackOpaque" id="SuL-P2-oi2">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Kxk-vF-mMD" kind="relationship" relationship="rootViewController" id="dsf-Tx-BfX"/>
-                    </connections>
-                </navigationController>
-            </objects>
-            <point key="canvasLocation" x="-756" y="932"/>
         </scene>
         <!--Send And Request Money Table View Controller - Request Money-->
         <scene sceneID="sWe-LY-0Oh">
@@ -1022,7 +1022,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <tableView key="tableFooterView" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="92U-Z9-JJE">
-                            <rect key="frame" x="0.0" y="153" width="320" height="0.0"/>
+                            <rect key="frame" x="0.0" y="153" width="320" height="49"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                             <prototypes>
@@ -1231,7 +1231,7 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1113" y="-55"/>
+            <point key="canvasLocation" x="2325" y="-55"/>
         </scene>
         <!--StoryboardPIN View Controller-->
         <scene sceneID="Yjj-XQ-DeG">
@@ -1360,7 +1360,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="9" y="-276"/>
+            <point key="canvasLocation" x="1221" y="-276"/>
         </scene>
         <!--Payment Authorized View Controller - Payment Authorized-->
         <scene sceneID="61j-sQ-Oor">
@@ -1429,7 +1429,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VE0-Ro-tc4">
-                                        <rect key="frame" x="153" y="173" width="160" height="32"/>
+                                        <rect key="frame" x="153" y="172" width="160" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                         <state key="normal" title="View map &amp; directions">
@@ -1444,7 +1444,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="39J-iu-p6a">
-                                        <rect key="frame" x="7" y="174" width="137" height="31"/>
+                                        <rect key="frame" x="7" y="172" width="137" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                         <state key="normal" title="Call (123) 456-7890">
@@ -1472,7 +1472,7 @@
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Business Name Here" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="g29-az-kbv">
                                         <rect key="frame" x="80" y="11" width="188" height="57"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1496,7 +1496,46 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="479" y="-165"/>
+            <point key="canvasLocation" x="1691" y="-165"/>
+        </scene>
+        <!--Navigation Controller - Auth-->
+        <scene sceneID="3FI-xW-5LG">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uEy-fD-jCS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController navigationBarHidden="YES" id="3ar-pO-QLe" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Auth" id="ItY-IC-HMq"/>
+                    <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="GaD-Mc-Uhx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="xgE-ZP-IL1" kind="relationship" relationship="rootViewController" id="3K9-yY-gNj"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="-253" y="192"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="zAo-NP-UbA">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PSh-fI-USc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tabBarController id="4t2-g0-mrs" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="YBB-RN-bbZ">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="yiq-hu-J52" kind="relationship" relationship="viewControllers" id="3RI-OD-B8B"/>
+                        <segue destination="3ar-pO-QLe" kind="relationship" relationship="viewControllers" id="UJS-jX-RVa"/>
+                    </connections>
+                </tabBarController>
+            </objects>
+            <point key="canvasLocation" x="-939" y="578"/>
         </scene>
     </scenes>
     <resources>
@@ -1509,143 +1548,12 @@
         <image name="profile.png" width="75" height="75"/>
         <image name="x.png" width="100" height="100"/>
     </resources>
-    <classes>
-        <class className="ABContactCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ABContactCell.h"/>
-            <relationships>
-                <relationship kind="action" name="buttonPressed:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="arrow" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="name" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="picture" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="subtitle" candidateClass="UILabel"/>
-                <relationship kind="outletCollection" name="emailButtons" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="AuthViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AuthViewController.h"/>
-        </class>
-        <class className="BillsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BillsViewController.h"/>
-        </class>
-        <class className="GCStoryboardPINViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/GCStoryboardPINViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="errorLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="fieldFourLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="fieldOneLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="fieldThreeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="fieldTwoLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="inputField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="merchantNameButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="messageLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="HomeViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="signOutButtonWasPressed:"/>
-                <relationship kind="outlet" name="accountBalance" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="accountImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="accountName" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="InitialViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/InitialViewController.h"/>
-        </class>
-        <class className="InvoicesViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/InvoicesViewController.h"/>
-        </class>
-        <class className="PaymentAuthorizedViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PaymentAuthorizedViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="callPhoneButtonPressed"/>
-                <relationship kind="action" name="viewMapButtonPressed"/>
-                <relationship kind="outlet" name="AuthorizedBusinessImageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="AuthorizedBusinessTitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="AuthorizedBusinessView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="RecommendedBusinessAddressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="RecommendedBusinessDescriptionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="RecommendedBusinessTitleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="RecommendedBusinessView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="RecommenderHintLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="callPhoneButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="QRCodeReaderViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/QRCodeReaderViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="greenSquare" candidateClass="UIView"/>
-                <relationship kind="outlet" name="iphoneImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="readerView" candidateClass="ZBarReaderView"/>
-            </relationships>
-        </class>
-        <class className="SendAndRequestMoneyTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SendAndRequestMoneyTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="clearEmailCellButtonPressed"/>
-                <relationship kind="action" name="requestMoneyButtonWasPressed"/>
-                <relationship kind="outlet" name="amountTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="contactsTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="descriptionTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="emailCellClearButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="emailCellEmailLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="emailCellImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="emailCellNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="emailTextFieldCell" candidateClass="UITableViewCell"/>
-                <relationship kind="outlet" name="sendButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="staticTableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="SignInViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SignInViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancelButtonWasPressed"/>
-                <relationship kind="action" name="dismissKeyboard"/>
-                <relationship kind="action" name="signUpButtonWasPressed"/>
-                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="SignUpViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SignUpViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="cancelButtonWasPressed"/>
-                <relationship kind="action" name="dismissKeyboard"/>
-                <relationship kind="action" name="showCameraUI"/>
-                <relationship kind="action" name="showImagePickerUI"/>
-                <relationship kind="action" name="signUpButtonWasPressed"/>
-                <relationship kind="outlet" name="emailTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="nameTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="profileButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="TransactionCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TransactionCell.h"/>
-            <relationships>
-                <relationship kind="action" name="payButtonWasPressed:"/>
-                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="descriptionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="emailLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="payButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="transactionAmountLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="userImageView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="ZBarReaderView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ZBarReaderView.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Nnk-Li-ng1"/>
-        <segue reference="mRp-ez-0KO"/>
-        <segue reference="yBi-Pc-x96"/>
+        <segue reference="pAB-Ju-jZv"/>
     </inferredMetricsTieBreakers>
 </document>

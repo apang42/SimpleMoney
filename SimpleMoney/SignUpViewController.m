@@ -6,7 +6,9 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+
 #import "SignUpViewController.h"
+#import "HomeViewController.h"
 
 @implementation SignUpViewController
 @synthesize profileButton;
@@ -73,6 +75,15 @@
 
 - (IBAction)showImagePickerUI {
     [self startImagePickerFromViewController:self usingDelegate:self];
+}
+
+- (void) showHomeView {
+    if ([[[[self.tabBarController.viewControllers objectAtIndex:0] viewControllers] objectAtIndex:0] isKindOfClass:[HomeViewController class]]) {
+        HomeViewController *hvc = (HomeViewController *)[[[self.tabBarController.viewControllers objectAtIndex:0] viewControllers] objectAtIndex:0];
+        [hvc setupAccountBalanceCell];
+    }
+    [self.tabBarController setSelectedIndex:0];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (BOOL)startCameraControllerFromViewController: (UIViewController*) controller usingDelegate: (id <UIImagePickerControllerDelegate, UINavigationControllerDelegate>) delegate {
@@ -172,14 +183,16 @@
         [KeychainWrapper save:@"userBalance" data:user.balance];
         [KeychainWrapper save:@"userAvatarSmall" data:user.avatarURLsmall];
         [KeychainWrapper save:@"userPassword" data:self.passwordTextField.text];
-                
+        [self uploadProfileImageForUser:user];
+        
         loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark"]];
         loadingIndicator.mode = MBProgressHUDModeCustomView;
         loadingIndicator.labelText = @"Welcome to SimpleMoney!";
         [loadingIndicator hide:YES afterDelay:1];
         
-        [self uploadProfileImageForUser:user];
-        [self performSegueWithIdentifier:@"signUpSegue" sender:self];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.1 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+            [self showHomeView];
+        });
     }
 }
 
@@ -207,6 +220,8 @@
     hud = nil;
 }
 
+
+#pragma mark - View Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Set the background image
@@ -226,8 +241,5 @@
     self.passwordTextField = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
 
 @end

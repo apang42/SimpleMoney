@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "KeychainWrapper.h"
 
 #define kSERVICE_URL @"http://severe-leaf-6733.herokuapp.com/"
 #define kDEBUG YES
@@ -38,7 +39,8 @@
     
     // Enable automatic network activity indicator management
     objectManager.client.requestQueue.showsNetworkActivityIndicatorWhenBusy = YES;
-    objectManager.objectStore = [RKManagedObjectStore objectStoreWithStoreFilename:@"SimpleMoney.sqlite"];
+    objectManager.objectStore = [RKManagedObjectStore objectStoreWithStoreFilename:@"SimpleMoney.sqlite"]
+    ;
     
     // Map the JSON params to our Core Data User model
     RKManagedObjectMapping* userMapping = [RKManagedObjectMapping mappingForEntityWithName:@"User"];

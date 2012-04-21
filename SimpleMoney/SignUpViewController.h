@@ -17,6 +17,7 @@
 #import "UIImage+ScaledImage.h"
 #import "UIImageView+WebCache.h"
 
+
 @interface SignUpViewController : UITableViewController<UITextFieldDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate,RKObjectLoaderDelegate, RKRequestDelegate,MBProgressHUDDelegate> {
     UIImage *profileImage;
     MBProgressHUD *loadingIndicator;

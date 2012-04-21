@@ -83,6 +83,7 @@
 		3CF2B0F915142BB600B067B0 /* PullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF2B0F71514299E00B067B0 /* PullToRefreshView.m */; };
 		3CF2B0FC15142F3300B067B0 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CF2B0FA15142F3300B067B0 /* arrow.png */; };
 		3CF2B0FD15142F3300B067B0 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CF2B0FB15142F3300B067B0 /* arrow@2x.png */; };
+		862AB1B21542C250007B23EB /* HiddenTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 862AB1B11542C250007B23EB /* HiddenTabBarViewController.m */; };
 		864D1CB3152ADA000032CAB7 /* x.png in Resources */ = {isa = PBXBuildFile; fileRef = 864D1CB2152ADA000032CAB7 /* x.png */; };
 		8694F4B81528D6BD00E35A06 /* dollarsign.png in Resources */ = {isa = PBXBuildFile; fileRef = 8694F4B71528D6BD00E35A06 /* dollarsign.png */; };
 		8694F4BC1528D81F00E35A06 /* groupedtable.png in Resources */ = {isa = PBXBuildFile; fileRef = 8694F4BB1528D81F00E35A06 /* groupedtable.png */; };
@@ -281,6 +282,8 @@
 		3CF2B0F71514299E00B067B0 /* PullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshView.m; sourceTree = "<group>"; };
 		3CF2B0FA15142F3300B067B0 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		3CF2B0FB15142F3300B067B0 /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
+		862AB1B01542C24F007B23EB /* HiddenTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiddenTabBarViewController.h; sourceTree = "<group>"; };
+		862AB1B11542C250007B23EB /* HiddenTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiddenTabBarViewController.m; sourceTree = "<group>"; };
 		864D1CB2152ADA000032CAB7 /* x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = x.png; sourceTree = "<group>"; };
 		8694F4B71528D6BD00E35A06 /* dollarsign.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dollarsign.png; sourceTree = "<group>"; };
 		8694F4BB1528D81F00E35A06 /* groupedtable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = groupedtable.png; sourceTree = "<group>"; };
@@ -407,6 +410,8 @@
 			children = (
 				3CF2B0EF151428D000B067B0 /* Authentication */,
 				3C12D3DA150C45F9000915A5 /* MainStoryboard_iPhone.storyboard */,
+				862AB1B01542C24F007B23EB /* HiddenTabBarViewController.h */,
+				862AB1B11542C250007B23EB /* HiddenTabBarViewController.m */,
 				3C12D3D7150C45F9000915A5 /* AppDelegate.h */,
 				3C12D3D8150C45F9000915A5 /* AppDelegate.m */,
 				8694F4CD152AA3C700E35A06 /* SendAndRequestMoneyTableViewController.h */,
@@ -901,6 +906,7 @@
 				86F5D75E15403120005F6C0F /* UIButton+WebCache.m in Sources */,
 				86F5D75F15403164005F6C0F /* GCStoryboardPINViewController.m in Sources */,
 				86E209771540F13C00E52DB3 /* QRCodeReaderViewController.m in Sources */,
+				862AB1B21542C250007B23EB /* HiddenTabBarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

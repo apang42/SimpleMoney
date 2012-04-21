@@ -60,6 +60,7 @@
         // back button was pressed.  We know this is true because self is no longer
         // in the navigation stack.
         [self.navigationController popToRootViewControllerAnimated:NO];
+        [self.navigationController.navigationBar popNavigationItemAnimated:NO];
     }
     [super viewWillDisappear:animated];
 }

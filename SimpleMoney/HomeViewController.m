@@ -10,10 +10,13 @@
 #import "SendAndRequestMoneyTableViewController.h"
 #import "GCStoryboardPINViewController.h"
 #import "PaymentAuthorizedViewController.h"
+#import "AuthViewController.h"
 
 
 @interface HomeViewController() {
     MBProgressHUD *HUD;
+    BOOL didLogin;
+    BOOL didSignOut;
 }
 @property (nonatomic, strong) NSDictionary *qrMerchant;
 - (void)asyncLoadContacts;
@@ -28,41 +31,59 @@
 
 #pragma mark - View lifecycle
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self asyncLoadContacts];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    // Fetch fresh user data from the server.
-    RKObjectManager* objectManager = [RKObjectManager sharedManager];
-    [objectManager loadObjectsAtResourcePath:[NSString stringWithFormat:@"/users/%@", [KeychainWrapper load:@"userID"]] delegate:self block:^(RKObjectLoader* loader) {
-        loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[User class]];
-    }];
+- (void) viewWillAppear:(BOOL)animated {
+    
+    if (![KeychainWrapper load:@"userEmail"] || ![KeychainWrapper load:@"userPassword"]) {
+        [self.tabBarController setSelectedIndex:1];
+    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.hidesBackButton = YES;
+    
+    //hiding the tabBar leaves a black space where it used to be, so we also resize the main view's frame
+    self.tabBarController.tabBar.hidden = YES;
+    [[self.tabBarController.view.subviews objectAtIndex:0] setFrame:CGRectMake(0, 0, 320, 480)];
+    
     self.accountImage.layer.cornerRadius = 5.0;
     self.accountImage.layer.masksToBounds = YES;
     
-    currencyFormatter = [[NSNumberFormatter alloc] init];
-    [currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [currencyFormatter setCurrencyCode:@"USD"];
-    [currencyFormatter setNegativeFormat:@"-¤#,##0.00"];
+    NSString *userEmail = [KeychainWrapper load:@"userEmail"];
+    NSString *userPassword = [KeychainWrapper load:@"userPassword"];
     
-    NSNumber *userBalance = [KeychainWrapper load:@"userBalance"];
-    NSNumber *formattedBalance = [[NSNumber alloc] initWithFloat:[userBalance floatValue] / 100.0f];
-    self.accountBalance.text = [currencyFormatter stringFromNumber:formattedBalance];
-    
-    self.accountName.text = [KeychainWrapper load:@"userEmail"];
-    NSString *avatarURL = [KeychainWrapper load:@"userAvatarSmall"];
-    
-    if (![avatarURL isEqualToString:@"/images/small/missing.png"]) {
-        [self.accountImage setImageWithURL:[NSURL URLWithString:avatarURL] placeholderImage:[UIImage imageNamed:@"profile.png"]
-                                   success:^(UIImage *image) {}
-                                   failure:^(NSError *error) {}];
+    NSLog(@"keychain email: %@", userEmail);
+    NSLog(@"keychain password: %@", userPassword);
+
+    if (userEmail && userPassword) {
+        didLogin = YES;
+        
+        RKObjectManager *objectManager = [RKObjectManager sharedManager];
+        [objectManager loadObjectsAtResourcePath:@"/users/sign_in" delegate:self block:^(RKObjectLoader* loader) {
+            RKParams *params = [RKParams params];
+            [params setValue:userEmail forParam:@"user[email]"];
+            [params setValue:userPassword forParam:@"user[password]"];
+            loader.params = params;
+            loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[User class]];
+            loader.method = RKRequestMethodPOST;
+        }];
     }
+    
+    [self setupAccountBalanceCell];
+}
+
+- (void) viewDidUnload {
+    [self setAccountName: nil];
+    [self setAccountBalance: nil];
+    [self setAccountImage:nil];
+    [self setABContacts:nil];
+    [self setQrMerchant:nil];
+    HUD.delegate = nil;
+    [HUD removeFromSuperview];
+    HUD = nil;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -86,17 +107,30 @@
             sendButtonTitle = @"Send Money";
         }
         controller.resourcePath =  resourcePath;
-        [controller setSendButtonTitle:sendButtonTitle];
-        
-        //if we've authorized a transaction, we seed the view with the merchant name, image, and recommendation
-    } else if ([dvc isKindOfClass:[PaymentAuthorizedViewController class]]) {
-        PaymentAuthorizedViewController *controller = (PaymentAuthorizedViewController *)dvc;
-        
-        NSLog(@"Payment authorized");
+        [controller setSendButtonTitle:sendButtonTitle];        
     }
 }
 
 
+- (void)setupAccountBalanceCell {
+    currencyFormatter = [[NSNumberFormatter alloc] init];
+    [currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [currencyFormatter setCurrencyCode:@"USD"];
+    [currencyFormatter setNegativeFormat:@"-¤#,##0.00"];
+    
+    NSNumber *userBalance = [KeychainWrapper load:@"userBalance"];
+    NSNumber *formattedBalance = [[NSNumber alloc] initWithFloat:[userBalance floatValue] / 100.0f];
+    self.accountBalance.text = [currencyFormatter stringFromNumber:formattedBalance];
+    
+    self.accountName.text = [KeychainWrapper load:@"userEmail"];
+    NSString *avatarURL = [KeychainWrapper load:@"userAvatarSmall"];
+    
+    if (![avatarURL isEqualToString:@"/images/small/missing.png"]) {
+        [self.accountImage setImageWithURL:[NSURL URLWithString:avatarURL] placeholderImage:[UIImage imageNamed:@"profile.png"]
+                                   success:^(UIImage *image) {}
+                                   failure:^(NSError *error) {}];
+    }
+}
 
 /**
  * Asynchronously loads contacts to pass to the send or request money views if we segue to them.
@@ -142,22 +176,39 @@
     });
 }
 
-#pragma mark - Sending RestKit requests
-// Sends a DELETE request to /users/sign_out
-- (IBAction)signOutButtonWasPressed:(id)sender {
-    RKObjectManager *objectManager = [RKObjectManager sharedManager];
-    [objectManager loadObjectsAtResourcePath:@"/users/sign_out" delegate:self block:^(RKObjectLoader* loader) {
-        loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[User class]];
-        loader.method = RKRequestMethodDELETE;
-    }];
-    [self performSegueWithIdentifier:@"loggedOutSegue" sender:self];
-    
+- (void) deleteUserData {
     // Delete the user's data from the keychain.
     [KeychainWrapper delete:@"userID"];
     [KeychainWrapper delete:@"userEmail"];
     [KeychainWrapper delete:@"userBalance"];
     [KeychainWrapper delete:@"userAvatarSmall"];
     [KeychainWrapper delete:@"userPassword"];
+}
+
+
+// Sends a DELETE request to /users/sign_out
+- (IBAction)signOutButtonWasPressed:(id)sender {
+    didSignOut = YES;
+    
+    RKObjectManager *objectManager = [RKObjectManager sharedManager];
+    [objectManager loadObjectsAtResourcePath:@"/users/sign_out" delegate:self block:^(RKObjectLoader* loader) {
+        loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[User class]];
+        loader.method = RKRequestMethodDELETE;
+    }];
+    [self deleteUserData];
+    
+
+    [self configureAndShowHUDWithLabelText:@"Signing out..." detailsText:nil imageNamed:nil];
+    [self hideHUDAfterShowingCompletionText:@"Signing out..." withImageNamed:nil afterDelay:1.0];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1.1 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+        [self showAuthView];
+    });
+}
+
+- (void)showAuthView {
+    [self.tabBarController setSelectedIndex:1];
+
 }
 
 
@@ -169,16 +220,35 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
     // Check the object type
-    if ([object isKindOfClass:[User class]]) {
+    if ([object isKindOfClass:[User class]]) {        
         User *user = object;
-        self.accountName.text = user.email;
-        NSNumber *userBalance = [KeychainWrapper load:@"userBalance"];
-        NSNumber *formattedBalance = [[NSNumber alloc] initWithFloat:[userBalance floatValue] / 100.0f];
-        self.accountBalance.text = [currencyFormatter stringFromNumber:formattedBalance];
-    } else {
-        //TODO: error checking?
-    }
 
+        //if userID exists, then login was not successful
+        if (user.userID && ![user.userID isEqualToNumber:[NSNumber numberWithInt:0]]) {
+            NSLog(@"user.userID exists: %@", user.userID);
+            self.accountName.text = user.email;
+            NSNumber *userBalance = user.balance;
+            NSNumber *formattedBalance = [[NSNumber alloc] initWithFloat:[userBalance floatValue] / 100.0f];
+            self.accountBalance.text = [currencyFormatter stringFromNumber:formattedBalance];
+            
+            //cache user data to keychain
+            [KeychainWrapper save:@"userID" data:user.userID];
+            [KeychainWrapper save:@"userEmail" data:user.email];
+            [KeychainWrapper save:@"userBalance" data:user.balance];
+            [KeychainWrapper save:@"userAvatarSmall" data:user.avatarURLsmall];
+            
+        //if no user id, then bad login => redirect to auth
+        //this also happens on signout, so we check didSignOut before we do anything
+        } else if (!didSignOut) {
+            [self deleteUserData];
+            [self configureAndShowHUDWithLabelText:@"Login expired." detailsText:@"Please sign in again." imageNamed:@"x.png"];
+            [HUD hide:YES afterDelay:1.0];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_current_queue(), ^{
+                [self showAuthView];
+            });
+            
+        }
+    }
 }
 
 
@@ -191,21 +261,40 @@
 }
 
 //not a delegate method, but this seems like a good place to put it
-- (void)configureAndShowHUDWithLabelText:(NSString *)text {
+- (void)configureAndShowHUDWithLabelText:(NSString *)text detailsText:(NSString*)detailsText imageNamed:(NSString *)imageName {
     HUD = [[MBProgressHUD alloc] initWithView:self.view.window];
     HUD.delegate = self;
     [self.view.window addSubview:HUD];
     HUD.labelText = text;
+    HUD.detailsLabelText = detailsText;
+    
+    if (imageName) {
+        HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
+        HUD.mode = MBProgressHUDModeCustomView;
+    }
+                 
     HUD.dimBackground = YES;
     [HUD show:YES];
 }
 
 - (void)hideHUDAfterShowingCompletionText:(NSString *)text withImageNamed:(NSString *)imageName afterDelay:(float)delay {
-    HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
-    HUD.mode = MBProgressHUDModeCustomView;
+    if (imageName) {
+        HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
+        HUD.mode = MBProgressHUDModeCustomView;
+    }
     HUD.labelText = text;
     [HUD hide:YES afterDelay:delay];
 }
 
+
+#pragma mark - AuthControllerDelegate methods 
+//When the user successfully signs in, fill in the screen with the appropriate info
+- (void)authViewController:(AuthViewController *)controller didSignIn:(BOOL)success; {
+    if (success) {
+        didLogin = YES;
+        [self setupAccountBalanceCell];
+        [self dismissModalViewControllerAnimated:YES];
+    }
+}
 
 @end
