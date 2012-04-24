@@ -97,17 +97,10 @@
             controller.contacts = self.ABContacts;
         }
         
-        NSString *resourcePath;
-        NSString *sendButtonTitle;
+        //we set its isRequestMoney property to true if it's a requestMoney
         if ([segue.identifier isEqualToString:@"requestMoney"]) {
-            resourcePath = @"/invoices";
-            sendButtonTitle = @"Request Money";
-        } else if ([segue.identifier isEqualToString:@"sendMoney"]) {
-            resourcePath = @"/transactions";
-            sendButtonTitle = @"Send Money";
+            controller.isRequestMoney = YES;
         }
-        controller.resourcePath =  resourcePath;
-        [controller setSendButtonTitle:sendButtonTitle];        
     }
 }
 

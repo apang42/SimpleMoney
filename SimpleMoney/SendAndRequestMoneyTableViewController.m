@@ -12,11 +12,20 @@
 #define kTABLEVIEWHEIGHT 140.0
 #define kTABLEVIEWOFFSET 60.0
 
+#define kREQUESTRESOURCEPATH @"/invoices"
+#define kREQUESTBUTTONTITLE @"Request"
+#define kREQUESTVIEWTITLE @"Request Money"
+#define kREQUESTSUCCESSTEXT @"Request Sent"
+
+#define kSENDRESOURCEPATH @"/transactions"
+#define kSENDBUTTONTITLE @"Send";
+#define kSENDVIEWTITLE @"Send Money"
+#define kSENDSUCCESSTEXT @"Payment Sent"
+
 @interface SendAndRequestMoneyTableViewController () {
     BOOL emailFieldIsSet;
     BOOL contactsAreShowing;
     NSNumberFormatter *numberFormatter;
-    NSString *sendButtonTitle;
 }
 
 @property (weak, nonatomic) IBOutlet UIImageView *emailCellImage;
@@ -52,7 +61,7 @@
 @synthesize amount = _amount;
 @synthesize staticTableView;
 @synthesize lastSelectedIndexPath = _lastSelectedIndexPath;
-@synthesize resourcePath = _resourcePath;
+@synthesize isRequestMoney = _isRequestMoney;
 
 #pragma mark - Getters and Setters
 - (NSMutableArray *)filteredContacts {
@@ -61,9 +70,56 @@
     return _filteredContacts;
 }
 
-- (void) setSendButtonTitle:(NSString *)text {
-    sendButtonTitle = text;
+
+#pragma mark - View lifecycle
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.contactsTableView.hidden = YES;
+    self.contactsTableView.frame = CGRectMake(0, 600, self.staticTableView.frame.size.width, 0);
+    [self.amountTextField setKeyboardType:UIKeyboardTypeDecimalPad];
+    numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [numberFormatter setMinimumFractionDigits:0];
+    [numberFormatter setMaximumFractionDigits:2];
+    
+    NSString *sendButtonTitle = kSENDBUTTONTITLE;
+    NSString *sendViewTitle = kSENDVIEWTITLE;
+    
+    if (self.isRequestMoney) {
+        sendButtonTitle = kREQUESTBUTTONTITLE;
+        sendViewTitle = kREQUESTVIEWTITLE;
+    }
+    
+    self.sendButton.title = sendButtonTitle;
+    self.navigationItem.title = sendViewTitle;
 }
+
+- (void)viewDidUnload
+{
+    [self setEmailCellImage:nil];
+    [self setEmailCellNameLabel:nil];
+    [self setEmailCellEmailLabel:nil];
+    [self setEmailCellClearButton:nil];
+    [self setStaticTableView:nil];
+    [self setEmailTextFieldCell:nil];
+    [self setSendButton:nil];
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self.emailTextField becomeFirstResponder];
+    self.lastSelectedIndexPath = [NSIndexPath indexPathWithIndex:NSIntegerMax];
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+
 
 #pragma mark - Validating and sending the request
 - (BOOL)stringIsValidEmail:(NSString*)email {
@@ -118,12 +174,25 @@
     } else {
         // POST a new Transaction on the server
         RKObjectManager *objectManager = [RKObjectManager sharedManager];
-        [objectManager loadObjectsAtResourcePath:self.resourcePath delegate:self block:^(RKObjectLoader* loader) {
+        NSString *resourcePath = kSENDRESOURCEPATH;
+        if (self.isRequestMoney)
+            resourcePath = kREQUESTRESOURCEPATH;
+        
+        [objectManager loadObjectsAtResourcePath:resourcePath delegate:self block:^(RKObjectLoader* loader) {
             RKParams *params = [RKParams params];
-            [params setValue:senderEmail forParam:@"transaction[sender_email]"];
+            
+            //need to set these fields as appropriate depending on the transaction type
+            if (self.isRequestMoney) {
+                [params setValue:senderEmail forParam:@"transaction[sender_email]"];
+                [params setValue:@"false" forParam:@"transaction[complete]"];
+            } else {
+                [params setValue:senderEmail forParam:@"transaction[recipient_email]"];
+                [params setValue:@"true" forParam:@"transaction[complete]"];
+            }
+            
             [params setValue:amountTextField.text forParam:@"transaction[amount]"];
             [params setValue:descriptionTextField.text forParam:@"transaction[description]"];
-            [params setValue:@"false" forParam:@"transaction[complete]"];
+
             loader.params = params;
             loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[Transaction class]];
             NSLog(@"%@", loader.params);
@@ -186,9 +255,15 @@
     // TODO: Display transaction information in success indicator
     loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark"]];
     loadingIndicator.mode = MBProgressHUDModeCustomView;
-    loadingIndicator.labelText = @"Payment sent!";
+
+    NSString *labelText = kSENDSUCCESSTEXT;
+    if (self.isRequestMoney) {
+        labelText = kREQUESTSUCCESSTEXT;
+    }
+    
+    loadingIndicator.labelText = labelText;
     [loadingIndicator hide:YES afterDelay:1];
-    [self performSelector:@selector(goBack:) withObject:nil afterDelay:1];
+    [self performSelector:@selector(goBack) withObject:nil afterDelay:1];
 }
 
 - (void)goBack {
@@ -197,61 +272,6 @@
 
 - (void)request:(RKRequest *)request didReceiveData:(NSInteger)bytesReceived totalBytesReceived:(NSInteger)totalBytesReceived totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
     NSLog(@"RKRequest did receive data");
-}
-
-#pragma mark - viewDidLoad, initWithStyle, etc.
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    self.contactsTableView.hidden = YES;
-    self.contactsTableView.frame = CGRectMake(0, 600, self.staticTableView.frame.size.width, 0);
-    [self.amountTextField setKeyboardType:UIKeyboardTypeDecimalPad];
-    numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    [numberFormatter setMinimumFractionDigits:0];
-    [numberFormatter setMaximumFractionDigits:2];
-    self.sendButton.title = sendButtonTitle;
-    self.navigationItem.title = sendButtonTitle;
-
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-- (void)viewDidUnload
-{
-    [self setEmailCellImage:nil];
-    [self setEmailCellNameLabel:nil];
-    [self setEmailCellEmailLabel:nil];
-    [self setEmailCellClearButton:nil];
-    [self setStaticTableView:nil];
-    [self setEmailTextFieldCell:nil];
-    [self setSendButton:nil];
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [self.emailTextField becomeFirstResponder];
-    self.lastSelectedIndexPath = [NSIndexPath indexPathWithIndex:NSIntegerMax];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 
