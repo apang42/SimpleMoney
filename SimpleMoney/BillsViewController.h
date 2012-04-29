@@ -15,8 +15,9 @@
 #import "UIImage+ScaledImage.h"
 #import "UIImageView+WebCache.h"
 #import "TransactionCell.h"
+#import "GCStoryboardPINViewController.h"
 
-@interface BillsViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, RKObjectLoaderDelegate, PullToRefreshViewDelegate> {
+@interface BillsViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, RKObjectLoaderDelegate, PullToRefreshViewDelegate, GCStoryboardPINViewControllerDelegate> {
     PullToRefreshView *pull;
     NSMutableArray *unpaidBillsArray;
     NSMutableArray *paidBillsArray;
@@ -24,7 +25,7 @@
     UIView *paidHeaderView;
 }
 
-@property (weak, nonatomic) NSIndexPath *selectedRowIndex;
+@property (strong, nonatomic) NSIndexPath *selectedRowIndex;
 
 - (void)payBillButtonWasPressed:(id)sender withTransactionID:(NSNumber *)transactionID;
 

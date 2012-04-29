@@ -77,6 +77,22 @@
     [userMapping hasMany:@"transactions" withMapping:transactionMapping];
     [transactionMapping hasOne:@"recipient" withMapping:userMapping];
     [transactionMapping hasOne:@"sender" withMapping:userMapping];
+    
+    // Map JSON params to Cord Data Merchant Model
+    //
+    // NOTE: this is actually the User class on the server, but we map it differently
+    // for recommendations and nearby merchants so we can capture merchant-specific attribs
+    RKManagedObjectMapping *merchantMapping = [RKManagedObjectMapping mappingForClass:[Merchant class]];
+    [merchantMapping mapKeyPath:@"address" toAttribute:@"address"];
+    [merchantMapping mapKeyPath:@"avatar_url" toAttribute:@"avatarURL"];
+    [merchantMapping mapKeyPath:@"avatar_url_small" toAttribute:@"avatarURLsmall"];
+    [merchantMapping mapKeyPath:@"email" toAttribute:@"email"];
+    [merchantMapping mapKeyPath:@"name" toAttribute:@"name"];
+    [merchantMapping mapKeyPath:@"userID" toAttribute:@"userID"];
+    [merchantMapping mapKeyPath:@"latitude" toAttribute:@"latitude"];
+    [merchantMapping mapKeyPath:@"longitude" toAttribute:@"longitude"];
+    [merchantMapping mapKeyPath:@"description" toAttribute:@"details"];
+    [merchantMapping mapKeyPath:@"distance" toAttribute:@"distance"];
 
     // Setup date format so our timestamps get converted into NSDate objects.
     [RKObjectMapping addDefaultDateFormatterForString:@"E MMM d HH:mm:ss Z y" inTimeZone:nil];
@@ -85,6 +101,7 @@
     [objectManager.mappingProvider setMapping:userMapping forKeyPath:@"user"];
     [objectManager.mappingProvider setSerializationMapping:userSerializationMapping forClass:[User class]];
     [objectManager.mappingProvider setMapping:transactionMapping forKeyPath:@"transaction"];
+    [objectManager.mappingProvider setMapping:merchantMapping forKeyPath:@"merchant"];
 
     [objectManager.router routeClass:[User class] toResourcePath:@"/users/"];
     return YES;

@@ -8,8 +8,12 @@
 
 #import "PaymentAuthorizedViewController.h"
 #import "User.h"
+#import "UIImageView+WebCache.h"
 
-@interface PaymentAuthorizedViewController ()
+@interface PaymentAuthorizedViewController () {
+    UIImage *placeholdImage;
+    NSNumberFormatter *numberFormatter;
+}
 @end
 
 @implementation PaymentAuthorizedViewController
@@ -21,8 +25,10 @@
 @synthesize RecommendedBusinessTitleLabel;
 @synthesize RecommendedBusinessAddressLabel;
 @synthesize RecommendedBusinessDescriptionLabel;
-@synthesize callPhoneButton;
+@synthesize RecommendedBusinessImageView;
 @synthesize transaction = _transaction;
+@synthesize recipient = _recipient;
+@synthesize recommendation = _recommendation;
 
 
 #pragma mark - View Lifecycle
@@ -30,14 +36,27 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    placeholdImage = [UIImage imageNamed:@"profile.png"];
+    numberFormatter = [[NSNumberFormatter alloc] init];
+    numberFormatter.positiveFormat = @"0.##";
 
     //configure display characteristics
     self.AuthorizedBusinessView.layer.cornerRadius = 5;
     self.RecommendedBusinessView.layer.cornerRadius = 5;
-    [self.RecommendedBusinessDescriptionLabel sizeToFit];
     
     //set labels from transaction
     self.AuthorizedBusinessTitleLabel.text = self.transaction.recipient.name;
+    [self.AuthorizedBusinessImageView setImageWithURL:[NSURL URLWithString:self.recipient.avatarURLsmall] placeholderImage:placeholdImage];
+    
+    //set labels from recommendation
+    self.RecommendedBusinessTitleLabel.text = self.recommendation.name;
+    self.RecommendedBusinessAddressLabel.text = [NSString stringWithFormat:@"%@ (1.2 mi. away)", self.recommendation.address];
+    self.RecommendedBusinessDescriptionLabel.text = self.recommendation.details;
+    [self.RecommendedBusinessImageView setImageWithURL:[NSURL URLWithString:self.recommendation.avatarURLsmall] placeholderImage:placeholdImage];
+    
+    self.RecommenderHintLabel.text = [NSString stringWithFormat:@"SimpleMoney users who shop at %@ also enjoy:", self.recipient.name];
+    
+    [self.RecommendedBusinessDescriptionLabel sizeToFit];
 }
 
 - (void)viewDidUnload
@@ -50,7 +69,7 @@
     [self setRecommendedBusinessAddressLabel:nil];
     [self setRecommendedBusinessDescriptionLabel:nil];
     [self setRecommendedBusinessView:nil];
-    [self setCallPhoneButton:nil];
+    [self setRecommendedBusinessImageView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -68,8 +87,11 @@
 
 #pragma mark - UI callbacks
 - (IBAction)viewMapButtonPressed {
+        
+        NSString *address = [@"http://maps.google.com/maps?saddr=Current Location&daddr=%@" stringByAppendingString:self.recommendation.address];
+        
+        NSString *urlString = [address stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
 
-- (IBAction)callPhoneButtonPressed {
-}
 @end

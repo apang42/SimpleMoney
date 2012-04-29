@@ -55,6 +55,12 @@ typedef enum {
 
 /*
  
+ Set the text for the "Business Name" button
+ 
+ */
+@property (nonatomic, strong) NSString *businessNameText;
+/*
+ 
  Set the text to display on PIN confirmation.
  
  */
@@ -91,6 +97,7 @@ typedef enum {
 @property (nonatomic, strong) IBOutlet UILabel *messageLabel;
 @property (nonatomic, strong) IBOutlet UILabel *errorLabel;
 @property (nonatomic, strong) IBOutlet UITextField *inputField;
+@property (nonatomic) BOOL isRequestingMoney;
 
 
 

@@ -11,14 +11,19 @@
 #import "GCStoryboardPINViewController.h"
 #import "PaymentAuthorizedViewController.h"
 #import "AuthViewController.h"
-
+#import "Merchant.h"
+#import "LocalDealsTabBarViewController.h"
 
 @interface HomeViewController() {
+    CLLocationManager *locationManager;
     MBProgressHUD *HUD;
     BOOL didLogin;
     BOOL didSignOut;
 }
 @property (nonatomic, strong) NSDictionary *qrMerchant;
+@property (nonatomic, strong) NSArray *nearbyMerchants;
+@property (nonatomic, strong) CLLocation *currentLocation;
+
 - (void)asyncLoadContacts;
 @end
 
@@ -28,6 +33,8 @@
 @synthesize accountImage;
 @synthesize ABContacts = _ABContacts;
 @synthesize qrMerchant = _qrMerchant;
+@synthesize nearbyMerchants = _nearbyMerchants;
+@synthesize currentLocation = _currentLocation;
 
 #pragma mark - View lifecycle
 - (void)viewDidAppear:(BOOL)animated {
@@ -44,6 +51,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    [locationManager startUpdatingLocation];
     
     //hiding the tabBar leaves a black space where it used to be, so we also resize the main view's frame
     self.tabBarController.tabBar.hidden = YES;
@@ -101,6 +112,10 @@
         if ([segue.identifier isEqualToString:@"requestMoney"]) {
             controller.isRequestMoney = YES;
         }
+    } else if ([dvc isKindOfClass:[LocalDealsTabBarViewController class]]) {
+        LocalDealsTabBarViewController *controller = (LocalDealsTabBarViewController *)dvc;
+        controller.nearbyMerchants = self.nearbyMerchants;
+        controller.currentLocation = self.currentLocation;
     }
 }
 
@@ -167,6 +182,20 @@
             [self.ABContacts sortUsingDescriptors:[NSArray arrayWithObject:sortByName]];
         }
     });
+}
+
+- (void) loadNearbyMerchants {
+    //HACK: couldn't get GET parameters to pass correctly for this call, so I'm encoding them directly into the URL because UGRADS in in 6 hours
+    RKObjectManager *objectManager = [RKObjectManager sharedManager];
+    NSString *resourcePath = [NSString stringWithFormat:@"/near/%f/%f", self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude];
+    
+    [objectManager loadObjectsAtResourcePath:resourcePath delegate:self block:^(RKObjectLoader* loader) {
+        
+        loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[Merchant class]];
+        
+        loader.method = RKRequestMethodGET;
+    }];
+
 }
 
 - (void) deleteUserData {
@@ -244,6 +273,11 @@
     }
 }
 
+//Since the nearbyMerchants call returns a list of objects we can use didLoadObjectS to get them all
+- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
+    NSLog(@"loaded nearby merchants: %@", objects);
+    self.nearbyMerchants = objects;
+}
 
 #pragma mark - MBProgressHUDDelegate methods
 
@@ -287,6 +321,25 @@
         didLogin = YES;
         [self setupAccountBalanceCell];
         [self dismissModalViewControllerAnimated:YES];
+    }
+}
+
+
+#pragma mark - CLLocationManagerDelegate methods
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    
+    if(newLocation.horizontalAccuracy <= 500.0f) { 
+        [locationManager stopUpdatingLocation];
+        NSLog(@"LOCATION: %@", newLocation);
+        self.currentLocation = newLocation;
+        [self loadNearbyMerchants];
+    }
+}
+
+//stop trying to update location is user denies location updating
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    if (error.code == kCLErrorDenied) {
+        [locationManager stopUpdatingLocation];
     }
 }
 

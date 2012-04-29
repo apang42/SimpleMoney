@@ -56,6 +56,8 @@
 @synthesize text = __text;
 @synthesize delegate = __delegate;
 @synthesize confirmText = __confirmText;
+@synthesize isRequestingMoney = _isRequestingMoney;
+@synthesize businessNameText = _businessNameText;
 
 
 
@@ -120,8 +122,8 @@
                    nil];
     
     // setup labels
-    self.merchantNameButton.titleLabel.text = self.messageText;
-    //self.messageLabel.text = self.messageText;
+    self.messageLabel.text = self.messageText;
+    [self.merchantNameButton setTitle:self.businessNameText forState:UIControlStateNormal];
     self.errorLabel.text = self.errorText;
     self.errorLabel.hidden = YES;
 	[self setupPasscodeDisplay];
@@ -133,8 +135,12 @@
     self.inputField.secureTextEntry = YES;
     self.inputField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.inputField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    [self.inputField becomeFirstResponder];
 	
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.inputField becomeFirstResponder];
 }
 
 - (void) viewDidUnload {

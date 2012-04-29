@@ -83,8 +83,15 @@
 		3CF2B0F915142BB600B067B0 /* PullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF2B0F71514299E00B067B0 /* PullToRefreshView.m */; };
 		3CF2B0FC15142F3300B067B0 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CF2B0FA15142F3300B067B0 /* arrow.png */; };
 		3CF2B0FD15142F3300B067B0 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CF2B0FB15142F3300B067B0 /* arrow@2x.png */; };
+		8604B816154A675A002989DE /* NearbyTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8604B815154A675A002989DE /* NearbyTestViewController.m */; };
+		8604B81E154A9796002989DE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8604B81D154A9796002989DE /* CoreLocation.framework */; };
+		8604B821154AA287002989DE /* LocalDealsTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8604B820154AA287002989DE /* LocalDealsTabBarViewController.m */; };
+		8604B824154AA848002989DE /* LocalDealsMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8604B823154AA847002989DE /* LocalDealsMapViewController.m */; };
+		8604B827154AA9A5002989DE /* LocalDealsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8604B826154AA9A5002989DE /* LocalDealsTableViewController.m */; };
+		8604B830154AB772002989DE /* Merchant.m in Sources */ = {isa = PBXBuildFile; fileRef = 8604B82F154AB772002989DE /* Merchant.m */; };
 		862AB1B21542C250007B23EB /* HiddenTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 862AB1B11542C250007B23EB /* HiddenTabBarViewController.m */; };
 		864D1CB3152ADA000032CAB7 /* x.png in Resources */ = {isa = PBXBuildFile; fileRef = 864D1CB2152ADA000032CAB7 /* x.png */; };
+		868EFCD5154B0A1800A15CD8 /* NearbyMerchant.m in Sources */ = {isa = PBXBuildFile; fileRef = 868EFCD4154B0A1800A15CD8 /* NearbyMerchant.m */; };
 		8694F4B81528D6BD00E35A06 /* dollarsign.png in Resources */ = {isa = PBXBuildFile; fileRef = 8694F4B71528D6BD00E35A06 /* dollarsign.png */; };
 		8694F4BC1528D81F00E35A06 /* groupedtable.png in Resources */ = {isa = PBXBuildFile; fileRef = 8694F4BB1528D81F00E35A06 /* groupedtable.png */; };
 		8694F4BF1528D9D000E35A06 /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8694F4BE1528D9D000E35A06 /* UIPlaceHolderTextView.m */; };
@@ -282,9 +289,22 @@
 		3CF2B0F71514299E00B067B0 /* PullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshView.m; sourceTree = "<group>"; };
 		3CF2B0FA15142F3300B067B0 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		3CF2B0FB15142F3300B067B0 /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
+		8604B814154A675A002989DE /* NearbyTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyTestViewController.h; sourceTree = "<group>"; };
+		8604B815154A675A002989DE /* NearbyTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyTestViewController.m; sourceTree = "<group>"; };
+		8604B81D154A9796002989DE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		8604B81F154AA286002989DE /* LocalDealsTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalDealsTabBarViewController.h; sourceTree = "<group>"; };
+		8604B820154AA287002989DE /* LocalDealsTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalDealsTabBarViewController.m; sourceTree = "<group>"; };
+		8604B822154AA847002989DE /* LocalDealsMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalDealsMapViewController.h; sourceTree = "<group>"; };
+		8604B823154AA847002989DE /* LocalDealsMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalDealsMapViewController.m; sourceTree = "<group>"; };
+		8604B825154AA9A4002989DE /* LocalDealsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalDealsTableViewController.h; sourceTree = "<group>"; };
+		8604B826154AA9A5002989DE /* LocalDealsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalDealsTableViewController.m; sourceTree = "<group>"; };
+		8604B82E154AB772002989DE /* Merchant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Merchant.h; sourceTree = "<group>"; };
+		8604B82F154AB772002989DE /* Merchant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Merchant.m; sourceTree = "<group>"; };
 		862AB1B01542C24F007B23EB /* HiddenTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiddenTabBarViewController.h; sourceTree = "<group>"; };
 		862AB1B11542C250007B23EB /* HiddenTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiddenTabBarViewController.m; sourceTree = "<group>"; };
 		864D1CB2152ADA000032CAB7 /* x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = x.png; sourceTree = "<group>"; };
+		868EFCD3154B0A1800A15CD8 /* NearbyMerchant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyMerchant.h; sourceTree = "<group>"; };
+		868EFCD4154B0A1800A15CD8 /* NearbyMerchant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyMerchant.m; sourceTree = "<group>"; };
 		8694F4B71528D6BD00E35A06 /* dollarsign.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dollarsign.png; sourceTree = "<group>"; };
 		8694F4BB1528D81F00E35A06 /* groupedtable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = groupedtable.png; sourceTree = "<group>"; };
 		8694F4BD1528D9D000E35A06 /* UIPlaceHolderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPlaceHolderTextView.h; sourceTree = "<group>"; };
@@ -339,6 +359,7 @@
 				3CF24A67150C8ABE0048A70B /* Security.framework in Frameworks */,
 				3CF24A65150C8AB90048A70B /* CoreData.framework in Frameworks */,
 				3CF24A63150C8AB30048A70B /* CFNetwork.framework in Frameworks */,
+				8604B81E154A9796002989DE /* CoreLocation.framework in Frameworks */,
 				3C3C92C215229880003A8270 /* libzbar.a in Frameworks */,
 				3C3C92DC15229E8B003A8270 /* libzbar_iphone.a in Frameworks */,
 			);
@@ -379,6 +400,7 @@
 		3C12D3C7150C45F9000915A5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8604B81D154A9796002989DE /* CoreLocation.framework */,
 				3C3C92A415229880003A8270 /* ZBarSDK */,
 				3C4043AD1519460C00DDD62B /* AudioToolbox.framework */,
 				3CCAC8701519416500696963 /* libiconv.dylib */,
@@ -410,6 +432,12 @@
 			children = (
 				3CF2B0EF151428D000B067B0 /* Authentication */,
 				3C12D3DA150C45F9000915A5 /* MainStoryboard_iPhone.storyboard */,
+				8604B81F154AA286002989DE /* LocalDealsTabBarViewController.h */,
+				8604B820154AA287002989DE /* LocalDealsTabBarViewController.m */,
+				8604B825154AA9A4002989DE /* LocalDealsTableViewController.h */,
+				8604B826154AA9A5002989DE /* LocalDealsTableViewController.m */,
+				8604B814154A675A002989DE /* NearbyTestViewController.h */,
+				8604B815154A675A002989DE /* NearbyTestViewController.m */,
 				862AB1B01542C24F007B23EB /* HiddenTabBarViewController.h */,
 				862AB1B11542C250007B23EB /* HiddenTabBarViewController.m */,
 				3C12D3D7150C45F9000915A5 /* AppDelegate.h */,
@@ -420,6 +448,10 @@
 				3C5F9C83151138C300201B20 /* InitialViewController.m */,
 				3C0FC87E15114B2700A30E66 /* HomeViewController.h */,
 				3C0FC87F15114B2700A30E66 /* HomeViewController.m */,
+				868EFCD3154B0A1800A15CD8 /* NearbyMerchant.h */,
+				868EFCD4154B0A1800A15CD8 /* NearbyMerchant.m */,
+				8604B822154AA847002989DE /* LocalDealsMapViewController.h */,
+				8604B823154AA847002989DE /* LocalDealsMapViewController.m */,
 				3CF2B0F31514294D00B067B0 /* BillsViewController.h */,
 				3CF2B0F41514294D00B067B0 /* BillsViewController.m */,
 				3CF2B0F01514293800B067B0 /* InvoicesViewController.h */,
@@ -647,6 +679,8 @@
 				3CB0C1671523E7A600356F60 /* Transaction.h */,
 				3CB0C1681523E7A600356F60 /* Transaction.m */,
 				3C8714C0151475CF00722C6C /* SimpleMoney.xcdatamodeld */,
+				8604B82E154AB772002989DE /* Merchant.h */,
+				8604B82F154AB772002989DE /* Merchant.m */,
 				3CB0C16A1523E7DF00356F60 /* User.h */,
 				3CB0C16B1523E7DF00356F60 /* User.m */,
 			);
@@ -907,6 +941,12 @@
 				86F5D75F15403164005F6C0F /* GCStoryboardPINViewController.m in Sources */,
 				86E209771540F13C00E52DB3 /* QRCodeReaderViewController.m in Sources */,
 				862AB1B21542C250007B23EB /* HiddenTabBarViewController.m in Sources */,
+				8604B816154A675A002989DE /* NearbyTestViewController.m in Sources */,
+				8604B821154AA287002989DE /* LocalDealsTabBarViewController.m in Sources */,
+				8604B824154AA848002989DE /* LocalDealsMapViewController.m in Sources */,
+				8604B827154AA9A5002989DE /* LocalDealsTableViewController.m in Sources */,
+				8604B830154AB772002989DE /* Merchant.m in Sources */,
+				868EFCD5154B0A1800A15CD8 /* NearbyMerchant.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

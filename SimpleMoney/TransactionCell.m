@@ -17,6 +17,7 @@
 @synthesize payButton = _payButton;
 @synthesize nameLabel = _nameLabel;
 @synthesize dateLabel = _dateLabel;
+@synthesize spinner = _spinner;
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -41,7 +42,11 @@
         [UIView animateWithDuration:0.2 delay:0.2 options:UIViewAnimationCurveEaseIn animations:^(void){
             self.dateLabel.alpha = 1.0;
             self.emailLabel.alpha = 1.0;
-            if (self.payButton) self.payButton.alpha = 1.0;
+            
+            //only show the pay button if it's a bill AND the transaction amount isn't zero
+            if (self.payButton && ![self.transactionAmountLabel.text isEqualToString:@"Pending transaction"]) {
+                    self.payButton.alpha = 1.0;
+            }
         } completion:^(BOOL finished){}];
     } else {
         [UIView animateWithDuration:0.12 delay:0.0 options:UIViewAnimationCurveEaseIn animations:^(void){
@@ -60,7 +65,8 @@
     }
 }
 
-- (void)configureWithTransaction:(Transaction *)transaction isBill:(BOOL)bill {
+- (void)configureWithTransaction:(Transaction *)transaction isBill:(BOOL)bill isSelected:(BOOL)selected {
+    NSLog(@"Configuring: %d", selected);
     NSString *avatarURL = nil;
     if (bill) {
         self.nameLabel.text = transaction.recipient.name;
@@ -74,14 +80,30 @@
         self.descriptionLabel.text = transaction.transactionDescription;
         avatarURL = transaction.sender.avatarURLsmall;
     }
-    NSNumberFormatter *currencyFormatter = [[NSNumberFormatter alloc] init];
-    [currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-    [currencyFormatter setCurrencyCode:@"USD"];
-    [currencyFormatter setNegativeFormat:@"-¤#,##0.00"];
-    NSNumber *amount = transaction.amount;
-    NSNumber *formattedAmount = [[NSNumber alloc] initWithFloat:[amount floatValue] / 100.0f];
-    self.transactionAmountLabel.text = [NSString stringWithFormat:@"Amount: %@",[currencyFormatter stringFromNumber:formattedAmount]];
-    self.dateLabel.text = [NSDateFormatter localizedStringFromDate:transaction.created_at dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
+    
+    if (selected) {
+        self.dateLabel.alpha = 1.0;
+        self.emailLabel.alpha = 1.0;
+        
+        //only show the pay button if it's a bill AND the transaction amount isn't zero
+        if (self.payButton && ![self.transactionAmountLabel.text isEqualToString:@"Pending transaction"]) {
+            self.payButton.alpha = 1.0;
+        }
+    }
+    
+    if (![transaction.amount isEqualToNumber:[NSNumber numberWithInt:0]]) {        
+        NSNumberFormatter *currencyFormatter = [[NSNumberFormatter alloc] init];
+        [currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+        [currencyFormatter setCurrencyCode:@"USD"];
+        [currencyFormatter setNegativeFormat:@"-¤#,##0.00"];
+        NSNumber *amount = transaction.amount;
+        NSNumber *formattedAmount = [[NSNumber alloc] initWithFloat:[amount floatValue] / 100.0f];
+        self.transactionAmountLabel.text = [NSString stringWithFormat:@"Amount: %@",[currencyFormatter stringFromNumber:formattedAmount]];
+    } else {
+        self.transactionAmountLabel.text = @"Pending transaction";
+    }
+
+        self.dateLabel.text = [NSDateFormatter localizedStringFromDate:transaction.created_at dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterMediumStyle];
     if ([avatarURL isEqualToString:@"/images/small/missing.png"]) {
 
     } else {
@@ -93,4 +115,18 @@
     self.userImageView.layer.masksToBounds = YES;
 }
 
+- (void)setLoading:(BOOL)loading {
+    [self.spinner startAnimating];
+    self.payButton.alpha = 0.0;
+    self.spinner.alpha = 1.0;
+}
+
+- (void) prepareForReuse {
+    self.spinner.alpha = 0.0;
+    self.payButton.alpha = 1.0;
+    self.dateLabel.alpha = 0.0;
+    self.emailLabel.alpha = 0.0;
+    if (self.payButton) self.payButton.alpha = 0.0;
+    [self.spinner stopAnimating];
+}
 @end

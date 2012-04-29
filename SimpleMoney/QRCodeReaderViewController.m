@@ -9,6 +9,8 @@
 #import "QRCodeReaderViewController.h"
 #import "PaymentAuthorizedViewController.h"
 #import "Transaction.h"
+#import "Merchant.h"
+#import "User.h"
 
 #define kPINCONSTANT @"1111"
 
@@ -20,6 +22,8 @@
 }
 @property (strong, nonatomic) NSDictionary *qrMerchant;
 @property (strong, nonatomic) Transaction *transaction;
+@property (strong, nonatomic) Merchant *recommendation;
+@property (strong, nonatomic) User *recipient;
 @end
 
 @implementation QRCodeReaderViewController
@@ -28,6 +32,8 @@
 @synthesize readerView;
 @synthesize qrMerchant = _qrMerchant;
 @synthesize transaction = _transaction;
+@synthesize recommendation = _recommendation;
+@synthesize recipient = _recipient;
 
 - (void) cleanup
 {
@@ -96,7 +102,8 @@
     if ([dvc isKindOfClass:[GCStoryboardPINViewController class]]) {
         GCStoryboardPINViewController *controller = (GCStoryboardPINViewController *)dvc;
         [controller configureWithMode:GCPINViewControllerModeVerify delegate:self];
-        controller.messageText = [self.qrMerchant objectForKey:@"name"];
+        controller.messageText = @"Enter your PIN to authorize payment a to:";
+        controller.businessNameText = [self.qrMerchant objectForKey:@"name"];
         
         //TODO: unset this hint from the demo!
         controller.errorText = [NSString stringWithFormat:@"Invalid PIN. (Hint: %@)", kPINCONSTANT];
@@ -106,6 +113,8 @@
     } else if ([dvc isKindOfClass:[PaymentAuthorizedViewController class]]) {
         PaymentAuthorizedViewController *controller = (PaymentAuthorizedViewController *)dvc;
         controller.transaction = self.transaction;
+        controller.recommendation = self.recommendation;
+        controller.recipient = self.recipient;
     }
 }
 
@@ -181,12 +190,12 @@
 #pragma mark- RestKit requests
 - (void) sendAuthorization {
     RKObjectManager *objectManager = [RKObjectManager sharedManager];
-    [objectManager loadObjectsAtResourcePath:@"/transactions" delegate:self block:^(RKObjectLoader* loader) {
+    [objectManager loadObjectsAtResourcePath:@"/transactionWithRecommendation" delegate:self block:^(RKObjectLoader* loader) {
         RKParams *params = [RKParams params];
         [params setValue:[self.qrMerchant objectForKey:@"email"] forParam:@"transaction[recipient_email]"];
         [params setValue:@"false" forParam:@"transaction[complete]"];
         loader.params = params;
-        loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[Transaction class]];
+//        loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[Transaction class]];
         loader.method = RKRequestMethodPOST;
     }];
 }
@@ -196,24 +205,46 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
 	NSLog(@"RKObjectLoader failed with error: %@", error);
     // TODO: Display error message via HUD
+    [self hideHUDAfterShowingCompletionText:@"Error" detailsText:@"Please try again" imageNamed:@"x.png" afterDelay:1.5];
 }
 
-- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
-    // Check the object type
-    if ([object isKindOfClass:[Transaction class]]) {
-        // This occurs after scanning a QRCode encoded with JSON
-        self.transaction = object;
-        NSLog(@"posted a new transaction: %@", object);
-        
-        [self hideHUDAfterShowingCompletionText:@"Paid!" withImageNamed:@"checkmark" afterDelay:1.0];
-        
-        [self performSegueWithIdentifier:@"paidSegue" sender:self];
-    } else {
-        //TODO: error checking?
-    }
+- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjects:(NSArray *)objects {
+    NSLog(@"recieved objects: %@", objects);
     
+    id object;
+    for (object in objects) {
+        // Check the object type
+        if ([object isKindOfClass:[Transaction class]]) {
+            // This occurs after scanning a QRCode encoded with JSON
+            self.transaction = object;
+            NSLog(@"posted a new transaction: %@", object);
+            
+            if (self.recommendation && self.recipient) {
+                [self transactionFinished];
+            }
+            
+        } else if ([object isKindOfClass:[Merchant class]]) {
+            NSLog(@"recommendation: %@", object);
+            self.recommendation = object;
+            
+            if (self.transaction && self.recipient) {
+                [self transactionFinished];
+            }
+            
+        } else if ([object isKindOfClass:[User class]]) {
+            self.recipient = object;
+            NSLog(@"Recipient recieved! %@", self.recipient);
+            
+            [self transactionFinished];
+        }
+    }
 }
 
+- (void)transactionFinished {
+    [self hideHUDAfterShowingCompletionText:@"Paid!" detailsText:nil imageNamed:@"checkmark" afterDelay:1.0];
+    
+    [self performSegueWithIdentifier:@"paidSegue" sender:self];
+}
 #pragma mark - GCStoryboardPinViewControllerDelegate methods
 - (void) pinViewController:(GCStoryboardPINViewController *)controller didEnterPIN:(NSString *)PIN; {
     NSLog(@"Did enter pin: %@", PIN);
@@ -236,9 +267,8 @@
 
 
 #pragma mark - MBProgressHUDDelegate methods
-
 - (void)HUDWasHidden:(MBProgressHUD *)hud {
-    // Remove HUD from screen when the HUD was hidded
+    // Remove HUD from screen when the HUD was hidden
     [hud removeFromSuperview];
     hud = nil;
 }
@@ -253,10 +283,11 @@
     [HUD show:YES];
 }
 
-- (void)hideHUDAfterShowingCompletionText:(NSString *)text withImageNamed:(NSString *)imageName afterDelay:(float)delay {
+-(void)hideHUDAfterShowingCompletionText:(NSString *)text detailsText:(NSString *)detailsText imageNamed:(NSString *)imageName afterDelay:(float)delay {
     HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
     HUD.mode = MBProgressHUDModeCustomView;
     HUD.labelText = text;
+    HUD.detailsLabelText = detailsText;
     [HUD hide:YES afterDelay:delay];
 }
 

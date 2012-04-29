@@ -151,19 +151,21 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Check for a reusable cell first, use that if it exists
     TransactionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"invoiceCell"];
     
     // If there is no reusable cell of this type, create a new one
     if (!cell) {
         cell = [[TransactionCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"invoiceCell"];
     }
-    
+
+        
     if (indexPath.section == 0) {
+
         // Unpaid Invoices
         if ([unpaidInvoicesArray count] > 0) {
+                       
             Transaction *transaction = [unpaidInvoicesArray objectAtIndex:indexPath.row];
-            [cell configureWithTransaction:transaction isBill:NO];
+            [cell configureWithTransaction:transaction isBill:NO isSelected:(indexPath == self.selectedRowIndex)];
         } else {
             cell = [tableView dequeueReusableCellWithIdentifier:@"emptyCell"];
             cell.textLabel.text = @"You have no unpaid invoices";
@@ -173,7 +175,7 @@
         // Paid Invoices
         if ([paidInvoicesArray count] > 0) {
             Transaction *transaction = [paidInvoicesArray objectAtIndex:indexPath.row];
-            [cell configureWithTransaction:transaction isBill:NO];
+            [cell configureWithTransaction:transaction isBill:NO isSelected:(indexPath == self.selectedRowIndex)];
         } else {
             cell = [tableView dequeueReusableCellWithIdentifier:@"emptyCell"];
             cell.textLabel.text = @"You have no paid invoices";

@@ -112,7 +112,7 @@
     if ((imageData = [dictionary objectForKey:@"imageData"])) {
         self.picture.image = [UIImage imageWithData:imageData];
     } else {
-        self.picture.image = [UIImage imageNamed:@"profile.png"];
+        self.picture.image = [UIImage imageNamed:   @"profile.png"];
     }
 }
 

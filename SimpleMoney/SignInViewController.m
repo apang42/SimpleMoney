@@ -19,7 +19,7 @@
 
 
 - (IBAction)cancelButtonWasPressed {
-    [self dismissModalViewControllerAnimated:true];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)signUpButtonWasPressed {

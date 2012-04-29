@@ -17,10 +17,11 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import "GCStoryboardPINViewController.h"
 #import "MBProgressHUD.h"
+#import "CoreLocation/CoreLocation.h"
 
 #import "ZBarSDK.h"
 
-@interface HomeViewController : UITableViewController <UITableViewDelegate, UIImagePickerControllerDelegate, RKObjectLoaderDelegate, ZBarReaderDelegate,  GCStoryboardPINViewControllerDelegate, MBProgressHUDDelegate> {
+@interface HomeViewController : UITableViewController <UITableViewDelegate, UIImagePickerControllerDelegate, RKObjectLoaderDelegate, ZBarReaderDelegate,  GCStoryboardPINViewControllerDelegate, MBProgressHUDDelegate, CLLocationManagerDelegate> {
     NSNumberFormatter *currencyFormatter;
 }
 

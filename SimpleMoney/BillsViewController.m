@@ -9,7 +9,11 @@
 #import "BillsViewController.h"
 #import <Foundation/Foundation.h>
 
-@interface BillsViewController (PrivateMethods)
+#define kPINCONSTANT @"1111"
+
+@interface BillsViewController ()
+@property (strong, nonatomic) NSNumber *transactionId;
+
 - (void)loadData;
 - (void)reloadTableData;
 - (UIView *)unpaidHeaderView;
@@ -19,6 +23,7 @@
 
 @implementation BillsViewController
 @synthesize selectedRowIndex;
+@synthesize transactionId = _transactionId;
 
 - (UIView *)unpaidHeaderView {
     if (unpaidHeaderView) return unpaidHeaderView;
@@ -66,14 +71,8 @@
 
 - (void)payBillButtonWasPressed:(id)sender withTransactionID:(NSNumber *)transactionID {
     NSLog(@"payBillButtonWasPressed withTransactionID: %@", transactionID);
-    RKObjectManager* objectManager = [RKObjectManager sharedManager];
-    [objectManager loadObjectsAtResourcePath:[NSString stringWithFormat:@"/transactions/%@", transactionID] delegate:self block:^(RKObjectLoader* loader) {
-        RKParams *params = [RKParams params];
-        [params setValue:@"true" forParam:@"transaction[complete]"];
-        loader.params = params;
-        loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[Transaction class]];
-        loader.method = RKRequestMethodPUT;
-    }];
+    self.transactionId = transactionID;
+    [self performSegueWithIdentifier:@"enterPinSegue" sender:self];
 }
 
 # pragma mark - PullToRefreshViewDelegate methods
@@ -128,8 +127,21 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+        if ([segue.identifier isEqualToString:@"enterPinSegue"]) {
+            GCStoryboardPINViewController *controller = (GCStoryboardPINViewController *)segue.destinationViewController;
+            [controller configureWithMode:GCPINViewControllerModeVerify delegate:self];
+            TransactionCell *cell = (TransactionCell *)[self.tableView cellForRowAtIndexPath:self.selectedRowIndex];
+            NSLog(@"indexpath: %@", self.selectedRowIndex);
+            NSLog(@"Cell: %@\nName: %@", cell, cell.nameLabel.text);
+            
+            NSRange rangeOfDollarSign = [cell.transactionAmountLabel.text rangeOfString:@"$"];
+            controller.messageText = [NSString stringWithFormat:@"Enter your PIN to send %@ to:", [cell.transactionAmountLabel.text substringFromIndex:rangeOfDollarSign.location]]; 
+            controller.businessNameText = cell.nameLabel.text;
+            
+            //TODO: unset this hint from the demo!
+            controller.errorText = [NSString stringWithFormat:@"Invalid PIN. (Hint: %@)", kPINCONSTANT];
+        }
 }
 
 #pragma mark - Table view data source
@@ -161,19 +173,22 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    TransactionCell *cell;
     // Check for a reusable cell first, use that if it exists
-    TransactionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"billCell"];
-    
-    // If there is no reusable cell of this type, create a new one
-    if (!cell) {
-        cell = [[TransactionCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"billCell"];
-    }
-    
+        
     if (indexPath.section == 0) {
         // Unpaid bills
         if ([unpaidBillsArray count] > 0) {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"unpaidBillCell"];
+            
+            // If there is no reusable cell of this type, create a new one
+            if (!cell) {
+                cell = [[TransactionCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"unpaidBillCell"];
+            }
+
+            
             Transaction *transaction = [unpaidBillsArray objectAtIndex:indexPath.row];
-            [cell configureWithTransaction:transaction isBill:YES];
+            [cell configureWithTransaction:transaction isBill:YES isSelected:(indexPath == self.selectedRowIndex)];
         } else {
             cell = [tableView dequeueReusableCellWithIdentifier:@"emptyCell"];
             cell.textLabel.text = @"You have no unpaid bills";
@@ -182,8 +197,16 @@
     else {
         // Paid bills
         if ([paidBillsArray count] > 0) {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"paidBillCell"];
+            
+            // If there is no reusable cell of this type, create a new one
+            if (!cell) {
+                cell = [[TransactionCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"paidBillCell"];
+            }
+
+            
             Transaction *transaction = [paidBillsArray objectAtIndex:indexPath.row];
-            [cell configureWithTransaction:transaction isBill:YES];
+            [cell configureWithTransaction:transaction isBill:YES isSelected:(indexPath == self.selectedRowIndex)];
             cell.payButton = nil;
         } else {
             cell = [tableView dequeueReusableCellWithIdentifier:@"emptyCell"];
@@ -272,4 +295,32 @@
     RKLogCritical(@"Loading of RKRequest %@ completed with status code %d. Response body: %@", request, response.statusCode, [response bodyAsString]);
 }
 
+#pragma mark - GCStoryboardPinViewControllerDelegate methods
+- (void) pinViewController:(GCStoryboardPINViewController *)controller didEnterPIN:(NSString *)PIN; {
+    //TODO: don't use a constant PIN (duh)
+    if ([PIN isEqualToString:kPINCONSTANT]) {
+        TransactionCell *cell = (TransactionCell *)[self.tableView cellForRowAtIndexPath:self.selectedRowIndex];
+        [cell setLoading:YES];
+        
+        [self dismissModalViewControllerAnimated:YES];
+        self.selectedRowIndex = [NSIndexPath indexPathWithIndex:NSUIntegerMax];
+
+        //set up the HUD and send the request!
+        RKObjectManager* objectManager = [RKObjectManager sharedManager];
+        [objectManager loadObjectsAtResourcePath:[NSString stringWithFormat:@"/transactions/%@", self.transactionId] delegate:self block:^(RKObjectLoader* loader) {
+            RKParams *params = [RKParams params];
+            [params setValue:@"true" forParam:@"transaction[complete]"];
+            loader.params = params;
+            loader.objectMapping = [objectManager.mappingProvider objectMappingForClass:[Transaction class]];
+            loader.method = RKRequestMethodPUT;
+        }];
+        
+    } else {
+        [controller wrong];
+    }
+}
+
+- (void) pinViewController:(GCStoryboardPINViewController *)controller didCancel:(BOOL)cancel; {
+    [self dismissModalViewControllerAnimated:YES];
+}
 @end

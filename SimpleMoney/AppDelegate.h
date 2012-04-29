@@ -11,6 +11,7 @@
 #import <RestKit/CoreData.h>
 #import "Transaction.h"
 #import "User.h"
+#import "Merchant.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

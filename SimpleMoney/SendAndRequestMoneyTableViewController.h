@@ -16,8 +16,9 @@
 #import "Transaction.h"
 #import "MBProgressHUD.h"
 #import "ABContactCell.h"
+#import "GCStoryboardPINViewController.h"
 
-@interface SendAndRequestMoneyTableViewController : UITableViewController<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, RKObjectLoaderDelegate, MBProgressHUDDelegate, ABContactCellDelegate> {
+@interface SendAndRequestMoneyTableViewController : UITableViewController<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, RKObjectLoaderDelegate, MBProgressHUDDelegate, ABContactCellDelegate, GCStoryboardPINViewControllerDelegate> {
     MBProgressHUD *loadingIndicator;
 }
 

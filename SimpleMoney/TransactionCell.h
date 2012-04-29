@@ -23,10 +23,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *transactionAmountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+
 @property (strong, nonatomic) NSNumber *transactionID;
 
 - (IBAction)payButtonWasPressed:(id)sender;
-- (void)configureWithTransaction:(Transaction *)transaction isBill:(BOOL)bill;
+- (void)configureWithTransaction:(Transaction *)transaction isBill:(BOOL)bill isSelected:(BOOL)selected;
 - (void)showDescription:(BOOL)shown;
-
+- (void)setLoading:(BOOL)loading;
 @end

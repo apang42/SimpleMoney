@@ -22,6 +22,8 @@
 #define kSENDVIEWTITLE @"Send Money"
 #define kSENDSUCCESSTEXT @"Payment Sent"
 
+#define kPINCONSTANT @"1111"
+
 @interface SendAndRequestMoneyTableViewController () {
     BOOL emailFieldIsSet;
     BOOL contactsAreShowing;
@@ -37,6 +39,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *staticTableView;
 @property (strong, nonatomic) NSNumber *amount;
 @property (strong, nonatomic) NSIndexPath *lastSelectedIndexPath;
+@property (nonatomic) BOOL pinEntrySuccess;
 
 
 - (void)sendRequest;
@@ -62,6 +65,7 @@
 @synthesize staticTableView;
 @synthesize lastSelectedIndexPath = _lastSelectedIndexPath;
 @synthesize isRequestMoney = _isRequestMoney;
+@synthesize pinEntrySuccess = _pinEntrySuccess;
 
 #pragma mark - Getters and Setters
 - (NSMutableArray *)filteredContacts {
@@ -90,7 +94,6 @@
         sendButtonTitle = kREQUESTBUTTONTITLE;
         sendViewTitle = kREQUESTVIEWTITLE;
     }
-    
     self.sendButton.title = sendButtonTitle;
     self.navigationItem.title = sendViewTitle;
 }
@@ -110,13 +113,35 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [self.emailTextField becomeFirstResponder];
+    //if the user successfully entered a PIN, don't re-show keyboard
+    //this is set in the GCStoryboardPinViewDelegate method
+    if (!self.pinEntrySuccess)
+        [self.emailTextField becomeFirstResponder];
     self.lastSelectedIndexPath = [NSIndexPath indexPathWithIndex:NSIntegerMax];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"enterPinSegue"]) {
+        GCStoryboardPINViewController *controller = (GCStoryboardPINViewController *)segue.destinationViewController;
+        [controller configureWithMode:GCPINViewControllerModeVerify delegate:self];
+        
+        //this is who you're sending to or receiving from
+        NSString *target = self.emailCellEmailLabel.text;
+        if (!target) {
+            target = self.emailTextField.text;
+        }
+        controller.businessNameText = target;
+        
+        if (self.isRequestMoney) {
+            controller.messageText = @"Enter your PIN to request money from:";
+        } else {
+            controller.messageText = @"Enter your PIN to send money to:";
+        }
+        
+        //TODO: unset this hint from the demo!
+        controller.errorText = [NSString stringWithFormat:@"Invalid PIN. (Hint: %@)", kPINCONSTANT];
+
+    }
 }
 
 
@@ -170,7 +195,7 @@
             loadingIndicator.labelText = @"Invalid amount.";
         }
         // Display the error message and hide it after 1 second
-        [loadingIndicator hide:YES afterDelay:2.5];
+        [loadingIndicator hide:YES afterDelay:2.0];
     } else {
         // POST a new Transaction on the server
         RKObjectManager *objectManager = [RKObjectManager sharedManager];
@@ -201,16 +226,14 @@
     }
 }
 
+- (void)showPinEntry {
+    [self performSegueWithIdentifier:@"enterPinSegue" sender:self];
+}
+
 #pragma mark - UI callbacks
 - (IBAction)requestMoneyButtonWasPressed {
-    loadingIndicator = [[MBProgressHUD alloc] initWithView:self.view.window];
-    loadingIndicator.delegate = self;
-    [self.view.window addSubview:loadingIndicator];
-    loadingIndicator.dimBackground = YES;
-    [loadingIndicator show:YES];
-    
     [self dismissKeyboard];
-    [self sendRequest];
+    [self showPinEntry];
 }
 
 - (IBAction)clearEmailCellButtonPressed {
@@ -252,17 +275,24 @@
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
     Transaction *t = object;
     NSLog(@"Transaction loaded: %@",t);
-    // TODO: Display transaction information in success indicator
+
     loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark"]];
     loadingIndicator.mode = MBProgressHUDModeCustomView;
 
     NSString *labelText = kSENDSUCCESSTEXT;
+    NSString *recipient = self.emailCellNameLabel.text;
+    if (!recipient)
+        recipient = self.emailTextField.text;
+    
+    NSString *detailsText = [NSString stringWithFormat:@"Sent %@ to %@", self.amountTextField.text, recipient];
     if (self.isRequestMoney) {
         labelText = kREQUESTSUCCESSTEXT;
+        detailsText = [NSString stringWithFormat:@"Requested %@ from %@", self.amountTextField.text, recipient];
     }
     
     loadingIndicator.labelText = labelText;
-    [loadingIndicator hide:YES afterDelay:1];
+    loadingIndicator.detailsLabelText = detailsText;
+    [loadingIndicator hide:YES afterDelay:3];
     [self performSelector:@selector(goBack) withObject:nil afterDelay:1];
 }
 
@@ -362,7 +392,47 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == self.emailTextField) {
-        [self.amountTextField becomeFirstResponder];
+        
+        //if there's only one match in filteredcontacts, we use that match
+        if ([self.filteredContacts count] == 1) {
+            NSDictionary *match = [self.filteredContacts objectAtIndex:0];
+            
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[c] %@", textField.text];
+            NSArray *emails = [[match objectForKey:@"emails"] filteredArrayUsingPredicate:predicate];
+            [self replaceEmailFieldWithName:[match objectForKey:@"name"] andEmail:[emails objectAtIndex:0] andImage:[match objectForKey:@"image"]];
+            
+            [self.amountTextField becomeFirstResponder];
+        
+        //if the string is a valid email, we let the user send to that email address
+        } else if ([self stringIsValidEmail:textField.text]) {
+            [self replaceEmailFieldWithName:textField.text andEmail:textField.text andImage:nil];
+            [self.amountTextField becomeFirstResponder];
+            
+        //if it's NOT a valid email, we show an error message and return them to the textfield
+        } else {
+            loadingIndicator = [[MBProgressHUD alloc] initWithView:self.view.window];
+            loadingIndicator.delegate = self;
+            [self.view.window addSubview:loadingIndicator];
+            loadingIndicator.dimBackground = YES;
+            loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"error"]];
+            loadingIndicator.mode = MBProgressHUDModeCustomView;
+            loadingIndicator.labelText = @"Error";
+            
+            if ([textField.text isEqualToString:[KeychainWrapper load:@"userEmail"]]) {
+                loadingIndicator.detailsLabelText = @"You can't send money to your own email address.";
+            } else {
+                loadingIndicator.detailsLabelText = @"You must enter a valid email address.";
+            }
+            
+            //offset the HUD so it's not partially covered by the keyboard
+            loadingIndicator.yOffset = -77;
+            [loadingIndicator show:YES];
+            // Display the error message and hide it after 1 second
+            [loadingIndicator hide:YES afterDelay:1.5];
+            
+            //send them back to the emailtextfield so they can fix it
+            return NO;
+        }
     } else if (textField == self.amountTextField) {
         [self.descriptionTextField becomeFirstResponder];
     } else {
@@ -372,11 +442,16 @@
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+
     if (textField == self.emailTextField) {
         NSString *currentString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(name CONTAINS[c] %@) || (email CONTAINS[c] %@)",currentString,currentString];
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(name CONTAINS[c] %@) || (ANY emails CONTAINS[c] %@)",currentString,currentString];
+
+        
         NSMutableArray *copyOfContacts = [NSMutableArray arrayWithArray:self.contacts];
         NSArray *filtered  = [copyOfContacts filteredArrayUsingPredicate:predicate];
+        
         self.filteredContacts = [NSMutableArray arrayWithArray:filtered];
         if (currentString.length == 0) {
             self.filteredContacts = copyOfContacts;
@@ -431,7 +506,6 @@
 
 
 #pragma mark - MBProgressHUDDelegate methods
-
 - (void)hudWasHidden:(MBProgressHUD *)hud {
     // Remove HUD from screen when the HUD was hidded
     [hud removeFromSuperview];
@@ -439,7 +513,6 @@
 }
 
 #pragma mark - UITableViewDataSource methods
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.contactsTableView) {
         ABContactCell *cell;
@@ -545,5 +618,32 @@
 
 - (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 1;
+}
+
+#pragma mark - GCStoryboardPinViewControllerDelegate methods
+- (void) pinViewController:(GCStoryboardPINViewController *)controller didEnterPIN:(NSString *)PIN; {
+    //TODO: don't use a constant PIN (duh)
+    if ([PIN isEqualToString:kPINCONSTANT]) {
+        //set up the HUD and send the request!
+        
+        //keeps the keyboard from re-showing when we come back from modal
+        self.pinEntrySuccess = YES;
+        [self dismissModalViewControllerAnimated:YES];
+
+        loadingIndicator = [[MBProgressHUD alloc] initWithView:self.view.window];
+        loadingIndicator.delegate = self;
+        [self.view.window addSubview:loadingIndicator];
+        loadingIndicator.yOffset = -77;
+        loadingIndicator.dimBackground = YES;
+        [loadingIndicator show:YES];
+        
+        [self sendRequest];
+    } else {
+        [controller wrong];
+    }
+}
+
+- (void) pinViewController:(GCStoryboardPINViewController *)controller didCancel:(BOOL)cancel; {
+    [self dismissModalViewControllerAnimated:YES];
 }
 @end

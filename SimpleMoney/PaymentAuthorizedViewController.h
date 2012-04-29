@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h> //for border radius setting
 #import "Transaction.h"
+#import "Merchant.h"
+#import "User.h"
 
 @interface PaymentAuthorizedViewController : UIViewController
 //UI
@@ -21,11 +23,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *RecommendedBusinessTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *RecommendedBusinessAddressLabel;
 @property (weak, nonatomic) IBOutlet UILabel *RecommendedBusinessDescriptionLabel;
-@property (weak, nonatomic) IBOutlet UIButton *callPhoneButton;
+@property (weak, nonatomic) IBOutlet UIImageView *RecommendedBusinessImageView;
 
 //Non-UI
 @property (strong, nonatomic) Transaction *transaction;
+@property (strong, nonatomic) Merchant *recommendation;
+@property (strong, nonatomic) User *recipient;
+
 
 - (IBAction)viewMapButtonPressed;
-- (IBAction)callPhoneButtonPressed;
 @end
