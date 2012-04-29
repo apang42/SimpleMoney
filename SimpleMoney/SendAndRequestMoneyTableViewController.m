@@ -7,6 +7,7 @@
 //
 
 #import "SendAndRequestMoneyTableViewController.h"
+#import <Foundation/Foundation.h>
 
 #define DEFAULT_IMAGE @"profile.png"
 #define kTABLEVIEWHEIGHT 140.0
@@ -27,6 +28,7 @@
 @interface SendAndRequestMoneyTableViewController () {
     BOOL emailFieldIsSet;
     BOOL contactsAreShowing;
+    BOOL sendButtonIsActive;
     NSNumberFormatter *numberFormatter;
 }
 
@@ -87,14 +89,10 @@
     [numberFormatter setMinimumFractionDigits:0];
     [numberFormatter setMaximumFractionDigits:2];
     
-    NSString *sendButtonTitle = kSENDBUTTONTITLE;
     NSString *sendViewTitle = kSENDVIEWTITLE;
-    
     if (self.isRequestMoney) {
-        sendButtonTitle = kREQUESTBUTTONTITLE;
         sendViewTitle = kREQUESTVIEWTITLE;
     }
-    self.sendButton.title = sendButtonTitle;
     self.navigationItem.title = sendViewTitle;
 }
 
@@ -240,6 +238,7 @@
     self.emailTextField.text = @"";
     emailFieldIsSet = NO;
     self.filteredContacts = self.contacts;
+    [self checkForValidEmailAndAmountWithTextFieldWithTextField:self.emailTextField string:@""];
     [self.staticTableView reloadData];
     [self.contactsTableView reloadData];
     
@@ -274,7 +273,10 @@
 
 - (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
     Transaction *t = object;
-    NSLog(@"Transaction loaded: %@",t);
+    NSLog(@"Transaction loaded with amount: %@",t.amount);
+    NSNumber *balance = [KeychainWrapper load:@"userBalance"];
+    balance = [NSNumber numberWithInt:([balance intValue] - [t.amount intValue])];
+    [KeychainWrapper save:@"userBalance" data:balance];
 
     loadingIndicator.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checkmark"]];
     loadingIndicator.mode = MBProgressHUDModeCustomView;
@@ -294,6 +296,19 @@
     loadingIndicator.detailsLabelText = detailsText;
     [loadingIndicator hide:YES afterDelay:3];
     [self performSelector:@selector(goBack) withObject:nil afterDelay:1];
+}
+
+- (void)setSendButtonActive:(BOOL)active {
+    if (active) {
+        [self.sendButton setTintColor:[UIColor blueColor]];
+        [self.sendButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], UITextAttributeTextColor, [UIColor blackColor], UITextAttributeTextShadowColor, nil] forState:UIControlStateNormal];
+        sendButtonIsActive = YES;
+        
+    } else {
+        [self.sendButton setTintColor:[UIColor colorWithWhite:0.9 alpha:1.0]];
+        [self.sendButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithHue:0 saturation:0 brightness:0.6 alpha:1], UITextAttributeTextColor, [UIColor whiteColor],UITextAttributeTextShadowColor, nil] forState:UIControlStateNormal];
+        sendButtonIsActive = NO;
+    }
 }
 
 - (void)goBack {
@@ -384,14 +399,50 @@
 
     if (!self.staticTableView.isHidden)[self hideTableView];
     
+    [self changeSendButtonText];
     [self.amountTextField becomeFirstResponder];
-    self.lastSelectedIndexPath = [NSIndexPath indexPathWithIndex:-1];
+    self.lastSelectedIndexPath = [NSIndexPath indexPathWithIndex:NSIntegerMax];
+    [self checkForValidEmailAndAmountWithTextFieldWithTextField:nil string:nil];
+}
+
+- (void)changeSendButtonText {
+    if ([self.sendButton.title isEqualToString:@"Next"]) {
+        if (self.isRequestMoney) {
+            self.sendButton.title = kREQUESTBUTTONTITLE;
+        } else {
+            self.sendButton.title = kSENDBUTTONTITLE;
+        }
+    }
+}
+
+- (void)checkForValidEmailAndAmountWithTextFieldWithTextField:(UITextField *)textField string:(NSString *)currentString {
+    BOOL emailIsSet;
+    if (textField == self.emailTextField) {
+        emailIsSet = (emailFieldIsSet || [self stringIsValidEmail:currentString]);
+    } else {
+        emailIsSet = (emailFieldIsSet || [self stringIsValidEmail:self.emailTextField.text]);
+    }
+    
+    BOOL amountIsValid;
+    if (textField == self.amountTextField) {
+        NSLog(@"amount: %@", self.amountTextField.text);
+        amountIsValid = !([currentString isEqualToString:@""] || [currentString isEqualToString:@"$0.00"]);
+    } else {
+        amountIsValid = (![self.amountTextField.text isEqualToString:@""] && ![self.amountTextField.text isEqualToString:@"$0.00"]);
+    }
+    
+    if (emailIsSet && amountIsValid && !sendButtonIsActive) {
+        [self setSendButtonActive:YES];
+    } else if (!(emailIsSet && amountIsValid) && sendButtonIsActive) {
+        [self setSendButtonActive:NO];
+    }
 }
 
 # pragma mark - UITextFieldDelegate methods
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (textField == self.emailTextField) {
+        [self checkForValidEmailAndAmountWithTextFieldWithTextField:textField string:textField.text];
         
         //if there's only one match in filteredcontacts, we use that match
         if ([self.filteredContacts count] == 1) {
@@ -401,11 +452,13 @@
             NSArray *emails = [[match objectForKey:@"emails"] filteredArrayUsingPredicate:predicate];
             [self replaceEmailFieldWithName:[match objectForKey:@"name"] andEmail:[emails objectAtIndex:0] andImage:[match objectForKey:@"image"]];
             
+            [self changeSendButtonText];
             [self.amountTextField becomeFirstResponder];
         
         //if the string is a valid email, we let the user send to that email address
         } else if ([self stringIsValidEmail:textField.text]) {
             [self replaceEmailFieldWithName:textField.text andEmail:textField.text andImage:nil];
+            [self changeSendButtonText];
             [self.amountTextField becomeFirstResponder];
             
         //if it's NOT a valid email, we show an error message and return them to the textfield
@@ -442,10 +495,11 @@
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-
+    NSString *currentString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    NSLog(@"Current string: %@", currentString);
+    
+    
     if (textField == self.emailTextField) {
-        NSString *currentString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-        
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(name CONTAINS[c] %@) || (ANY emails CONTAINS[c] %@)",currentString,currentString];
 
         
@@ -479,12 +533,17 @@
         [_currencyFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
         [_currencyFormatter setCurrencyCode:@"USD"];
         [_currencyFormatter setNegativeFormat:@"-¤#,##0.00"];
-        textField.text = [_currencyFormatter stringFromNumber:amountToDisplay];
+        NSString *amountText = [_currencyFormatter stringFromNumber:amountToDisplay];
+        textField.text = amountText;
         self.amount = [NSNumber numberWithInteger:centAmount];
         // Since we already wrote our changes to the textfield
         // we don't want to change the textfield again
+        
+        [self checkForValidEmailAndAmountWithTextFieldWithTextField:textField string:amountText];
         return NO;
     }
+    
+    [self checkForValidEmailAndAmountWithTextFieldWithTextField:textField string:currentString];
     return YES;
 }
 
@@ -633,7 +692,6 @@
         loadingIndicator = [[MBProgressHUD alloc] initWithView:self.view.window];
         loadingIndicator.delegate = self;
         [self.view.window addSubview:loadingIndicator];
-        loadingIndicator.yOffset = -77;
         loadingIndicator.dimBackground = YES;
         [loadingIndicator show:YES];
         

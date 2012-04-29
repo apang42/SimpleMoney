@@ -43,7 +43,7 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
-    
+    [self setupAccountBalanceCell];
     if (![KeychainWrapper load:@"userEmail"] || ![KeychainWrapper load:@"userPassword"]) {
         [self.tabBarController setSelectedIndex:1];
     }
@@ -82,8 +82,6 @@
             loader.method = RKRequestMethodPOST;
         }];
     }
-    
-    [self setupAccountBalanceCell];
 }
 
 - (void) viewDidUnload {
@@ -96,6 +94,8 @@
     [HUD removeFromSuperview];
     HUD = nil;
 }
+
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     UIViewController *dvc = segue.destinationViewController;
